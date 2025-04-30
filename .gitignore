@@ -1,0 +1,11 @@
+raytracer
+.build
+*.so
+*.a
+*.o
+.cache
+compile_commands.json
+result*
+.envrc
+.direnv
+*.sh

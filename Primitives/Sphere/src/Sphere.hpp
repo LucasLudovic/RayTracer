@@ -5,16 +5,14 @@
 // Sphere
 //
 
-#include "IObject.hpp"
+#include "AObject.hpp"
 
 namespace objects {
-    class Sphere : public IObject {
+    class Sphere : public AObject {
        public:
         Sphere();
-        ~Sphere();
 
-        class SphereError : public IObjectError {
-        };
+        class SphereError : public AObjectError {};
 
        private:
     };

@@ -15,12 +15,11 @@ namespace objects {
 
     class IObject {
        public:
-        IObject() = default;
-        ~IObject() = default;
+        virtual ~IObject() = default;
 
         class IObjectError : public std::exception {};
 
-        void setPosition(Vector3<double> pos);
-        [[nodiscard]] Vector3<double> getPosition();
+        virtual void setPosition(Vector3<double> pos) = 0;
+        [[nodiscard]] virtual Vector3<double> getPosition() const = 0;
     };
 }  // namespace objects

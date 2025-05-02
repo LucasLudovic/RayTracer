@@ -4,6 +4,7 @@ project(raytracer CXX)
 
 set(SOURCE_FILES
     src/main.cpp
+    src/raytracer.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

@@ -12,3 +12,5 @@
 
 #define EPITECH_SUCCESS 0
 #define EPITECH_FAILURE 84
+
+#define NB_ARGS 2

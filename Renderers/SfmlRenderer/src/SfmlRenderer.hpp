@@ -1,0 +1,38 @@
+//
+// EPITECH PROJECT, 2025
+// SFMLRenderer
+// File description:
+// SFMLRenderer
+//
+
+#include "IRenderer.hpp"
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
+
+namespace renderer {
+    class SFMLRenderer : public IRenderer {
+       public:
+        SFMLRenderer();
+        ~SFMLRenderer();
+
+        class SFMLError : public IRendererError {
+           public:
+            SFMLError(const std::string &msg) : _msg(msg) {};
+            [[nodiscard]] const char *what() const noexcept override
+            {
+                return this->_msg.c_str();
+            }
+           private:
+            std::string _msg;
+        };
+
+        void drawText() override;
+        void drawObject(const objects::IObject &object) override;
+        void render() override;
+        void clear() override;
+
+       private:
+        std::unique_ptr<sf::RenderWindow> _window = nullptr;
+        std::unique_ptr<sf::Font> _font = nullptr;
+    };
+}  // namespace renderer

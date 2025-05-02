@@ -16,10 +16,10 @@ namespace renderer {
 
         class IRendererError : public std::exception {};
 
-        void drawText();
-        void drawObject(const objects::IObject &object);
-        void render();
-        void clear();
+        virtual void drawText();
+        virtual void drawObject(const objects::IObject &object);
+        virtual void render();
+        virtual void clear();
        private:
     };
 }  // namespace renderer

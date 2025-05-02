@@ -12,14 +12,14 @@
 namespace renderer {
     class IRenderer {
        public:
-        ~IRenderer() = default;
+        virtual ~IRenderer() = 0;
 
         class IRendererError : public std::exception {};
 
-        virtual void drawText();
-        virtual void drawObject(const objects::IObject &object);
-        virtual void render();
-        virtual void clear();
+        virtual void drawText() = 0;
+        virtual void drawObject(const objects::IObject &object) = 0;
+        virtual void render() = 0;
+        virtual void clear() = 0;
        private:
     };
 }  // namespace renderer

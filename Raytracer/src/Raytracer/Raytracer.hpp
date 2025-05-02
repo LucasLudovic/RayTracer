@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include "src/Scene/Scene.hpp"
 #include <exception>
 #include <string>
 
@@ -28,8 +29,11 @@ namespace raytracer {
            private:
             std::string _msg;
         };
+        
+        void run();
 
        private:
-        
+        bool _isRunning = true;
+        Scene _scene;
     };
 };  // namespace raytracer

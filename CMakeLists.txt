@@ -15,5 +15,8 @@ set(CMAKE_CXX_STANDARD 17)
 # add_subdirectory(Primitives/Sphere)
 # add_subdirectory(Primitives/Plane)
 
+#Renderers
+add_subdirectory(Renderers/SfmlRenderer)
+
 # Core
 add_subdirectory(Raytracer/)

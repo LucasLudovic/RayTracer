@@ -7,11 +7,14 @@
 
 #pragma once
 
+#include <string>
 namespace raytracer {
     class Scene {
        public:
         Scene() {};
         ~Scene() = default;
+
+        void load(const std::string &file);
 
        private:
     };

@@ -18,7 +18,7 @@ namespace objects {
         IObject() = default;
         ~IObject() = default;
 
-        class IObjectError : std::exception {};
+        class IObjectError : public std::exception {};
 
         void setPosition(Vector3<double> pos);
         [[nodiscard]] Vector3<double> getPosition();

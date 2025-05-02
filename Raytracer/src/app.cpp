@@ -1,6 +1,6 @@
 //
 // EPITECH PROJECT, 2025
-// Raytracer
+// App
 // File description:
 // Entrypoint for the raytracer
 //

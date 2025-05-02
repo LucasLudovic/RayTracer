@@ -6,7 +6,7 @@
 //
 
 #include "my_macros.hpp"
-#include "raytracer.hpp"
+#include "app.hpp"
 #include <iostream>
 #include <string>
 

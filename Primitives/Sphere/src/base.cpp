@@ -7,6 +7,6 @@
 
 #include "Sphere.hpp"
 
-objects::Sphere::Sphere(): _position(0,0,0)
+objects::Sphere::Sphere(): AObject()
 {
 }

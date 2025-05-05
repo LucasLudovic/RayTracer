@@ -5,9 +5,11 @@
 // Object to handle the raytracer
 //
 
-
-#include "src/Raytracer/Raytracer.hpp"
+#include "Raytracer.hpp"
+#include "src/my_macros.hpp"
+#include <chrono>
 #include <fstream>
+#include <thread>
 
 raytracer::Raytracer::Raytracer(const std::string &file)
 {
@@ -21,6 +23,17 @@ raytracer::Raytracer::Raytracer(const std::string &file)
 
 void raytracer::Raytracer::run()
 {
+    const std::chrono::milliseconds targetFrameDuration(FRAME_DURATION_MS);
+
     while (this->_isRunning) {
+        auto frameStart = std::chrono::steady_clock::now();
+
+        auto frameEnd = std::chrono::steady_clock::now();
+        auto frameDuration =
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                frameEnd - frameStart);
+        if (frameDuration < targetFrameDuration) {
+            std::this_thread::sleep_for(targetFrameDuration - frameDuration);
+        }
     }
 }

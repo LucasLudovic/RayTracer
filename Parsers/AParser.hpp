@@ -36,19 +36,21 @@ namespace raytracer {
 
         void retrievePrimitives() override = 0;
 
-        const std::vector<objects::BasicObject> &getPrimitives() const override
+        const std::vector<std::unique_ptr<objects::BasicObject>> &getPrimitives() const override
         {
             return this->_Primitives;
         };
 
         std::unique_ptr<objects::BasicObject> getCamera() override
         {
-            return std::move(this->_Camera);
+            std::unique_ptr NewCam = std::move(this->_Camera);
+            this->_Camera = nullptr;
+            return NewCam;
         };
 
        protected:
         std::string _filename;
-        std::vector<objects::BasicObject> _Primitives;
-        std::unique_ptr<objects::BasicObject> _Camera;
+        std::vector<std::unique_ptr<objects::BasicObject>> _Primitives;
+        std::unique_ptr<objects::BasicObject> _Camera = nullptr;
     };
 }  // namespace raytracer

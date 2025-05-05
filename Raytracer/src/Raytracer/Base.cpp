@@ -14,7 +14,7 @@ raytracer::Raytracer::Raytracer(const std::string &file)
     std::ifstream fileStream(file);
 
     if (!fileStream.is_open())
-        throw RaytracerError("File argument is invalid\n");
+        throw RaytracerError("File argument is invalid");
     fileStream.close();
     this->_scene.load(file);
 }

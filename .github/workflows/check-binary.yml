@@ -9,17 +9,14 @@ on:
       GIT_SSH_PRIVATE_KEY:
         required: true
 jobs:
-    check-compilation-server:
+    check-compilation:
         runs-on: ubuntu-latest
         steps:
           - name: Checkout Branch
             uses: actions/checkout@v4
           - name: Compile Repo
             run:  |
-              mkdir .build
-              cmake -B .build
-              cd .build
-              make -C .build
+              ./build.sh
           - name: Check binary presence
             run: |
                 if [ ! -f ./${{ inputs.executable }} ]; then

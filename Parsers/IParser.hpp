@@ -18,7 +18,7 @@ namespace raytracer {
         virtual ~IParser() = default;
 
         virtual void retrievePrimitives() = 0;
-        const virtual std::vector<objects::BasicObject> &getPrimitives() const = 0;
+        const virtual std::vector<std::unique_ptr<objects::BasicObject>> &getPrimitives() const = 0;
         virtual std::unique_ptr<objects::BasicObject> getCamera() = 0;
     };
 }  // namespace raytracer

@@ -16,7 +16,7 @@ namespace raytracer {
        public:
         void retrievePrimitives() override;
         std::unique_ptr<objects::BasicObject> getCamera() override;
-        const std::vector<objects::BasicObject> &getPrimitives() const override;
+        const std::vector<std::unique_ptr<objects::BasicObject>> &getPrimitives() const override;
 
        private:
         libconfig::Config _cfg;

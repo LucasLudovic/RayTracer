@@ -8,6 +8,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib)
 set(CMAKE_CXX_STANDARD 17)
 
 # Parsers
+add_subdirectory(Parsers/CfgParser)
 # add_subdirectory(Parsers/XmlParser)
 # add_subdirectory(Parsers/JsonParser)
 

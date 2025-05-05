@@ -7,7 +7,7 @@
 
 #pragma once
 
-namespace objects {
+namespace raytracer {
     template <typename T>
     class Vector2 {
        public:

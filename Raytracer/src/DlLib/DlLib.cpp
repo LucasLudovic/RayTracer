@@ -19,9 +19,8 @@ Utils::DlLib<T>::DlLib(const std::string &shared)
 template<typename T>
 Utils::DlLib<T>::~DlLib()
 {
-    if (this->_lib != nullptr) {
+    if (this->_lib != nullptr)
         dlclose(this->_lib);
-    }
 }
 
 template<typename T>

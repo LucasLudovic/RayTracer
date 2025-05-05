@@ -13,7 +13,7 @@ add_subdirectory(Parsers/CfgParser)
 # add_subdirectory(Parsers/JsonParser)
 
 # Primitives
-# add_subdirectory(Primitives/Sphere)
+add_subdirectory(Primitives/Sphere)
 # add_subdirectory(Primitives/Plane)
 
 #Renderers

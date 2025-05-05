@@ -6,12 +6,13 @@
 //
 
 #include "IObject.hpp"
-#include "Utils.hpp"
+#include "Vector.hpp"
 
 namespace objects {
 
     class AObject : public IObject {
        public:
+        AObject(): _position(0, 0, 0) {};
         class AObjectError : public IObjectError {
            public:
             AObjectError(const std::string &msg) : _msg(msg) {};
@@ -26,6 +27,6 @@ namespace objects {
         };
 
        protected:
-        Vector3<double> _position;
+        raytracer::Vector3<double> _position;
     };
 }  // namespace objects

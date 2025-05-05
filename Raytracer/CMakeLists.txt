@@ -14,4 +14,3 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 target_include_directories(${PROJECT_NAME} PRIVATE ../Parsers/)
 target_include_directories(${PROJECT_NAME} PRIVATE ../Primitives/)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-

@@ -10,6 +10,7 @@
 #include "BasicObject/basicObject.hpp"
 #include <cstddef>
 #include <libconfig.h++>
+#include <memory>
 
 void raytracer::cfgParser::retrievePrimitives()
 {
@@ -29,7 +30,7 @@ void raytracer::cfgParser::retrievePrimitives()
         primitives[i].lookupValue("z", z);
         NewPrimitive.setType(primitives[i].getName());
         NewPrimitive.setPosition(Vector3(x, y, z));
-        this->_Primitives.push_back(NewPrimitive);
+        this->_Primitives.push_back(std::make_unique<objects::BasicObject>(NewPrimitive));
     }
 }
 
@@ -38,7 +39,7 @@ std::unique_ptr<objects::BasicObject> raytracer::cfgParser::getCamera()
     return std::move(this->_Camera);
 }
 
-const std::vector<objects::BasicObject> &raytracer::cfgParser::getPrimitives() const
+const std::vector<std::unique_ptr<objects::BasicObject>> &raytracer::cfgParser::getPrimitives() const
 {
     return this->_Primitives;
 }

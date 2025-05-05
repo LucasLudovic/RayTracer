@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "Utils.hpp"
+#include "../Utils/Vector.hpp"
 #include <exception>
 #include <string>
 
@@ -19,7 +19,7 @@ namespace objects {
 
         class IObjectError : public std::exception {};
 
-        virtual void setPosition(Vector3<double> pos) = 0;
-        [[nodiscard]] virtual Vector3<double> getPosition() const = 0;
+        void setPosition(raytracer::Vector3<double> pos);
+        [[nodiscard]] raytracer::Vector3<double> getPosition();
     };
 }  // namespace objects

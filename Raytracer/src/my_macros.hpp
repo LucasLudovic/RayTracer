@@ -14,3 +14,4 @@
 #define EPITECH_FAILURE 84
 
 #define NB_ARGS 2
+#define FRAME_DURATION_MS 33

@@ -5,12 +5,15 @@
 // Entrypoint for the raytracer
 //
 
+#include "DlLib/DlLib.hpp"
 #include "my_macros.hpp"
 #include "src/Raytracer/Raytracer.hpp"
 #include <iostream>
 #include <string>
 
 using raytracer::Raytracer;
+
+using Utils::DlLibError;
 
 int execute_raytracer(const std::string &sceneFile)
 {
@@ -21,6 +24,8 @@ int execute_raytracer(const std::string &sceneFile)
     } catch (const Raytracer::RaytracerError &error) {
         std::cerr << "Application Error: " << error.what() << std::endl;
         return EPITECH_FAILURE;
+    } catch (const DlLibError &error) {
+        std::cerr << "Shared Library Error: " << error.what() << std::endl;
     } catch (...) {
         std::cerr << "Unknown error" << std::endl;
     }

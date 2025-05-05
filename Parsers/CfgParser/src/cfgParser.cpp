@@ -8,8 +8,6 @@
 #include "cfgParser.hpp"
 #include "AParser.hpp"
 #include "BasicObject/basicObject.hpp"
-#include "IObject.hpp"
-#include <algorithm>
 #include <cstddef>
 #include <libconfig.h++>
 

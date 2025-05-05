@@ -6,13 +6,14 @@
 //
 
 #include "IObject.hpp"
-#include "Vector.hpp"
+#include "../Utils/Vector.hpp"
 
 namespace objects {
 
-    class AObject : public IObject {
+    class AObject : public objects::IObject {
        public:
-        AObject(): _position(0, 0, 0) {};
+        AObject() : _position(0, 0, 0) {};
+
         class AObjectError : public IObjectError {
            public:
             AObjectError(const std::string &msg) : _msg(msg) {};
@@ -26,7 +27,22 @@ namespace objects {
             std::string _msg;
         };
 
+        std::string getType() const override { return this->_type; };
+
+        void setPosition(raytracer::Vector3<double> pos) override
+        {
+            this->_position.setX(pos.getX());
+            this->_position.setY(pos.getY());
+            this->_position.setZ(pos.getZ());
+        }
+
+        raytracer::Vector3<double> getPosition() override
+        {
+            return this->_position;
+        }
+
        protected:
+        std::string _type;
         raytracer::Vector3<double> _position;
     };
 }  // namespace objects

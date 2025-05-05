@@ -7,8 +7,13 @@
 
 #pragma once
 
+#include "BasicObject/basicObject.hpp"
+#include "IObject.hpp"
 #include "IParser.hpp"
+#include <algorithm>
 #include <fstream>
+#include <memory>
+#include <string>
 
 namespace raytracer {
     class ParserError : public std::exception {
@@ -23,23 +28,27 @@ namespace raytracer {
        private:
         std::string _msg;
     };
+
     class AParser : public IParser {
        public:
-        AParser(const std::string &filename);
-        ~AParser() override;
+        AParser(const std::string &filename) : _filename(filename) {};
+        ~AParser() override = default;
 
-        void retrievePrimitives() const override = 0;
+        void retrievePrimitives() override = 0;
 
-        std::vector<objects::IObject> getPrimitives() const override
+        const std::vector<objects::BasicObject> &getPrimitives() const override
         {
             return this->_Primitives;
         };
 
-        objects::IObject getCamera() const override { return this->_Camera; };
+        std::unique_ptr<objects::BasicObject> getCamera() override
+        {
+            return std::move(this->_Camera);
+        };
 
-       private:
-        std::ifstream _ifs;
-        std::vector<objects::IObject> _Primitives;
-        objects::IObject _Camera;
+       protected:
+        std::string _filename;
+        std::vector<objects::BasicObject> _Primitives;
+        std::unique_ptr<objects::BasicObject> _Camera;
     };
 }  // namespace raytracer

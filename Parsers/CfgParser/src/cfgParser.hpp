@@ -8,12 +8,17 @@
 #pragma once
 
 #include "AParser.hpp"
+#include "BasicObject/basicObject.hpp"
+#include <libconfig.h++>
 
 namespace raytracer {
     class cfgParser : public AParser {
        public:
-        void retrievePrimitives() const override;
-        objects::IObject getCamera() const override;
-        std::vector<objects::IObject> getPrimitives() const override;
+        void retrievePrimitives() override;
+        std::unique_ptr<objects::BasicObject> getCamera() override;
+        const std::vector<objects::BasicObject> &getPrimitives() const override;
+
+       private:
+        libconfig::Config _cfg;
     };
 }  // namespace raytracer

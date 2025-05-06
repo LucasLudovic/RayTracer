@@ -7,14 +7,14 @@
 
 #pragma once
 
+#include "src/Raytracer/Raytracer.hpp"
 #include <memory>
 #include <string>
 
 namespace Utils {
-
     class DlLibError : public std::exception {
        public:
-        DlLibError(std::string msg);
+        DlLibError(std::string msg): _msg(msg) {};
 
         [[nodiscard]] const char *what() const noexcept override
         {
@@ -25,7 +25,7 @@ namespace Utils {
         std::string _msg;
     };
 
-    template <typename T>
+    template <class T>
     class DlLib {
        public:
         DlLib(const std::string &shared);
@@ -36,5 +36,7 @@ namespace Utils {
        private:
         void *_lib = nullptr;
     };
+
+    template class DlLib<renderer::IRenderer>;
 
 }  // namespace Utils

@@ -6,6 +6,7 @@
 //
 
 #include "Raytracer.hpp"
+#include "src/DlLib/DlLib.hpp"
 #include "src/my_macros.hpp"
 #include <chrono>
 #include <fstream>
@@ -19,6 +20,7 @@ raytracer::Raytracer::Raytracer(const std::string &file)
         throw RaytracerError("File argument is invalid");
     fileStream.close();
     this->_scene.load(file);
+    Utils::DlLib<renderer::IRenderer> renderer("lib/raytracer_sfml.so");
 }
 
 void raytracer::Raytracer::run()

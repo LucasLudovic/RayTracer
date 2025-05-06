@@ -16,9 +16,11 @@ namespace raytracer {
         ~Vector2() = default;
 
         void setX(const T &value) { this->_x = value; };
+
         void setY(const T &value) { this->_y = value; };
 
         [[nodiscard]] T getX() { return this->_x; };
+
         [[nodiscard]] T getY() { return this->_y; };
 
        private:
@@ -34,16 +36,30 @@ namespace raytracer {
         ~Vector3() = default;
 
         void setX(const T &value) { this->_x = value; };
+
         void setY(const T &value) { this->_y = value; };
+
         void setZ(const T &value) { this->_z = value; };
 
         [[nodiscard]] T getX() { return this->_x; };
+
         [[nodiscard]] T getY() { return this->_y; };
+
         [[nodiscard]] T getZ() { return this->_z; };
+
+        Vector3<T> &operator=(const Vector3<T> &other)
+        {
+            if (this != &other) {
+                this->_x = other._x;
+                this->_y = other._y;
+                this->_z = other._z;
+            }
+            return *this;
+        }
 
        private:
         T _x;
         T _y;
         T _z;
     };
-}  // namespace objects
+}  // namespace raytracer

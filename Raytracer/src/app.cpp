@@ -12,7 +12,6 @@
 #include <string>
 
 using raytracer::Raytracer;
-
 using Utils::DlLibError;
 
 int execute_raytracer(const std::string &sceneFile)

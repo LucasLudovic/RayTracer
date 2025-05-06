@@ -8,7 +8,7 @@
 #include "DlLib.hpp"
 #include <dlfcn.h>
 
-template<typename T>
+template<class T>
 Utils::DlLib<T>::DlLib(const std::string &shared)
 {
     this->_lib = dlopen(shared.c_str(), RTLD_LAZY);
@@ -16,14 +16,14 @@ Utils::DlLib<T>::DlLib(const std::string &shared)
         throw DlLibError(dlerror());
 }
 
-template<typename T>
+template<class T>
 Utils::DlLib<T>::~DlLib()
 {
     if (this->_lib != nullptr)
         dlclose(this->_lib);
 }
 
-template<typename T>
+template<class T>
 std::unique_ptr<T> Utils::DlLib<T>::loadLib() const
 {
     if (this->_lib == nullptr)
@@ -34,8 +34,8 @@ std::unique_ptr<T> Utils::DlLib<T>::loadLib() const
         throw DlLibError(dlerror());
 
     auto plugin = reinterpret_cast<std::unique_ptr<T>(*)()>(symbol);
-    const auto object = plugin();
+    auto object = plugin();
     if (object == nullptr)
         throw DlLibError("Can't get object from shared lib\n");
-    return object;
+    return std::move(object);
 }

@@ -20,26 +20,16 @@ void raytracer::cfgParser::retrievePrimitives()
     const libconfig::Setting &primitives = root["primitives"];
     this->_Primitives.clear();
 
-    for (std::size_t i = 0; i < primitives.getLength(); i += 1) {
-        if (!primitives[i].isArray() || !primitives.isList())
+    for (auto &it : primitives) {
+        if (!it.isArray() || !it.isList())
             throw ParserError("Primitive must be an array");
         objects::BasicObject NewPrimitive;
         double x, y, z;
-        primitives[i].lookupValue("x", x);
-        primitives[i].lookupValue("y", y);
-        primitives[i].lookupValue("z", z);
-        NewPrimitive.setType(primitives[i].getName());
+        it.lookupValue("x", x);
+        it.lookupValue("y", y);
+        it.lookupValue("z", z);
+        NewPrimitive.setType(it.getName());
         NewPrimitive.setPosition(Vector3(x, y, z));
         this->_Primitives.push_back(std::make_unique<objects::BasicObject>(NewPrimitive));
     }
-}
-
-std::unique_ptr<objects::BasicObject> raytracer::cfgParser::getCamera()
-{
-    return std::move(this->_Camera);
-}
-
-const std::vector<std::unique_ptr<objects::BasicObject>> &raytracer::cfgParser::getPrimitives() const
-{
-    return this->_Primitives;
 }

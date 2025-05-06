@@ -31,7 +31,7 @@ namespace raytracer {
         AParser(const std::string &filename) : _filename(filename) {};
         ~AParser() override = default;
 
-        void retrievePrimitives() override = 0;
+        void retrieveObjects() override = 0;
 
         const std::vector<std::unique_ptr<objects::BasicObject>> &getPrimitives() const override
         {

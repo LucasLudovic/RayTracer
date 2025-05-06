@@ -14,9 +14,14 @@
 namespace raytracer {
     class cfgParser : public AParser {
        public:
-        void retrievePrimitives() override;
+        void retrieveObjects() override;
 
        private:
         libconfig::Config _cfg;
+
+        void _retrievePrimitives(const libconfig::Setting &root);
+        void _retrieveCamera(const libconfig::Setting &root);
+        void _retrievePlane(const libconfig::Setting &primitives);
+        void _retrieveSphere(const libconfig::Setting &primitives);
     };
 }  // namespace raytracer

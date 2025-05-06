@@ -9,8 +9,10 @@
 
 void renderer::SFMLRenderer::render()
 {
+    this->_window->display();
 }
 
 void renderer::SFMLRenderer::clear()
 {
+    this->_window->clear();
 }

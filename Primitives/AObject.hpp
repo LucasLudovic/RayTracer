@@ -5,8 +5,8 @@
 // AObject
 //
 
-#include "IObject.hpp"
 #include "../Utils/Vector.hpp"
+#include "IObject.hpp"
 
 namespace objects {
 
@@ -31,9 +31,7 @@ namespace objects {
 
         void setPosition(raytracer::Vector3<double> pos) override
         {
-            this->_position.setX(pos.getX());
-            this->_position.setY(pos.getY());
-            this->_position.setZ(pos.getZ());
+            this->_position = pos;
         }
 
         raytracer::Vector3<double> getPosition() override

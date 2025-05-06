@@ -8,6 +8,7 @@
 #include <exception>
 
 #include "IObject.hpp"
+#include "Vector.hpp"
 
 namespace renderer {
     class IRenderer {
@@ -16,10 +17,13 @@ namespace renderer {
 
         class IRendererError : public std::exception {};
 
-        virtual void drawText() = 0;
+        virtual void drawText(const std::string &text,
+            const raytracer::Vector2<float> &position,
+            const unsigned size) = 0;
         virtual void drawObject(const objects::IObject &object) = 0;
         virtual void render() = 0;
         virtual void clear() = 0;
+
        private:
     };
 }  // namespace renderer

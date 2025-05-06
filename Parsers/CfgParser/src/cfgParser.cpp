@@ -8,28 +8,65 @@
 #include "cfgParser.hpp"
 #include "AParser.hpp"
 #include "BasicObject/basicObject.hpp"
-#include <cstddef>
 #include <libconfig.h++>
 #include <memory>
 
-void raytracer::cfgParser::retrievePrimitives()
+void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
 {
-    this->_cfg.readFile(this->_filename.c_str());
+    const libconfig::Setting &plane = primitives["planes"];
 
-    const libconfig::Setting &root = this->_cfg.getRoot();
-    const libconfig::Setting &primitives = root["primitives"];
-    this->_Primitives.clear();
+    // a gerer plus tard
+}
 
-    for (auto &it : primitives) {
-        if (!it.isArray() || !it.isList())
+void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
+{
+    const libconfig::Setting &spheres = primitives["spheres"];
+
+    for (auto &it : spheres) {
+        if (!it.isArray() && !it.isList())
             throw ParserError("Primitive must be an array");
         objects::BasicObject NewPrimitive;
         double x, y, z;
         it.lookupValue("x", x);
         it.lookupValue("y", y);
         it.lookupValue("z", z);
-        NewPrimitive.setType(it.getName());
+        NewPrimitive.setType("sphere");
         NewPrimitive.setPosition(Vector3(x, y, z));
         this->_Primitives.push_back(std::make_unique<objects::BasicObject>(NewPrimitive));
     }
+}
+
+void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
+{
+    const libconfig::Setting &primitives = root["primitives"];
+
+    this->_retrievePlane(primitives);
+    this->_retrieveSphere(primitives);
+}
+
+void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
+{
+    const libconfig::Setting &camera = root["camera"];
+
+    if (!camera.isArray() && !camera.isList())
+        throw ParserError("Array must be an array");
+    const libconfig::Setting &position = camera["position"];
+    objects::BasicObject NewCamera;
+    double x, y, z;
+    position.lookupValue("x", x);
+    position.lookupValue("y", y);
+    position.lookupValue("z", z);
+    NewCamera.setType("camera");
+    NewCamera.setPosition(Vector3(x, y, z));
+    this->_Camera = std::make_unique<objects::BasicObject>(NewCamera);
+}
+
+void raytracer::cfgParser::retrieveObjects()
+{
+    this->_cfg.readFile(this->_filename.c_str());
+    this->_Primitives.clear();
+
+    const libconfig::Setting &root = this->_cfg.getRoot();
+    this->_retrievePrimitives(root);
+    this->_retrieveCamera(root);
 }

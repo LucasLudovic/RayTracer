@@ -19,8 +19,10 @@ raytracer::Raytracer::Raytracer(const std::string &file)
     if (!fileStream.is_open())
         throw RaytracerError("File argument is invalid");
     fileStream.close();
+
     this->_scene.load(file);
     Utils::DlLib<renderer::IRenderer> renderer("lib/raytracer_sfml.so");
+    this->renderer = renderer.loadLib();
 }
 
 void raytracer::Raytracer::run()
@@ -37,5 +39,6 @@ void raytracer::Raytracer::run()
         if (frameDuration < targetFrameDuration) {
             std::this_thread::sleep_for(targetFrameDuration - frameDuration);
         }
+        this->renderer->render();
     }
 }

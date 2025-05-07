@@ -29,7 +29,7 @@ namespace raytracer {
     template <typename T>
     class Vector3 {
        public:
-        Vector3() = delete;
+        Vector3() : _x(0), _y(0), _z(0) {};
         Vector3(const T &x, const T &y, const T &z) : _x(x), _y(y), _z(z) {};
         ~Vector3() = default;
 

@@ -41,8 +41,19 @@ namespace objects {
             return this->_position;
         }
 
+        void setColor(raytracer::Vector3<int> rgb) override
+        {
+            this->_color = rgb;
+        }
+
+        raytracer::Vector3<int> getColor() const override
+        {
+            return this->_color;
+        }
+
        protected:
         std::string _type;
         raytracer::Vector3<double> _position;
+        raytracer::Vector3<int> _color;
     };
 }  // namespace objects

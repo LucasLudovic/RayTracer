@@ -21,7 +21,7 @@ raytracer::Raytracer::Raytracer(const std::string &file)
     fileStream.close();
 
     this->_scene.load(file);
-    Utils::DlLib<renderer::IRenderer> renderer("lib/raytracer_sfml.so");
+    Utils::DlLib<renderer::IRenderer> renderer("lib/renderers/raytracer_sfml.so");
     this->renderer = renderer.loadLib();
 }
 

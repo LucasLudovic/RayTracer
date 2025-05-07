@@ -8,6 +8,8 @@
 #pragma once
 
 #include "IObject.hpp"
+#include <exception>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -19,7 +21,22 @@ namespace raytracer {
 
         void load(const std::string &file);
 
+        class SceneError : public std::exception {
+           public:
+            SceneError(const std::string &msg) : _msg(msg) {};
+            [[nodiscard]] const char *what() const noexcept override
+            {
+                return this->_msg.c_str();
+            }
+           private:
+            std::string _msg;
+        };
+
        private:
-        std::vector<objects::IObject> _composition;
+        std::vector<std::unique_ptr<objects::IObject>> _composition;
+        std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
+        std::unique_ptr<objects::IObject> _camera;
+
+        void _getAvailableObject();
     };
 }  // namespace raytracer

@@ -7,7 +7,9 @@
 
 #pragma once
 
-#include "src/Raytracer/Raytracer.hpp"
+#include "IObject.hpp"
+#include "IParser.hpp"
+#include "IRenderer.hpp"
 #include <memory>
 #include <string>
 
@@ -38,5 +40,7 @@ namespace Utils {
     };
 
     template class DlLib<renderer::IRenderer>;
+    template class DlLib<raytracer::IParser>;
+    template class DlLib<objects::IObject>;
 
 }  // namespace Utils

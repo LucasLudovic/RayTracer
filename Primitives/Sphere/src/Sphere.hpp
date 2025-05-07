@@ -5,6 +5,8 @@
 // Sphere
 //
 
+#pragma once
+
 #include "AObject.hpp"
 
 namespace objects {

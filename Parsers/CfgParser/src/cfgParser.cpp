@@ -15,14 +15,38 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
 {
     const libconfig::Setting &plane = primitives["planes"];
 
-    // a gerer plus tard
+    for (const auto &it : plane) {
+        if (!it.isArray() && !it.isList())
+            throw ParserError("Primitive must be an array");
+        objects::BasicObject NewPrimitive;
+        double x = 0;
+        double y = 0;
+        double z = 0;
+        std::string axis;
+        it.lookupValue("axis", axis);
+        if (axis == "Z")
+            it.lookupValue("position", z);
+        if (axis == "Y")
+            it.lookupValue("position", y);
+        if (axis == "X")
+            it.lookupValue("position", x);
+        NewPrimitive.setType("plane");
+        NewPrimitive.setPosition(Vector3(x, y, z));
+        const libconfig::Setting &color = it["color"];
+        int r, g, b;
+        color.lookupValue("r", r);
+        color.lookupValue("g", g);
+        color.lookupValue("b", b);
+        NewPrimitive.setColor(Vector3(r, g, b));
+        this->_Primitives.push_back(std::make_unique<objects::BasicObject>(NewPrimitive));
+    }
 }
 
 void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
 {
     const libconfig::Setting &spheres = primitives["spheres"];
 
-    for (auto &it : spheres) {
+    for (const auto &it : spheres) {
         if (!it.isArray() && !it.isList())
             throw ParserError("Primitive must be an array");
         objects::BasicObject NewPrimitive;
@@ -32,6 +56,12 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
         it.lookupValue("z", z);
         NewPrimitive.setType("sphere");
         NewPrimitive.setPosition(Vector3(x, y, z));
+        const libconfig::Setting &color = it["color"];
+        int r, g, b;
+        color.lookupValue("r", r);
+        color.lookupValue("g", g);
+        color.lookupValue("b", b);
+        NewPrimitive.setColor(Vector3(r, g, b));
         this->_Primitives.push_back(std::make_unique<objects::BasicObject>(NewPrimitive));
     }
 }

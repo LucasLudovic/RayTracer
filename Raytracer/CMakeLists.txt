@@ -12,7 +12,6 @@ set(SOURCE_FILES
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE ../Parsers/)
 target_include_directories(${PROJECT_NAME} PRIVATE ../Primitives/)
 target_include_directories(${PROJECT_NAME} PRIVATE ../Utils/)
 target_include_directories(${PROJECT_NAME} PRIVATE ../Renderers/)

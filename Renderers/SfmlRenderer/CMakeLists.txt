@@ -5,9 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(PkgConfig)
-pkg_check_modules(SFML_GRAPHICS sfml-graphics)
-pkg_check_modules(SFML_WINDOW sfml-window)
-pkg_check_modules(SFML_SYSTEM sfml-system)
+pkg_check_modules(SFML_GRAPHICS sfml-graphics>=3.0.1)
+pkg_check_modules(SFML_WINDOW sfml-window>=3.0.1)
+pkg_check_modules(SFML_SYSTEM sfml-system>=3.0.1)
 
 set(MISSING_DEP FALSE)
 if (NOT SFML_GRAPHICS_FOUND OR NOT SFML_WINDOW_FOUND OR NOT SFML_SYSTEM_FOUND)
@@ -41,4 +41,3 @@ target_link_libraries(raytracer_sfml PRIVATE
 )
 
 target_compile_options(raytracer_sfml PRIVATE -fno-gnu-unique)
-

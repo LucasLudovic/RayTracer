@@ -5,6 +5,8 @@
 // AObject
 //
 
+#pragma once
+
 #include "../Utils/Vector.hpp"
 #include "IObject.hpp"
 

@@ -5,8 +5,9 @@
 // IRenderer
 //
 
-#include <exception>
+#pragma once
 
+#include <exception>
 #include "IObject.hpp"
 #include "Vector.hpp"
 

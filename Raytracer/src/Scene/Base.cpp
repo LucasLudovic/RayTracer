@@ -13,7 +13,7 @@
 
 void raytracer::Scene::load(const std::string &scene)
 {
-    Utils::DlLib<IParser> parserLib("lib/raytracer_cfg_parser.so");
+    Utils::DlLib<IParser> parserLib("lib/parsers/raytracer_cfg_parser.so");
     std::unique_ptr<IParser> parser = parserLib.loadLib();
 
     // à modifier, il faut que je stock dans this->_composition quand j'aurais un copy constructeur

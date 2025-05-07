@@ -5,7 +5,6 @@
 // Scene
 //
 
-#include "CfgParser/src/cfgParser.hpp"
 #include "Scene.hpp"
 
 void raytracer::Scene::load(const std::string &scene)

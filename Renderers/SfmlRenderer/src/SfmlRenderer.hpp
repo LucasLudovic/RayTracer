@@ -5,9 +5,12 @@
 // SFMLRenderer
 //
 
+#pragma once
+
 #include "IRenderer.hpp"
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <memory>
 
 namespace renderer {
     class SFMLRenderer : public IRenderer {

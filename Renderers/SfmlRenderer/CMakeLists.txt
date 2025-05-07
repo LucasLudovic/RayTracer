@@ -22,7 +22,10 @@ else()
 endif()
 
 add_library(raytracer_sfml SHARED ${SOURCES})
-set_target_properties(raytracer_sfml PROPERTIES PREFIX "")
+set_target_properties(raytracer_sfml PROPERTIES
+    PREFIX ""
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/renderer"
+)
 
 target_include_directories(raytracer_sfml PRIVATE
     ../

@@ -33,7 +33,7 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
         NewPrimitive.setType("plane");
         NewPrimitive.setPosition(Vector3(x, y, z));
         const libconfig::Setting &color = it["color"];
-        int r, g, b;
+        double r, g, b;
         color.lookupValue("r", r);
         color.lookupValue("g", g);
         color.lookupValue("b", b);
@@ -57,7 +57,7 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
         NewPrimitive.setType("sphere");
         NewPrimitive.setPosition(Vector3(x, y, z));
         const libconfig::Setting &color = it["color"];
-        int r, g, b;
+        double r, g, b;
         color.lookupValue("r", r);
         color.lookupValue("g", g);
         color.lookupValue("b", b);

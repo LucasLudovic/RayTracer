@@ -14,7 +14,7 @@ namespace objects {
 
     class AObject : public objects::IObject {
        public:
-        AObject() : _position(0, 0, 0) {};
+        AObject() {};
 
         class AObjectError : public IObjectError {
            public:
@@ -41,12 +41,12 @@ namespace objects {
             return this->_position;
         }
 
-        void setColor(raytracer::Vector3<int> rgb) override
+        void setColor(raytracer::Vector3<double> rgb) override
         {
             this->_color = rgb;
         }
 
-        raytracer::Vector3<int> getColor() const override
+        raytracer::Vector3<double> getColor() const override
         {
             return this->_color;
         }
@@ -54,6 +54,6 @@ namespace objects {
        protected:
         std::string _type;
         raytracer::Vector3<double> _position;
-        raytracer::Vector3<int> _color;
+        raytracer::Vector3<double> _color;
     };
 }  // namespace objects

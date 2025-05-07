@@ -19,8 +19,12 @@ namespace objects {
 
         class IObjectError : public std::exception {};
 
-        virtual std::string getType() const = 0;
         virtual void setPosition(raytracer::Vector3<double> pos) = 0;
         [[nodiscard]] virtual raytracer::Vector3<double> getPosition() = 0;
+
+        virtual void setColor(raytracer::Vector3<int> rgb) = 0;
+        virtual raytracer::Vector3<int> getColor() const = 0;
+
+        virtual std::string getType() const = 0;
     };
 }  // namespace objects

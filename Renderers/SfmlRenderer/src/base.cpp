@@ -6,7 +6,6 @@
 //
 
 #include "SfmlRenderer.hpp"
-
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <memory>

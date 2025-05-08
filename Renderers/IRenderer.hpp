@@ -7,17 +7,28 @@
 
 #pragma once
 
-#include <exception>
 #include "IObject.hpp"
-#include <memory>
 #include "Vector.hpp"
+#include <exception>
+#include <memory>
 
 namespace renderer {
+    class RendererError : public std::exception {
+       public:
+        RendererError(const std::string &msg) : _msg(msg) {};
+
+        [[nodiscard]] const char *what() const noexcept override
+        {
+            return this->_msg.c_str();
+        };
+
+       private:
+        std::string _msg;
+    };
+
     class IRenderer {
        public:
-        virtual ~IRenderer() = 0;
-
-        class IRendererError : public std::exception {};
+        virtual ~IRenderer() = default;
 
         virtual void drawText(const std::string &text,
             const raytracer::Vector2<float> &position,
@@ -29,5 +40,5 @@ namespace renderer {
        private:
     };
 
-    extern "C++" std::unique_ptr<IRenderer> getObject();
+    extern "C" std::unique_ptr<IRenderer> createRenderer(void);
 }  // namespace renderer

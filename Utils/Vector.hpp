@@ -71,7 +71,7 @@ namespace raytracer {
             Vector3<T> newVector;
             newVector._x = this->_x - other._x;
             newVector._y = this->_y - other._y;
-            newVector._z = this->_z - other->_z;
+            newVector._z = this->_z - other._z;
             return newVector;
         }
        private:

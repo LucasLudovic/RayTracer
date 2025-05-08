@@ -7,9 +7,9 @@
 
 #pragma once
 
+#include "IObject.hpp"
 #include <memory>
 #include <vector>
-#include "IObject.hpp"
 
 namespace raytracer {
     class IParser {
@@ -18,9 +18,10 @@ namespace raytracer {
 
         virtual void setFilename(const std::string &filename) = 0;
         virtual void retrieveObjects() = 0;
-        const virtual std::vector<std::unique_ptr<objects::IObject>> &getPrimitives() const = 0;
+        virtual std::vector<std::unique_ptr<objects::IObject>>
+        getPrimitives() = 0;
         virtual std::unique_ptr<objects::IObject> getCamera() = 0;
     };
 }  // namespace raytracer
 
-extern "C" std::unique_ptr<raytracer::IParser> getObject();
+extern "C" std::unique_ptr<raytracer::IParser> createParser(void);

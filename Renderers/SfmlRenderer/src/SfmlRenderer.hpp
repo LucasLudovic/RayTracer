@@ -18,17 +18,6 @@ namespace renderer {
         SFMLRenderer();
         ~SFMLRenderer();
 
-        class SFMLError : public IRendererError {
-           public:
-            SFMLError(const std::string &msg) : _msg(msg) {};
-            [[nodiscard]] const char *what() const noexcept override
-            {
-                return this->_msg.c_str();
-            }
-           private:
-            std::string _msg;
-        };
-
         void drawText(const std::string &text,
             const raytracer::Vector2<float> &position,
             const unsigned size) override;

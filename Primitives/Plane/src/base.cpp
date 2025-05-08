@@ -7,6 +7,4 @@
 
 #include "plane.hpp"
 
-objects::Plane::Plane(): AObject()
-{
-}
+objects::Plane::Plane(): AObject() {}

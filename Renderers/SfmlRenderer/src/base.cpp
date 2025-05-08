@@ -33,3 +33,10 @@ std::unique_ptr<renderer::IRenderer> createRenderer()
 {
     return std::make_unique<renderer::SFMLRenderer>();
 }
+
+extern "C++" {
+std::unique_ptr<renderer::IRenderer> getObject(void)
+{
+    return std::make_unique<renderer::SFMLRenderer>();
+}
+}

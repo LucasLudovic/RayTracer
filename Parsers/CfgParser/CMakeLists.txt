@@ -22,7 +22,7 @@ endif()
 add_library(raytracer_cfg_parser SHARED ${SOURCES})
 set_target_properties(raytracer_cfg_parser PROPERTIES
     PREFIX ""
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/renderer"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/parsers"
 )
 
 target_include_directories(raytracer_cfg_parser PRIVATE

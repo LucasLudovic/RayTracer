@@ -33,7 +33,7 @@ namespace Utils {
         DlLib(const std::string &shared);
         ~DlLib();
 
-        std::unique_ptr<T> loadLib() const;
+        std::unique_ptr<T> loadLib(const std::string &symbole) const;
 
        private:
         void *_lib = nullptr;

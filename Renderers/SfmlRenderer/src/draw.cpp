@@ -19,7 +19,7 @@ void renderer::SFMLRenderer::drawText(const std::string &textStr,
     const raytracer::Vector2<float> &pos, const unsigned size)
 {
     if (!this->_font)
-        throw SFMLError("No font added\n");
+        throw RendererError("No font added\n");
 
     sf::Text text(*this->_font, textStr, size);
     text.setFillColor(sf::Color::White);

@@ -7,6 +7,7 @@
 
 #include "DlLib.hpp"
 #include <dlfcn.h>
+#include <iostream>
 
 template<class T>
 Utils::DlLib<T>::DlLib(const std::string &shared)
@@ -24,14 +25,15 @@ Utils::DlLib<T>::~DlLib()
 }
 
 template<class T>
-std::unique_ptr<T> Utils::DlLib<T>::loadLib() const
+std::unique_ptr<T> Utils::DlLib<T>::loadLib(const std::string &symName) const
 {
     if (this->_lib == nullptr)
         throw DlLibError("Unable to retrieve open lib\n");
 
-    const auto symbol = dlsym(this->_lib, "getObject");
-    if (symbol == nullptr)
+    const auto symbol = dlsym(this->_lib, symName.c_str());
+    if (symbol == nullptr) {
         throw DlLibError(dlerror());
+    }
 
     auto plugin = reinterpret_cast<std::unique_ptr<T>(*)()>(symbol);
     auto object = plugin();

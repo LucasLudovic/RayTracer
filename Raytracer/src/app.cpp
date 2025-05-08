@@ -6,6 +6,7 @@
 //
 
 #include "DlLib/DlLib.hpp"
+#include "IRenderer.hpp"
 #include "my_macros.hpp"
 #include "src/Raytracer/Raytracer.hpp"
 #include <iostream>
@@ -25,6 +26,8 @@ int execute_raytracer(const std::string &sceneFile)
         return EPITECH_FAILURE;
     } catch (const DlLibError &error) {
         std::cerr << "Shared Library Error: " << error.what() << std::endl;
+    } catch (const renderer::RendererError &error) {
+        std::cerr << "Renderer error: " << error.what() << std::endl;
     } catch (...) {
         std::cerr << "Unknown error" << std::endl;
     }

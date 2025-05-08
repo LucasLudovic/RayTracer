@@ -11,6 +11,7 @@
 #include <chrono>
 #include <fstream>
 #include <thread>
+#include <iostream>
 
 raytracer::Raytracer::Raytracer(const std::string &file)
 {
@@ -21,13 +22,13 @@ raytracer::Raytracer::Raytracer(const std::string &file)
     fileStream.close();
 
     this->_scene.load(file);
-    Utils::DlLib<renderer::IRenderer> renderer("lib/renderers/raytracer_sfml.so");
-    this->renderer = renderer.loadLib();
 }
 
 void raytracer::Raytracer::run()
 {
     const std::chrono::milliseconds targetFrameDuration(FRAME_DURATION_MS);
+    Utils::DlLib<renderer::IRenderer> renderer("lib/renderers/raytracer_sfml.so");
+    this->renderer = renderer.loadLib("createRenderer");
 
     while (this->_isRunning) {
         auto frameStart = std::chrono::steady_clock::now();
@@ -39,6 +40,6 @@ void raytracer::Raytracer::run()
         if (frameDuration < targetFrameDuration) {
             std::this_thread::sleep_for(targetFrameDuration - frameDuration);
         }
-        this->renderer->render();
+        this->_scene.renderScene(*this->renderer);
     }
 }

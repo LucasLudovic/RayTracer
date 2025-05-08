@@ -9,6 +9,7 @@
 
 #include <exception>
 #include "IObject.hpp"
+#include <memory>
 #include "Vector.hpp"
 
 namespace renderer {
@@ -27,4 +28,6 @@ namespace renderer {
 
        private:
     };
+
+    extern "C++" std::unique_ptr<IRenderer> getObject();
 }  // namespace renderer

@@ -16,10 +16,11 @@ namespace raytracer {
        public:
         virtual ~IParser() = default;
 
+        virtual void setFilename(const std::string &filename) = 0;
         virtual void retrieveObjects() = 0;
         const virtual std::vector<std::unique_ptr<objects::IObject>> &getPrimitives() const = 0;
         virtual std::unique_ptr<objects::IObject> getCamera() = 0;
     };
 }  // namespace raytracer
 
-extern "C" std::unique_ptr<raytracer::IParser> entrypoint_parser(const std::string &filename);
+extern "C" std::unique_ptr<raytracer::IParser> getObject();

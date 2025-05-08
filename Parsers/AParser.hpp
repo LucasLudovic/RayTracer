@@ -28,8 +28,9 @@ namespace raytracer {
 
     class AParser : public IParser {
        public:
-        AParser(const std::string &filename) : _filename(filename) {};
         ~AParser() override = default;
+
+        void setFilename(const std::string &filename) override { this->_filename = filename; };
 
         void retrieveObjects() override = 0;
 
@@ -46,7 +47,7 @@ namespace raytracer {
         };
 
        protected:
-        std::string _filename;
+        std::string _filename = "empty";
         std::vector<std::unique_ptr<objects::IObject>> _Primitives;
         std::unique_ptr<objects::IObject> _Camera = nullptr;
     };

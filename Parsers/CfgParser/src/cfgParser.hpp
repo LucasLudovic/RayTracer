@@ -13,7 +13,7 @@
 namespace raytracer {
     class cfgParser : public AParser {
        public:
-        cfgParser(const std::string &filename) : AParser(filename) {}
+        cfgParser();
         void retrieveObjects() override;
 
        private:

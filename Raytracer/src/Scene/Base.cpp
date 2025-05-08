@@ -10,14 +10,15 @@
 #include "Scene.hpp"
 #include "src/DlLib/DlLib.hpp"
 #include <filesystem>
+#include <iostream>
 
 void raytracer::Scene::load(const std::string &scene)
 {
     Utils::DlLib<IParser> parserLib("lib/parsers/raytracer_cfg_parser.so");
-    std::unique_ptr<IParser> parser = parserLib.loadLib();
+    std::unique_ptr<IParser> parser = parserLib.loadLib("createParser");
 
     // à modifier, il faut que je stock dans this->_composition quand j'aurais un copy constructeur
-    parser->getPrimitives();
+    this->_composition = parser->getPrimitives();
 
     this->_camera = parser->getCamera();
 }
@@ -30,7 +31,7 @@ void raytracer::Scene::_getAvailableObject()
         try {
             Utils::DlLib<objects::IObject> objectLib(elem.path().string());
 
-            auto object = objectLib.loadLib();
+            auto object = objectLib.loadLib("createObject");
             this->_availableObjects.push_back(std::move(object));
         } catch (const Utils::DlLibError &error) {
             continue;

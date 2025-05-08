@@ -34,9 +34,9 @@ namespace raytracer {
 
         void retrieveObjects() override = 0;
 
-        const std::vector<std::unique_ptr<objects::IObject>> &getPrimitives() const override
+        std::vector<std::unique_ptr<objects::IObject>> getPrimitives() override
         {
-            return this->_Primitives;
+            return std::move(this->_Primitives);
         };
 
         std::unique_ptr<objects::IObject> getCamera() override

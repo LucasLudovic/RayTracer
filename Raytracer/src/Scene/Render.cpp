@@ -7,9 +7,13 @@
 
 #include "IRenderer.hpp"
 #include "src/Scene/Scene.hpp"
+#include <iostream>
 
 void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
 {
+    if (!this->_camera)
+        throw SceneError("No camera in scene");
+    std::cout << "Zebi" << std::endl;
     auto cameraPos = this->_camera->getPosition();
 
     renderer.clear();

@@ -8,6 +8,8 @@
 #pragma once
 
 #include "IObject.hpp"
+#include "Vector.hpp"
+#include "IRenderer.hpp"
 #include <exception>
 #include <memory>
 #include <string>
@@ -20,6 +22,7 @@ namespace raytracer {
         ~Scene() = default;
 
         void load(const std::string &file);
+        void renderScene(renderer::IRenderer &renderer);
 
         class SceneError : public std::exception {
            public:
@@ -38,5 +41,6 @@ namespace raytracer {
         std::unique_ptr<objects::IObject> _camera;
 
         void _getAvailableObject();
+        Vector3<double> _computeRelativePos(const objects::IObject &object);
     };
 }  // namespace raytracer

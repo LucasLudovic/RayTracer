@@ -36,7 +36,7 @@ namespace objects {
             this->_position = pos;
         }
 
-        raytracer::Vector3<double> getPosition() override
+        raytracer::Vector3<double> getPosition() const override
         {
             return this->_position;
         }

@@ -11,7 +11,7 @@ namespace raytracer {
     template <typename T>
     class Vector2 {
        public:
-        Vector2() = delete;
+        Vector2() : _x(0), _y(0) {};
         Vector2(const T &x, const T &y) : _x(x), _y(y) {};
         ~Vector2() = default;
 
@@ -22,6 +22,15 @@ namespace raytracer {
         [[nodiscard]] T getX() const noexcept { return this->_x; };
 
         [[nodiscard]] T getY() const noexcept { return this->_y; };
+
+        Vector2<T> &operator=(const Vector2<T> &other)
+        {
+            if (this != &other) {
+                this->_x = other._x;
+                this->_y = other._y;
+            }
+            return *this;
+        }
 
        private:
         T _x;

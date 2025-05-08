@@ -7,6 +7,7 @@
 
 #include "cfgParser.hpp"
 #include "AParser.hpp"
+#include "Camera/src/Camera.hpp"
 #include "IParser.hpp"
 #include "Plane/src/plane.hpp"
 #include "Sphere/src/Sphere.hpp"
@@ -77,19 +78,32 @@ void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
 
 void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
 {
-    // const libconfig::Setting &camera = root["camera"];
-    //
-    // if (!camera.isArray() && !camera.isList())
-    //     throw ParserError("Array must be an array");
-    // const libconfig::Setting &position = camera["position"];
-    // objects::BasicObject NewCamera;
-    // double x, y, z;
-    // position.lookupValue("x", x);
-    // position.lookupValue("y", y);
-    // position.lookupValue("z", z);
-    // NewCamera.setType("camera");
-    // NewCamera.setPosition(Vector3(x, y, z));
-    // this->_Camera = std::make_unique<objects::BasicObject>(NewCamera);
+    const libconfig::Setting &camera = root["camera"];
+
+    if (!camera.isArray() && !camera.isList())
+        throw ParserError("Array must be an array");
+    const libconfig::Setting &position = camera["position"];
+    objects::Camera NewCamera;
+    double x, y, z;
+    position.lookupValue("x", x);
+    position.lookupValue("y", y);
+    position.lookupValue("z", z);
+    NewCamera.setPosition(Vector3(x, y, z));
+    const libconfig::Setting &resolution = camera["resolution"];
+    int a, b, c;
+    resolution.lookupValue("width", a);
+    resolution.lookupValue("height", b);
+    NewCamera.setResolution(Vector2(a, b));
+    const libconfig::Setting &rotation = camera["rotation"];
+    int d, e, f;
+    rotation.lookupValue("x", d);
+    rotation.lookupValue("y", e);
+    rotation.lookupValue("z", f);
+    NewCamera.setRotation(Vector3(d, e, f));
+    int fieldOfView = 0;
+    camera.lookupValue("fieldOfView", fieldOfView);
+    NewCamera.setFieldOfVue(fieldOfView);
+    this->_Camera = std::make_unique<objects::Camera>(NewCamera);
 }
 
 void raytracer::cfgParser::retrieveObjects()

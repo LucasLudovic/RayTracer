@@ -7,8 +7,10 @@
 
 #include "cfgParser.hpp"
 #include "AParser.hpp"
+#include "IParser.hpp"
 #include "Plane/src/plane.hpp"
 #include "Sphere/src/Sphere.hpp"
+#include <algorithm>
 #include <libconfig.h++>
 #include <memory>
 
@@ -75,19 +77,19 @@ void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
 
 void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
 {
-    const libconfig::Setting &camera = root["camera"];
-
-    if (!camera.isArray() && !camera.isList())
-        throw ParserError("Array must be an array");
-    const libconfig::Setting &position = camera["position"];
-    objects::BasicObject NewCamera;
-    double x, y, z;
-    position.lookupValue("x", x);
-    position.lookupValue("y", y);
-    position.lookupValue("z", z);
-    NewCamera.setType("camera");
-    NewCamera.setPosition(Vector3(x, y, z));
-    this->_Camera = std::make_unique<objects::BasicObject>(NewCamera);
+    // const libconfig::Setting &camera = root["camera"];
+    //
+    // if (!camera.isArray() && !camera.isList())
+    //     throw ParserError("Array must be an array");
+    // const libconfig::Setting &position = camera["position"];
+    // objects::BasicObject NewCamera;
+    // double x, y, z;
+    // position.lookupValue("x", x);
+    // position.lookupValue("y", y);
+    // position.lookupValue("z", z);
+    // NewCamera.setType("camera");
+    // NewCamera.setPosition(Vector3(x, y, z));
+    // this->_Camera = std::make_unique<objects::BasicObject>(NewCamera);
 }
 
 void raytracer::cfgParser::retrieveObjects()
@@ -98,4 +100,11 @@ void raytracer::cfgParser::retrieveObjects()
     const libconfig::Setting &root = this->_cfg.getRoot();
     this->_retrievePrimitives(root);
     this->_retrieveCamera(root);
+}
+
+extern "C" {
+std::unique_ptr<raytracer::IParser> entrypoint_parser(const std::string &filename)
+{
+    return std::make_unique<raytracer::cfgParser>(filename);
+}
 }

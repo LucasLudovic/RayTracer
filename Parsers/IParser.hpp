@@ -21,3 +21,5 @@ namespace raytracer {
         virtual std::unique_ptr<objects::IObject> getCamera() = 0;
     };
 }  // namespace raytracer
+
+extern "C" std::unique_ptr<raytracer::IParser> entrypoint_parser(const std::string &filename);

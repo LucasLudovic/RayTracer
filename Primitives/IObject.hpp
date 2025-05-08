@@ -20,7 +20,7 @@ namespace objects {
         class IObjectError : public std::exception {};
 
         virtual void setPosition(raytracer::Vector3<double> pos) = 0;
-        [[nodiscard]] virtual raytracer::Vector3<double> getPosition() = 0;
+        [[nodiscard]] virtual raytracer::Vector3<double> getPosition() const = 0;
 
         virtual void setColor(raytracer::Vector3<double> rgb) = 0;
         virtual raytracer::Vector3<double> getColor() const = 0;

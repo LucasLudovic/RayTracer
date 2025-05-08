@@ -16,9 +16,11 @@ namespace raytracer {
         ~Vector2() = default;
 
         void setX(const T &value) noexcept { this->_x = value; };
+
         void setY(const T &value) noexcept { this->_y = value; };
 
         [[nodiscard]] T getX() const noexcept { return this->_x; };
+
         [[nodiscard]] T getY() const noexcept { return this->_y; };
 
        private:
@@ -34,11 +36,15 @@ namespace raytracer {
         ~Vector3() = default;
 
         void setX(const T &value) noexcept { this->_x = value; };
+
         void setY(const T &value) noexcept { this->_y = value; };
+
         void setZ(const T &value) noexcept { this->_z = value; };
 
         [[nodiscard]] T getX() const noexcept { return this->_x; };
+
         [[nodiscard]] T getY() const noexcept { return this->_y; };
+
         [[nodiscard]] T getZ() const noexcept { return this->_z; };
 
         Vector3<T> &operator=(const Vector3<T> &other)
@@ -51,6 +57,14 @@ namespace raytracer {
             return *this;
         }
 
+        Vector3<T> operator-(const Vector3<T> &other)
+        {
+            Vector3<T> newVector;
+            newVector._x = this->_x - other._x;
+            newVector._y = this->_y - other._y;
+            newVector._z = this->_z - other->_z;
+            return newVector;
+        }
        private:
         T _x;
         T _y;

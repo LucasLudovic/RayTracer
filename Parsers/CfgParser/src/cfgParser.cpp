@@ -117,8 +117,8 @@ void raytracer::cfgParser::retrieveObjects()
 }
 
 extern "C" {
-std::unique_ptr<raytracer::IParser> entrypoint_parser(const std::string &filename)
+std::unique_ptr<raytracer::IParser> getObject()
 {
-    return std::make_unique<raytracer::cfgParser>(filename);
+    return std::make_unique<raytracer::cfgParser>();
 }
 }

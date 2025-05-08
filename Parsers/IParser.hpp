@@ -9,7 +9,6 @@
 
 #include <memory>
 #include <vector>
-#include "BasicObject/basicObject.hpp"
 #include "IObject.hpp"
 
 namespace raytracer {
@@ -18,7 +17,7 @@ namespace raytracer {
         virtual ~IParser() = default;
 
         virtual void retrieveObjects() = 0;
-        const virtual std::vector<std::unique_ptr<objects::BasicObject>> &getPrimitives() const = 0;
-        virtual std::unique_ptr<objects::BasicObject> getCamera() = 0;
+        const virtual std::vector<std::unique_ptr<objects::IObject>> &getPrimitives() const = 0;
+        virtual std::unique_ptr<objects::IObject> getCamera() = 0;
     };
 }  // namespace raytracer

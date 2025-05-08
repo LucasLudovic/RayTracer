@@ -7,7 +7,8 @@
 
 #include "cfgParser.hpp"
 #include "AParser.hpp"
-#include "BasicObject/basicObject.hpp"
+#include "Plane/src/plane.hpp"
+#include "Sphere/src/Sphere.hpp"
 #include <libconfig.h++>
 #include <memory>
 
@@ -18,7 +19,7 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
     for (const auto &it : plane) {
         if (!it.isArray() && !it.isList())
             throw ParserError("Primitive must be an array");
-        objects::BasicObject NewPrimitive;
+        objects::Plane NewPrimitive;
         double x = 0;
         double y = 0;
         double z = 0;
@@ -30,7 +31,6 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
             it.lookupValue("position", y);
         if (axis == "X")
             it.lookupValue("position", x);
-        NewPrimitive.setType("plane");
         NewPrimitive.setPosition(Vector3(x, y, z));
         const libconfig::Setting &color = it["color"];
         double r, g, b;
@@ -38,7 +38,7 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
         color.lookupValue("g", g);
         color.lookupValue("b", b);
         NewPrimitive.setColor(Vector3(r, g, b));
-        this->_Primitives.push_back(std::make_unique<objects::BasicObject>(NewPrimitive));
+        this->_Primitives.push_back(std::make_unique<objects::Plane>(NewPrimitive));
     }
 }
 
@@ -49,12 +49,11 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
     for (const auto &it : spheres) {
         if (!it.isArray() && !it.isList())
             throw ParserError("Primitive must be an array");
-        objects::BasicObject NewPrimitive;
+        objects::Sphere NewPrimitive;
         double x, y, z;
         it.lookupValue("x", x);
         it.lookupValue("y", y);
         it.lookupValue("z", z);
-        NewPrimitive.setType("sphere");
         NewPrimitive.setPosition(Vector3(x, y, z));
         const libconfig::Setting &color = it["color"];
         double r, g, b;
@@ -62,7 +61,7 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
         color.lookupValue("g", g);
         color.lookupValue("b", b);
         NewPrimitive.setColor(Vector3(r, g, b));
-        this->_Primitives.push_back(std::make_unique<objects::BasicObject>(NewPrimitive));
+        this->_Primitives.push_back(std::make_unique<objects::Sphere>(NewPrimitive));
     }
 }
 

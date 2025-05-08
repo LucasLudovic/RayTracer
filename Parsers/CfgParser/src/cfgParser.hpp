@@ -8,7 +8,6 @@
 #pragma once
 
 #include "AParser.hpp"
-#include "BasicObject/basicObject.hpp"
 #include <libconfig.h++>
 
 namespace raytracer {

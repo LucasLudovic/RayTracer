@@ -8,6 +8,7 @@
 #pragma once
 
 #include "BasicObject/basicObject.hpp"
+#include "IObject.hpp"
 #include "IParser.hpp"
 #include <memory>
 #include <string>
@@ -33,12 +34,12 @@ namespace raytracer {
 
         void retrieveObjects() override = 0;
 
-        const std::vector<std::unique_ptr<objects::BasicObject>> &getPrimitives() const override
+        const std::vector<std::unique_ptr<objects::IObject>> &getPrimitives() const override
         {
             return this->_Primitives;
         };
 
-        std::unique_ptr<objects::BasicObject> getCamera() override
+        std::unique_ptr<objects::IObject> getCamera() override
         {
             std::unique_ptr NewCam = std::move(this->_Camera);
             this->_Camera = nullptr;
@@ -47,7 +48,7 @@ namespace raytracer {
 
        protected:
         std::string _filename;
-        std::vector<std::unique_ptr<objects::BasicObject>> _Primitives;
-        std::unique_ptr<objects::BasicObject> _Camera = nullptr;
+        std::vector<std::unique_ptr<objects::IObject>> _Primitives;
+        std::unique_ptr<objects::IObject> _Camera = nullptr;
     };
 }  // namespace raytracer

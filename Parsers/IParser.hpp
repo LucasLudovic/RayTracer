@@ -8,6 +8,7 @@
 #pragma once
 
 #include "IObject.hpp"
+#include "basicObject.hpp"
 #include <memory>
 #include <vector>
 
@@ -34,9 +35,8 @@ namespace raytracer {
         virtual void _setAvailableObject(
             std::vector<std::unique_ptr<objects::IObject>>
                 availableObjects) = 0;
-        virtual std::vector<std::unique_ptr<objects::IObject>>
-        getPrimitives() = 0;
-        virtual std::unique_ptr<objects::IObject> getCamera() = 0;
+        virtual std::vector<std::unique_ptr<BasicObject>> getPrimitives() = 0;
+        virtual std::unique_ptr<BasicObject> getCamera() = 0;
     };
 }  // namespace raytracer
 

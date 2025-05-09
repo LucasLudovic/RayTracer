@@ -8,6 +8,7 @@
 #include "IObject.hpp"
 #include "IParser.hpp"
 #include "Scene.hpp"
+#include "basicObject.hpp"
 #include "src/DlLib/DlLib.hpp"
 #include <filesystem>
 #include <iostream>
@@ -34,15 +35,13 @@ void raytracer::Scene::load(const std::string &scene)
         exit(-1);
     }
 
-    this->_composition = parser->getPrimitives();
-    std::cout << this->_composition.size() << std::endl;
-    std::cout << "Yo" << std::endl;
-    this->_camera = parser->getCamera();
-    std::cout << "Bijour" << std::endl;
-    for (auto &it : this->_composition) {
-        std::cout << "Zebi" << std::endl;
-        std::cout << it->getType() << std::endl;
-    }
+    std::vector<std::unique_ptr<BasicObject>> Primitives = parser->getPrimitives();
+    std::cout << "Type : " << Primitives.begin()->get()->getType() << std::endl;
+    // auto camera = parser->getCamera();
+    // for (auto &it : this->_composition) {
+    //     std::cout << "Zebi" << std::endl;
+    //     std::cout << it->getType() << std::endl;
+    // }
     std::cout << "WAAAAA" << std::endl;
 }
 

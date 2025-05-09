@@ -1,0 +1,59 @@
+//
+// EPITECH PROJECT, 2025
+// Raytracer
+// File description:
+// basicObject
+//
+
+#pragma once
+
+#include "../Utils/Vector.hpp"
+#include <string>
+
+namespace raytracer {
+    class BasicObject {
+       public:
+        BasicObject() {};
+        ~BasicObject() {};
+        void setPosition(raytracer::Vector3<int> pos)
+        {
+            this->_position = pos;
+        };
+
+        [[nodiscard]] raytracer::Vector3<int> getPosition() const
+        {
+            return this->_position;
+        };
+
+        void setColor(raytracer::Vector3<int> rgb) { this->_color = rgb; };
+
+        raytracer::Vector3<int> getColor() const { return this->_color; };
+
+        std::string getType() const { return this->_type; };
+
+        void setType(const std::string &type) { this->_type = type; };
+
+        void setResolution(raytracer::Vector2<int> res) { this->_res = res; }
+
+        raytracer::Vector2<int> getResolution() const { return this->_res; }
+
+        void setRotation(raytracer::Vector3<int> rotation)
+        {
+            this->_rotation = rotation;
+        }
+
+        raytracer::Vector3<int> getRotation() const { return this->_rotation; }
+
+        void setFieldOfVue(double value) { this->_fieldOfVue = value; }
+
+        double getFieldOfView() const { return this->_fieldOfVue; }
+
+       private:
+        std::string _type = "";
+        raytracer::Vector3<int> _position = {0, 0, 0};
+        raytracer::Vector3<int> _color = {0, 0, 0};
+        raytracer::Vector2<int> _res = {0, 0};
+        raytracer::Vector3<int> _rotation = {0, 0, 0};
+        double _fieldOfVue = 0;
+    };
+}  // namespace raytracer

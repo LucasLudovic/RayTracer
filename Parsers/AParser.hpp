@@ -9,6 +9,7 @@
 
 #include "IObject.hpp"
 #include "IParser.hpp"
+#include "basicObject.hpp"
 #include <memory>
 #include <string>
 
@@ -31,12 +32,12 @@ namespace raytracer {
             this->_availableObjects = std::move(availableObjects);
         };
 
-        std::vector<std::unique_ptr<objects::IObject>> getPrimitives() override
+        std::vector<std::unique_ptr<BasicObject>> getPrimitives() override
         {
             return std::move(this->_Primitives);
         };
 
-        std::unique_ptr<objects::IObject> getCamera() override
+        std::unique_ptr<BasicObject> getCamera() override
         {
             std::unique_ptr NewCam = std::move(this->_Camera);
             this->_Camera = nullptr;
@@ -45,8 +46,8 @@ namespace raytracer {
 
        protected:
         std::string _filename = "empty";
-        std::vector<std::unique_ptr<objects::IObject>> _Primitives;
+        std::vector<std::unique_ptr<raytracer::BasicObject>> _Primitives;
         std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
-        std::unique_ptr<objects::IObject> _Camera = nullptr;
+        std::unique_ptr<BasicObject> _Camera;
     };
 }  // namespace raytracer

@@ -6,10 +6,8 @@
 //
 
 #include "cfgParser.hpp"
-#include "Camera/src/Camera.hpp"
 #include "IParser.hpp"
-#include "Plane/src/plane.hpp"
-#include "Sphere/src/Sphere.hpp"
+#include "basicObject.hpp"
 #include <libconfig.h++>
 #include <memory>
 
@@ -20,11 +18,13 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
     const libconfig::Setting &plane = primitives["planes"];
 
     for (const auto &it : plane) {
-        objects::Plane NewPrimitive;
+        BasicObject NewPrimitive;
 
-        double x = 0;
-        double y = 0;
-        double z = 0;
+        NewPrimitive.setType("Plane");
+
+        int x = 0;
+        int y = 0;
+        int z = 0;
         std::string axis;
         it.lookupValue("axis", axis);
         if (axis == "Z")
@@ -36,18 +36,18 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
         if (axis == "X")
             if (!it.lookupValue("position", x))
                 throw ParserError("Missing 'position' in plane");
+
         NewPrimitive.setPosition(Vector3(x, y, z));
 
         if (!it.exists("color"))
             throw ParserError("Missing 'color' in plane configuration");
         const libconfig::Setting &color = it["color"];
 
-        double r, g, b;
+        int r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) || !color.lookupValue("b", b))
             throw ParserError("Missing 'r', 'g' or 'b' in plane color");
         NewPrimitive.setColor(Vector3(r, g, b));
-        this->_Primitives.push_back(
-            std::make_unique<objects::Plane>(NewPrimitive));
+        this->_Primitives.push_back(std::make_unique<BasicObject>(NewPrimitive));
     }
 }
 
@@ -58,22 +58,22 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
     const libconfig::Setting &spheres = primitives["spheres"];
 
     for (const auto &it : spheres) {
-        objects::Sphere NewPrimitive;
+        BasicObject NewPrimitive;
 
-        double x, y, z;
+        NewPrimitive.setType("Sphere");
+        int x, y, z;
         if (!it.lookupValue("x", x) || !it.lookupValue("y", y) ||
             !it.lookupValue("z", z))
             throw ParserError("Missing 'x', 'y' or 'z' in sphere position");
         NewPrimitive.setPosition(Vector3(x, y, z));
         const libconfig::Setting &color = it["color"];
 
-        double r, g, b;
+        int r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
             !color.lookupValue("b", b))
             throw ParserError("Missing 'r', 'g' or 'b' in sphere color");
         NewPrimitive.setColor(Vector3(r, g, b));
-        this->_Primitives.push_back(
-            std::make_unique<objects::Sphere>(NewPrimitive));
+        this->_Primitives.push_back(std::make_unique<BasicObject>(NewPrimitive));
     }
 }
 
@@ -87,14 +87,14 @@ void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
     this->_retrieveSphere(primitives);
 }
 
-raytracer::Vector3<double> raytracer::cfgParser::_retrieveCameraPosition(
+raytracer::Vector3<int> raytracer::cfgParser::_retrieveCameraPosition(
     const libconfig::Setting &camera)
 {
     if (!camera.exists("position"))
         throw ParserError("Missing 'position' in camera configuration");
     const libconfig::Setting &position = camera["position"];
 
-    double x, y, z;
+    int x, y, z;
     position.lookupValue("x", x);
     position.lookupValue("y", y);
     position.lookupValue("z", z);
@@ -135,17 +135,16 @@ void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
         throw ParserError("Missing 'camera' in root configuration");
     const libconfig::Setting &camera = root["camera"];
 
-    if (!camera.isArray() && !camera.isList())
-        throw ParserError("Camera must be an array");
-    objects::Camera NewCamera;
+    BasicObject NewCamera;
+    NewCamera.setType("Camera");
     NewCamera.setPosition(this->_retrieveCameraPosition(camera));
     NewCamera.setResolution(this->_retrieveCameraResolution(camera));
     NewCamera.setRotation(this->_retrieveCameraRotation(camera));
-    int fieldOfView = 0;
+    double fieldOfView = 0;
     if (!camera.lookupValue("fieldOfView", fieldOfView))
         throw ParserError("No field of view for camera");
     NewCamera.setFieldOfVue(fieldOfView);
-    this->_Camera = std::make_unique<objects::Camera>(NewCamera);
+    this->_Camera = std::make_unique<BasicObject>(NewCamera);
 }
 
 void raytracer::cfgParser::retrieveObjects()

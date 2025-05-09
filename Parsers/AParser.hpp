@@ -17,9 +17,19 @@ namespace raytracer {
        public:
         ~AParser() override = default;
 
-        void setFilename(const std::string &filename) override { this->_filename = filename; };
+        void setFilename(const std::string &filename) override
+        {
+            this->_filename = filename;
+        };
 
         void retrieveObjects() override = 0;
+
+        void _setAvailableObject(
+            std::vector<std::unique_ptr<objects::IObject>> availableObjects)
+            override
+        {
+            this->_availableObjects = std::move(availableObjects);
+        };
 
         std::vector<std::unique_ptr<objects::IObject>> getPrimitives() override
         {
@@ -36,6 +46,7 @@ namespace raytracer {
        protected:
         std::string _filename = "empty";
         std::vector<std::unique_ptr<objects::IObject>> _Primitives;
+        std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
         std::unique_ptr<objects::IObject> _Camera = nullptr;
     };
 }  // namespace raytracer

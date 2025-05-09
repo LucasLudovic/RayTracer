@@ -31,6 +31,9 @@ namespace raytracer {
 
         virtual void setFilename(const std::string &filename) = 0;
         virtual void retrieveObjects() = 0;
+        virtual void _setAvailableObject(
+            std::vector<std::unique_ptr<objects::IObject>>
+                availableObjects) = 0;
         virtual std::vector<std::unique_ptr<objects::IObject>>
         getPrimitives() = 0;
         virtual std::unique_ptr<objects::IObject> getCamera() = 0;

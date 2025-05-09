@@ -6,7 +6,6 @@
 //
 
 #include "cfgParser.hpp"
-#include "AParser.hpp"
 #include "Camera/src/Camera.hpp"
 #include "IParser.hpp"
 #include "Plane/src/plane.hpp"
@@ -21,9 +20,8 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
     const libconfig::Setting &plane = primitives["planes"];
 
     for (const auto &it : plane) {
-        if (!it.isArray() && !it.isList())
-            throw ParserError("Primitive must be an array");
         objects::Plane NewPrimitive;
+
         double x = 0;
         double y = 0;
         double z = 0;
@@ -60,9 +58,6 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
     const libconfig::Setting &spheres = primitives["spheres"];
 
     for (const auto &it : spheres) {
-
-        if (!it.isArray() && !it.isList())
-            throw ParserError("Primitive must be an array");
         objects::Sphere NewPrimitive;
 
         double x, y, z;
@@ -155,7 +150,11 @@ void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
 
 void raytracer::cfgParser::retrieveObjects()
 {
-    this->_cfg.readFile(this->_filename.c_str());
+    try {
+        this->_cfg.readFile(this->_filename.c_str());
+    } catch (...) {
+        throw ParserError("Failed to open filename");
+    }
     this->_Primitives.clear();
 
     const libconfig::Setting &root = this->_cfg.getRoot();

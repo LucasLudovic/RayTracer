@@ -13,19 +13,6 @@
 #include <string>
 
 namespace raytracer {
-    class ParserError : public std::exception {
-       public:
-        ParserError(const std::string &msg) : _msg(msg) {};
-
-        const char *what() const noexcept override
-        {
-            return this->_msg.c_str();
-        };
-
-       private:
-        std::string _msg;
-    };
-
     class AParser : public IParser {
        public:
         ~AParser() override = default;

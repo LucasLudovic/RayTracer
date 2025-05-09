@@ -13,7 +13,7 @@
 namespace raytracer {
     class cfgParser : public AParser {
        public:
-        cfgParser();
+        cfgParser() {};
         void retrieveObjects() override;
 
        private:

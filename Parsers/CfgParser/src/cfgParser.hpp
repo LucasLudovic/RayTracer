@@ -20,8 +20,12 @@ namespace raytracer {
         libconfig::Config _cfg;
 
         void _retrievePrimitives(const libconfig::Setting &root);
-        void _retrieveCamera(const libconfig::Setting &root);
         void _retrievePlane(const libconfig::Setting &primitives);
         void _retrieveSphere(const libconfig::Setting &primitives);
+
+        void _retrieveCamera(const libconfig::Setting &root);
+        raytracer::Vector3<double> _retrieveCameraPosition(const libconfig::Setting &camera);
+        raytracer::Vector3<int> _retrieveCameraRotation(const libconfig::Setting &camera);
+        raytracer::Vector2<int> _retrieveCameraResolution(const libconfig::Setting &camera);
     };
 }  // namespace raytracer

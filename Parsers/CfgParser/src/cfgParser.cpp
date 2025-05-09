@@ -11,7 +11,6 @@
 #include "IParser.hpp"
 #include "Plane/src/plane.hpp"
 #include "Sphere/src/Sphere.hpp"
-#include <algorithm>
 #include <libconfig.h++>
 #include <memory>
 
@@ -76,30 +75,46 @@ void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
     this->_retrieveSphere(primitives);
 }
 
+raytracer::Vector3<double> raytracer::cfgParser::_retrieveCameraPosition(const libconfig::Setting &camera)
+{
+    const libconfig::Setting &position = camera["position"];
+
+    double x, y, z;
+    position.lookupValue("x", x);
+    position.lookupValue("y", y);
+    position.lookupValue("z", z);
+    return Vector3(x, y, z);
+}
+
+raytracer::Vector3<int> raytracer::cfgParser::_retrieveCameraRotation(const libconfig::Setting &camera)
+{
+    const libconfig::Setting &rotation = camera["rotation"];
+    int x, y, z;
+    rotation.lookupValue("x", x);
+    rotation.lookupValue("y", y);
+    rotation.lookupValue("z", z);
+    return Vector3(x, y, z);
+}
+
+raytracer::Vector2<int> raytracer::cfgParser::_retrieveCameraResolution(const libconfig::Setting &camera)
+{
+    const libconfig::Setting &resolution = camera["resolution"];
+    int x, y;
+    resolution.lookupValue("width", x);
+    resolution.lookupValue("height", y);
+    return Vector2(x, y);
+}
+
 void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
 {
     const libconfig::Setting &camera = root["camera"];
 
     if (!camera.isArray() && !camera.isList())
-        throw ParserError("Array must be an array");
-    const libconfig::Setting &position = camera["position"];
+        throw ParserError("Camera must be an array");
     objects::Camera NewCamera;
-    double x, y, z;
-    position.lookupValue("x", x);
-    position.lookupValue("y", y);
-    position.lookupValue("z", z);
-    NewCamera.setPosition(Vector3(x, y, z));
-    const libconfig::Setting &resolution = camera["resolution"];
-    int a, b, c;
-    resolution.lookupValue("width", a);
-    resolution.lookupValue("height", b);
-    NewCamera.setResolution(Vector2(a, b));
-    const libconfig::Setting &rotation = camera["rotation"];
-    int d, e, f;
-    rotation.lookupValue("x", d);
-    rotation.lookupValue("y", e);
-    rotation.lookupValue("z", f);
-    NewCamera.setRotation(Vector3(d, e, f));
+    NewCamera.setPosition(this->_retrieveCameraPosition(camera));
+    NewCamera.setResolution(this->_retrieveCameraResolution(camera));
+    NewCamera.setRotation(this->_retrieveCameraRotation(camera));
     int fieldOfView = 0;
     camera.lookupValue("fieldOfView", fieldOfView);
     NewCamera.setFieldOfVue(fieldOfView);

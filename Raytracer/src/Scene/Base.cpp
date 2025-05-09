@@ -11,25 +11,35 @@
 #include "src/DlLib/DlLib.hpp"
 #include <filesystem>
 #include <iostream>
+#include <ostream>
 
 void raytracer::Scene::load(const std::string &scene)
 {
     Utils::DlLib<IParser> parserLib("lib/parsers/raytracer_cfg_parser.so");
     std::unique_ptr<IParser> parser = parserLib.loadLib("createParser");
-    
-    std::cout << "Ici" << std::endl;
-    parser->setFilename(scene);
-    std::cout << "Là" << std::endl;
 
-    // à modifier, il faut que je stock dans this->_composition quand j'aurais un copy constructeur
-    parser->retrieveObjects();
+    parser->setFilename(scene);
+
+    try {
+        parser->retrieveObjects();
+    } catch (const ParserError &e) {
+        std::cerr << e.what() << std::endl;
+        exit (-1);
+    } catch (const std::exception &e) {
+        std::cerr << "Error retrieveObjects : " << e.what()
+                  << std::endl;
+        exit(-1);
+    } catch (...) {
+        std::cerr << "Erreur inconnue lors de retrieveObjects" << std::endl;
+        exit(-1);
+    }
+
     this->_composition = parser->getPrimitives();
     std::cout << this->_composition.size() << std::endl;
     std::cout << "Yo" << std::endl;
-
     this->_camera = parser->getCamera();
     std::cout << "Bijour" << std::endl;
-    for (auto &it: this->_composition) {
+    for (auto &it : this->_composition) {
         std::cout << "Zebi" << std::endl;
         std::cout << it->getType() << std::endl;
     }
@@ -38,7 +48,8 @@ void raytracer::Scene::load(const std::string &scene)
 
 void raytracer::Scene::_getAvailableObject()
 {
-    for (const auto &elem : std::filesystem::directory_iterator("./lib/objects")) {
+    for (const auto &elem :
+        std::filesystem::directory_iterator("./lib/objects")) {
         if (elem.path().extension() != ".so")
             continue;
         try {
@@ -50,7 +61,7 @@ void raytracer::Scene::_getAvailableObject()
             continue;
         }
     }
-    
+
     if (this->_availableObjects.empty())
         throw SceneError("No object available for scene");
 }

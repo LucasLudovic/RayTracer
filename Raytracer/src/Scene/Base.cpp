@@ -132,7 +132,8 @@ void raytracer::Scene::_getAvailableObject()
         try {
             Utils::DlLib<objects::IObject> objectLib(elem.path().string());
 
-            auto object = objectLib.loadLib("createObject");
+            this->_objectsLib.push_back(objectLib);
+            auto object = objectLib.loadLib("createPrimitive");
             this->_availableObjects.push_back(std::move(object));
         } catch (const Utils::DlLibError &error) {
             continue;

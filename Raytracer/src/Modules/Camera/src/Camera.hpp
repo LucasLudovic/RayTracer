@@ -14,6 +14,9 @@ namespace objects {
        public:
         Camera();
 
+        void setPosition(raytracer::Vector3<int> pos);
+        raytracer::Vector3<int> getPosition() const;
+
         void setResolution(raytracer::Vector2<int> res);
         raytracer::Vector2<int> getResolution() const;
 
@@ -26,6 +29,7 @@ namespace objects {
        private:
         raytracer::Vector2<int> _res;
         raytracer::Vector3<int> _rotation;
+        raytracer::Vector3<int> _position;
         int _fieldOfVue = 0;
     };
 }  // namespace objects

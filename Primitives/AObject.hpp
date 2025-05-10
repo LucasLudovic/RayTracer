@@ -29,7 +29,7 @@ namespace objects {
             std::string _msg;
         };
 
-        std::string getType() const override { return this->_type; };
+        std::string getType() const override = 0;
 
         std::unique_ptr<IObject> clone() const override = 0;
 

@@ -45,9 +45,9 @@ namespace raytracer {
         std::unique_ptr<objects::Lights> _lights;
 
         void _getAvailableObject();
-        std::unique_ptr<objects::IObject> _createPlane(std::unique_ptr<BasicObject> Plane);
-        std::unique_ptr<objects::IObject> _createSphere(std::unique_ptr<BasicObject> Sphere);
-        std::unique_ptr<objects::IObject> _createCamera(std::unique_ptr<BasicObject> Camera);
+        void _createPlane(std::unique_ptr<BasicObject> Plane);
+        void _createSphere(std::unique_ptr<BasicObject> Sphere);
+        void _createCamera(std::unique_ptr<BasicObject> Camera);
         void _setObjects(std::vector<std::unique_ptr<BasicObject>> Primitives);
         Vector3<int> _computeRelativePos(const objects::IObject &object);
     };

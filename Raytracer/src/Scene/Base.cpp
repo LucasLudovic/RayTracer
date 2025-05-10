@@ -17,7 +17,6 @@
 #include <ostream>
 #include <utility>
 
-
 void raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
 {
     for (const auto &it : this->_availableObjects) {
@@ -45,7 +44,6 @@ void raytracer::Scene::_createSphere(std::unique_ptr<BasicObject> Sphere)
             this->_composition.push_back(std::move(newSphere));
         }
     }
-
 }
 
 void raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
@@ -59,7 +57,8 @@ void raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
     this->_camera = std::make_unique<objects::Camera>(newCamera);
 }
 
-void raytracer::Scene::_setObjects(std::vector<std::unique_ptr<BasicObject>> Primitives)
+void raytracer::Scene::_setObjects(
+    std::vector<std::unique_ptr<BasicObject>> Primitives)
 {
     std::cout << "Dans getPrimitive\n";
     int i = 0;
@@ -92,10 +91,9 @@ void raytracer::Scene::load(const std::string &scene)
         parser->retrieveObjects();
     } catch (const ParserError &e) {
         std::cerr << e.what() << std::endl;
-        exit (-1);
+        exit(-1);
     } catch (const std::exception &e) {
-        std::cerr << "Error retrieveObjects : " << e.what()
-                  << std::endl;
+        std::cerr << "Error retrieveObjects : " << e.what() << std::endl;
         exit(-1);
     } catch (...) {
         std::cerr << "Erreur inconnue lors de retrieveObjects" << std::endl;
@@ -114,7 +112,9 @@ void raytracer::Scene::load(const std::string &scene)
 
     auto object = this->_composition.begin();
     std::cout << "Type : " << object->get()->getType() << '\n';
-    std::cout << "Position : x = " << object->get()->getPosition().getX() << ", y = " << object->get()->getPosition().getY() << ", z = " << object->get()->getPosition().getZ() << '\n';
+    std::cout << "Position : x = " << object->get()->getPosition().getX()
+              << ", y = " << object->get()->getPosition().getY()
+              << ", z = " << object->get()->getPosition().getZ() << '\n';
     // auto camera = parser->getCamera();
     // for (auto &it : this->_composition) {
     //     std::cout << "Zebi" << std::endl;
@@ -126,7 +126,7 @@ void raytracer::Scene::load(const std::string &scene)
 void raytracer::Scene::_getAvailableObject()
 {
     for (const auto &elem :
-        std::filesystem::directory_iterator("./lib/objects")) {
+        std::filesystem::directory_iterator("./lib/primitives")) {
         if (elem.path().extension() != ".so")
             continue;
         try {
@@ -139,7 +139,6 @@ void raytracer::Scene::_getAvailableObject()
             continue;
         }
     }
-
     if (this->_availableObjects.empty())
         throw SceneError("No object available for scene");
 }

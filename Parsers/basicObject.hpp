@@ -9,12 +9,14 @@
 
 #include "../Utils/Vector.hpp"
 #include <string>
+#include <vector>
 
 namespace raytracer {
     class BasicObject {
        public:
         BasicObject() {};
         ~BasicObject() {};
+
         void setPosition(raytracer::Vector3<int> pos)
         {
             this->_position = pos;
@@ -48,6 +50,24 @@ namespace raytracer {
 
         double getFieldOfView() const { return this->_fieldOfView; }
 
+        double getAmbient() const { return this->_ambient; }
+
+        double getDiffuse() const { return this->_diffuse; }
+
+        std::vector<raytracer::Vector3<int>> getPoint() const
+        {
+            return this->_point;
+        }
+
+        void setAmbient(double ambient) { this->_ambient = ambient; }
+
+        void setDiffuse(double diffuse) { this->_diffuse = diffuse; }
+
+        void setPoint(const std::vector<raytracer::Vector3<int>> &newPoint)
+        {
+            this->_point = newPoint;
+        }
+
        private:
         std::string _type = "";
         raytracer::Vector3<int> _position = {0, 0, 0};
@@ -55,5 +75,8 @@ namespace raytracer {
         raytracer::Vector2<int> _res = {0, 0};
         raytracer::Vector3<int> _rotation = {0, 0, 0};
         double _fieldOfView = 0;
+        double _ambient = 0;
+        double _diffuse = 0;
+        std::vector<raytracer::Vector3<int>> _point;
     };
 }  // namespace raytracer

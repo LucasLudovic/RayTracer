@@ -37,6 +37,7 @@ namespace raytracer {
                 availableObjects) = 0;
         virtual std::vector<std::unique_ptr<BasicObject>> getPrimitives() = 0;
         virtual std::unique_ptr<BasicObject> getCamera() = 0;
+        virtual std::unique_ptr<BasicObject> getLights() = 0;
     };
 }  // namespace raytracer
 

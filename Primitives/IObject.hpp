@@ -9,6 +9,7 @@
 
 #include "../Utils/Vector.hpp"
 #include <exception>
+#include <memory>
 #include <string>
 
 namespace objects {
@@ -19,11 +20,13 @@ namespace objects {
 
         class IObjectError : public std::exception {};
 
-        virtual void setPosition(raytracer::Vector3<double> pos) = 0;
-        [[nodiscard]] virtual raytracer::Vector3<double> getPosition() const = 0;
+        virtual std::unique_ptr<IObject> clone() const = 0;
 
-        virtual void setColor(raytracer::Vector3<double> rgb) = 0;
-        virtual raytracer::Vector3<double> getColor() const = 0;
+        virtual void setPosition(raytracer::Vector3<int> pos) = 0;
+        [[nodiscard]] virtual raytracer::Vector3<int> getPosition() const = 0;
+
+        virtual void setColor(raytracer::Vector3<int> rgb) = 0;
+        virtual raytracer::Vector3<int> getColor() const = 0;
 
         virtual std::string getType() const = 0;
     };

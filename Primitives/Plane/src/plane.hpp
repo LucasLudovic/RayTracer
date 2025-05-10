@@ -16,6 +16,8 @@ namespace objects {
 
         class PlaneError : public AObjectError {};
 
+        std::unique_ptr<IObject> clone() const override;
+
        private:
     };
 }  // namespace objects

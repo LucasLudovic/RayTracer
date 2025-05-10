@@ -11,6 +11,8 @@
 #include "Vector.hpp"
 #include "IRenderer.hpp"
 #include "basicObject.hpp"
+#include "src/Modules/Lights/src/Lights.hpp"
+#include "src/Modules/Camera/src/Camera.hpp"
 #include <exception>
 #include <memory>
 #include <string>
@@ -39,13 +41,14 @@ namespace raytracer {
        private:
         std::vector<std::unique_ptr<objects::IObject>> _composition;
         std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
-        std::unique_ptr<objects::IObject> _camera;
+        std::unique_ptr<objects::Camera> _camera;
+        std::unique_ptr<objects::Lights> _lights;
 
         void _getAvailableObject();
         std::unique_ptr<objects::IObject> _createPlane(std::unique_ptr<BasicObject> Plane);
         std::unique_ptr<objects::IObject> _createSphere(std::unique_ptr<BasicObject> Sphere);
         std::unique_ptr<objects::IObject> _createCamera(std::unique_ptr<BasicObject> Camera);
         void _setObjects(std::vector<std::unique_ptr<BasicObject>> Primitives);
-        Vector3<double> _computeRelativePos(const objects::IObject &object);
+        Vector3<int> _computeRelativePos(const objects::IObject &object);
     };
 }  // namespace raytracer

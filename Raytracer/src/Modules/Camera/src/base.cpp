@@ -38,3 +38,13 @@ int objects::Camera::getFieldOfView() const
 {
     return this->_fieldOfVue;
 }
+
+void objects::Camera::setPosition(raytracer::Vector3<int> pos)
+{
+    this->_position = pos;
+}
+
+raytracer::Vector3<int> objects::Camera::getPosition() const
+{
+    return this->_position;
+}

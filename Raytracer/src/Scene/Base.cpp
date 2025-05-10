@@ -11,6 +11,7 @@
 #include "basicObject.hpp"
 #include "src/DlLib/DlLib.hpp"
 #include "src/Modules/Camera/src/Camera.hpp"
+#include "src/Modules/Lights/src/Lights.hpp"
 #include <filesystem>
 #include <iostream>
 #include <memory>
@@ -50,6 +51,16 @@ void raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
     newCamera.setRotation(Camera->getRotation());
     newCamera.setFieldOfView(Camera->getFieldOfView());
     this->_camera = std::make_unique<objects::Camera>(newCamera);
+}
+
+void raytracer::Scene::_createLights(std::unique_ptr<BasicObject> Lights)
+{
+    objects::Lights newLights;
+
+    newLights.setAmbient(Lights->getAmbient());
+    newLights.setDiffuse(Lights->getDiffuse());
+    newLights.setPoint(Lights->getPoint());
+    this->_lights = std::make_unique<objects::Lights>(newLights);
 }
 
 void raytracer::Scene::_setObjects(
@@ -94,15 +105,23 @@ void raytracer::Scene::load(const std::string &scene)
 
     this->_setObjects(parser->getPrimitives());
     this->_createCamera(parser->getCamera());
+    this->_createLights(parser->getLights());
 
     auto object = this->_composition.begin();
     std::cout << "Type : " << object->get()->getType() << '\n';
     std::cout << "Position : x = " << object->get()->getPosition().getX()
               << ", y = " << object->get()->getPosition().getY()
               << ", z = " << object->get()->getPosition().getZ() << '\n';
-    std::cout << "camera, Pos: x = " << this->_camera->getPosition().getX() << ", y = " << this->_camera->getPosition().getY() << ", z = " << this->_camera->getPosition().getZ() << "\n";
-    std::cout << "camera resolution = " << this->_camera->getResolution().getX() << " and " << this->_camera->getResolution().getY() << "\n";
+    std::cout << "camera, Pos: x = " << this->_camera->getPosition().getX()
+              << ", y = " << this->_camera->getPosition().getY()
+              << ", z = " << this->_camera->getPosition().getZ() << "\n";
+    std::cout << "camera resolution = " << this->_camera->getResolution().getX()
+              << " and " << this->_camera->getResolution().getY() << "\n";
     std::cout << "camera view = " << this->_camera->getFieldOfView() << '\n';
+    std::cout << "Lights point:\n";
+    for (auto &it : this->_lights->getPoint()) {
+        std::cout << "x = " << it.getX() << ", y = " << it.getY() << ", z = " << it.getZ() << "\n";
+    } 
     // auto camera = parser->getCamera();
     // for (auto &it : this->_composition) {
     //     std::cout << "Zebi" << std::endl;
@@ -118,7 +137,8 @@ void raytracer::Scene::_getAvailableObject()
         if (elem.path().extension() != ".so")
             continue;
         try {
-            auto objectLib = std::make_unique<Utils::DlLib<objects::IObject>>(elem.path().string());
+            auto objectLib = std::make_unique<Utils::DlLib<objects::IObject>>(
+                elem.path().string());
 
             std::cout << "Zebi" << std::endl;
             auto object = objectLib->loadLib("createPrimitive");

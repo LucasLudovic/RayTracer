@@ -11,6 +11,7 @@
 #include <iostream>
 #include <libconfig.h++>
 #include <memory>
+#include <vector>
 
 void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
 {
@@ -45,10 +46,12 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
         const libconfig::Setting &color = it["color"];
 
         int r, g, b;
-        if (!color.lookupValue("r", r) || !color.lookupValue("g", g) || !color.lookupValue("b", b))
+        if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
+            !color.lookupValue("b", b))
             throw ParserError("Missing 'r', 'g' or 'b' in plane color");
         NewPrimitive.setColor(Vector3(r, g, b));
-        this->_Primitives.push_back(std::make_unique<BasicObject>(NewPrimitive));
+        this->_Primitives.push_back(
+            std::make_unique<BasicObject>(NewPrimitive));
     }
 }
 
@@ -74,7 +77,8 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
             !color.lookupValue("b", b))
             throw ParserError("Missing 'r', 'g' or 'b' in sphere color");
         NewPrimitive.setColor(Vector3(r, g, b));
-        this->_Primitives.push_back(std::make_unique<BasicObject>(NewPrimitive));
+        this->_Primitives.push_back(
+            std::make_unique<BasicObject>(NewPrimitive));
     }
 }
 
@@ -148,6 +152,45 @@ void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
     this->_Camera = std::make_unique<BasicObject>(NewCamera);
 }
 
+std::vector<raytracer::Vector3<int>> raytracer::cfgParser::_retrieveLightsPoint(
+    const libconfig::Setting &lights)
+{
+    if (!lights.exists("point"))
+        throw ParserError("Missing 'rotation' in camera configuration");
+    const libconfig::Setting &point = lights["point"];
+
+    std::vector<Vector3<int>> points;
+
+    for (auto &it : point) {
+        int x, y, z;
+        if (!it.lookupValue("x", x) || !it.lookupValue("y", y) ||
+            !it.lookupValue("z", z))
+            throw ParserError("Missing 'x', 'y' or 'z' in Lights point");
+        points.push_back(Vector3(x, y, z));
+    }
+    return points;
+}
+
+void raytracer::cfgParser::_retrieveLights(const libconfig::Setting &root)
+{
+    if (!root.exists("lights"))
+        throw ParserError("Missing 'lights' in root configuration");
+    const libconfig::Setting &lights = root["lights"];
+
+    BasicObject newLights;
+    newLights.setType("Lights");
+    double diffuse = 0;
+    double ambient = 0;
+    if (!lights.lookupValue("ambient", ambient) ||
+        !lights.lookupValue("diffuse", diffuse))
+        throw ParserError(
+            "Missing 'diffuse' or 'ambient' in Lighst configuration");
+    newLights.setAmbient(ambient);
+    newLights.setDiffuse(diffuse);
+    newLights.setPoint(this->_retrieveLightsPoint(lights));
+    this->_Lights = std::make_unique<BasicObject>(newLights);
+}
+
 void raytracer::cfgParser::retrieveObjects()
 {
     try {
@@ -160,6 +203,7 @@ void raytracer::cfgParser::retrieveObjects()
     const libconfig::Setting &root = this->_cfg.getRoot();
     this->_retrievePrimitives(root);
     this->_retrieveCamera(root);
+    this->_retrieveLights(root);
 }
 
 extern "C" {

@@ -9,6 +9,7 @@
 
 #include "AParser.hpp"
 #include <libconfig.h++>
+#include <vector>
 
 namespace raytracer {
     class cfgParser : public AParser {
@@ -27,5 +28,8 @@ namespace raytracer {
         raytracer::Vector3<int> _retrieveCameraPosition(const libconfig::Setting &camera);
         raytracer::Vector3<int> _retrieveCameraRotation(const libconfig::Setting &camera);
         raytracer::Vector2<int> _retrieveCameraResolution(const libconfig::Setting &camera);
+
+        void _retrieveLights(const libconfig::Setting &root);
+        std::vector<raytracer::Vector3<int>> _retrieveLightsPoint(const libconfig::Setting &lights);
     };
 }  // namespace raytracer

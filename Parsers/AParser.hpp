@@ -44,10 +44,18 @@ namespace raytracer {
             return NewCam;
         };
 
+        std::unique_ptr<BasicObject> getLights() override
+        {
+            std::unique_ptr newLights = std::move(this->_Lights);
+            this->_Lights = nullptr;
+            return newLights;
+        }
+
        protected:
         std::string _filename = "empty";
         std::vector<std::unique_ptr<raytracer::BasicObject>> _Primitives;
         std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
         std::unique_ptr<BasicObject> _Camera;
+        std::unique_ptr<BasicObject> _Lights;
     };
 }  // namespace raytracer

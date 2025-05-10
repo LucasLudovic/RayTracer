@@ -23,3 +23,10 @@ namespace objects {
        private:
     };
 }  // namespace objects
+
+extern "C" {
+std::unique_ptr<objects::IObject> objects::createPrimitive(void)
+{
+    return std::make_unique<objects::Plane>();
+}
+}

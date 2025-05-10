@@ -23,13 +23,13 @@ namespace objects {
         void setRotation(raytracer::Vector3<int> rotation);
         raytracer::Vector3<int> getRotation() const;
 
-        void setFieldOfVue(int value);
+        void setFieldOfView(int value);
         int getFieldOfView() const;
 
        private:
         raytracer::Vector2<int> _res;
         raytracer::Vector3<int> _rotation;
         raytracer::Vector3<int> _position;
-        int _fieldOfVue = 0;
+        int _fieldOfView = 0;
     };
 }  // namespace objects

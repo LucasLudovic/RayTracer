@@ -15,3 +15,10 @@ objects::Sphere::Sphere(): AObject()
 std::unique_ptr<objects::IObject> objects::Sphere::clone() const {
     return std::make_unique<objects::Sphere>(*this);
 }
+
+extern "C" {
+std::unique_ptr<objects::IObject> objects::createPrimitive(void)
+{
+    return std::make_unique<objects::Sphere>();
+}
+}

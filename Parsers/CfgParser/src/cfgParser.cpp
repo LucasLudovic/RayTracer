@@ -8,6 +8,7 @@
 #include "cfgParser.hpp"
 #include "IParser.hpp"
 #include "basicObject.hpp"
+#include <iostream>
 #include <libconfig.h++>
 #include <memory>
 

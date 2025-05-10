@@ -10,29 +10,74 @@
 #include "Scene.hpp"
 #include "basicObject.hpp"
 #include "src/DlLib/DlLib.hpp"
+#include "src/Modules/Camera/src/Camera.hpp"
 #include <filesystem>
 #include <iostream>
+#include <memory>
 #include <ostream>
+#include <utility>
 
 
-std::unique_ptr<objects::IObject> raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
+void raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
 {
-    
+    for (const auto &it : this->_availableObjects) {
+        std::cout << "-------\n";
+        std::cout << "Type Plane";
+        std::cout << "-------\n";
+        if (it->getType() == "Plane") {
+            std::cout << "Plane Available\n";
+            auto newPlane = it->clone();
+            newPlane->setPosition(Plane->getPosition());
+            newPlane->setColor(Plane->getColor());
+            this->_composition.push_back(std::move(newPlane));
+        }
+    }
 }
 
-std::unique_ptr<objects::IObject> raytracer::Scene::_createSphere(std::unique_ptr<BasicObject> Sphere)
+void raytracer::Scene::_createSphere(std::unique_ptr<BasicObject> Sphere)
 {
+    for (const auto &it : this->_availableObjects) {
+        if (it->getType() == "Sphere") {
+            std::cout << "Sphere Available\n";
+            auto newSphere = it->clone();
+            newSphere->setPosition(Sphere->getPosition());
+            newSphere->setColor(Sphere->getColor());
+            this->_composition.push_back(std::move(newSphere));
+        }
+    }
 
 }
 
-std::unique_ptr<objects::IObject> raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
+void raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
 {
+    objects::Camera newCamera;
 
+    newCamera.setResolution(Camera->getResolution());
+    newCamera.setPosition(Camera->getPosition());
+    newCamera.setRotation(Camera->getRotation());
+    newCamera.setFieldOfVue(Camera->getFieldOfView());
+    this->_camera = std::make_unique<objects::Camera>(newCamera);
 }
 
 void raytracer::Scene::_setObjects(std::vector<std::unique_ptr<BasicObject>> Primitives)
 {
-    for (const auto &it : Primitives) {
+    std::cout << "Dans getPrimitive\n";
+    int i = 0;
+    for (auto &it : Primitives) {
+        std::cout << "PRIMITIVE number " << i << "\n";
+        i += 1;
+        if (it->getType() == "Plane") {
+            std::cout << "Je vais dans le plane\n";
+            this->_createPlane(std::move(it));
+            std::cout << "Apres Plane\n";
+            continue;
+        }
+        if (it->getType() == "Sphere") {
+            std::cout << "Je vais dans la sphere\n";
+            this->_createPlane(std::move(it));
+            std::cout << "Apres sphere\n";
+            continue;
+        }
     }
 }
 
@@ -57,8 +102,19 @@ void raytracer::Scene::load(const std::string &scene)
         exit(-1);
     }
 
-    std::vector<std::unique_ptr<BasicObject>> Primitives = parser->getPrimitives();
-    std::cout << "Type : " << Primitives.begin()->get()->getColor().getX() << std::endl;
+    std::cout << "pas de seg ici\n";
+    this->_getAvailableObject();
+    std::cout << "pas de seg ici2\n";
+
+    std::cout << "Avant getPrimitive\n";
+    this->_setObjects(parser->getPrimitives());
+    std::cout << "Apres getPrimitive\n";
+    this->_createCamera(parser->getCamera());
+    std::cout << "Apres getCamera\n";
+
+    auto object = this->_composition.begin();
+    std::cout << "Type : " << object->get()->getType() << '\n';
+    std::cout << "Position : x = " << object->get()->getPosition().getX() << ", y = " << object->get()->getPosition().getY() << ", z = " << object->get()->getPosition().getZ() << '\n';
     // auto camera = parser->getCamera();
     // for (auto &it : this->_composition) {
     //     std::cout << "Zebi" << std::endl;

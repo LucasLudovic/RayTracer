@@ -7,7 +7,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(GLOB SOURCES src/*.cpp)
 
 add_library(raytracer_plane SHARED ${SOURCES})
-set_target_properties(raytracer_plane PROPERTIES PREFIX "")
+set_target_properties(raytracer_plane PROPERTIES
+    PREFIX ""
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/lib/primitives"
+)
 
 target_include_directories(raytracer_plane PRIVATE
     ../

@@ -44,7 +44,7 @@ namespace raytracer {
         std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
         std::unique_ptr<objects::Camera> _camera;
         std::unique_ptr<objects::Lights> _lights;
-        std::vector<Utils::DlLib<objects::IObject>> _objectsLib;
+        std::vector<std::unique_ptr<Utils::DlLib<objects::IObject>>> _objectsLib;
 
         void _getAvailableObject();
         void _createPlane(std::unique_ptr<BasicObject> Plane);

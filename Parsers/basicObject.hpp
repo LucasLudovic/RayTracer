@@ -44,9 +44,9 @@ namespace raytracer {
 
         raytracer::Vector3<int> getRotation() const { return this->_rotation; }
 
-        void setFieldOfVue(double value) { this->_fieldOfVue = value; }
+        void setFieldOfView(double value) { this->_fieldOfView = value; }
 
-        double getFieldOfView() const { return this->_fieldOfVue; }
+        double getFieldOfView() const { return this->_fieldOfView; }
 
        private:
         std::string _type = "";
@@ -54,6 +54,6 @@ namespace raytracer {
         raytracer::Vector3<int> _color = {0, 0, 0};
         raytracer::Vector2<int> _res = {0, 0};
         raytracer::Vector3<int> _rotation = {0, 0, 0};
-        double _fieldOfVue = 0;
+        double _fieldOfView = 0;
     };
 }  // namespace raytracer

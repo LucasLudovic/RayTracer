@@ -144,7 +144,7 @@ void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
     double fieldOfView = 0;
     if (!camera.lookupValue("fieldOfView", fieldOfView))
         throw ParserError("No field of view for camera");
-    NewCamera.setFieldOfVue(fieldOfView);
+    NewCamera.setFieldOfView(fieldOfView);
     this->_Camera = std::make_unique<BasicObject>(NewCamera);
 }
 

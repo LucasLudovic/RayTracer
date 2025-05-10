@@ -29,14 +29,14 @@ raytracer::Vector3<int> objects::Camera::getRotation() const
     return this->_rotation;
 }
 
-void objects::Camera::setFieldOfVue(int value)
+void objects::Camera::setFieldOfView(int value)
 {
-    this->_fieldOfVue = value;
+    this->_fieldOfView = value;
 }
 
 int objects::Camera::getFieldOfView() const
 {
-    return this->_fieldOfVue;
+    return this->_fieldOfView;
 }
 
 void objects::Camera::setPosition(raytracer::Vector3<int> pos)

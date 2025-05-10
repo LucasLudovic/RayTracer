@@ -30,4 +30,6 @@ namespace objects {
 
         virtual std::string getType() const = 0;
     };
+
+    extern "C" std::unique_ptr<objects::IObject> createPrimitive(void);
 }  // namespace objects

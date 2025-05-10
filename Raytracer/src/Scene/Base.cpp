@@ -20,11 +20,7 @@
 void raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
 {
     for (const auto &it : this->_availableObjects) {
-        std::cout << "-------\n";
-        std::cout << "Type Plane";
-        std::cout << "-------\n";
         if (it->getType() == "Plane") {
-            std::cout << "Plane Available\n";
             auto newPlane = it->clone();
             newPlane->setPosition(Plane->getPosition());
             newPlane->setColor(Plane->getColor());
@@ -37,7 +33,6 @@ void raytracer::Scene::_createSphere(std::unique_ptr<BasicObject> Sphere)
 {
     for (const auto &it : this->_availableObjects) {
         if (it->getType() == "Sphere") {
-            std::cout << "Sphere Available\n";
             auto newSphere = it->clone();
             newSphere->setPosition(Sphere->getPosition());
             newSphere->setColor(Sphere->getColor());
@@ -53,28 +48,23 @@ void raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
     newCamera.setResolution(Camera->getResolution());
     newCamera.setPosition(Camera->getPosition());
     newCamera.setRotation(Camera->getRotation());
-    newCamera.setFieldOfVue(Camera->getFieldOfView());
+    newCamera.setFieldOfView(Camera->getFieldOfView());
     this->_camera = std::make_unique<objects::Camera>(newCamera);
 }
 
 void raytracer::Scene::_setObjects(
     std::vector<std::unique_ptr<BasicObject>> Primitives)
 {
-    std::cout << "Dans getPrimitive\n";
     int i = 0;
+
     for (auto &it : Primitives) {
-        std::cout << "PRIMITIVE number " << i << "\n";
         i += 1;
         if (it->getType() == "Plane") {
-            std::cout << "Je vais dans le plane\n";
             this->_createPlane(std::move(it));
-            std::cout << "Apres Plane\n";
             continue;
         }
         if (it->getType() == "Sphere") {
-            std::cout << "Je vais dans la sphere\n";
             this->_createPlane(std::move(it));
-            std::cout << "Apres sphere\n";
             continue;
         }
     }
@@ -100,21 +90,19 @@ void raytracer::Scene::load(const std::string &scene)
         exit(-1);
     }
 
-    std::cout << "pas de seg ici\n";
     this->_getAvailableObject();
-    std::cout << "pas de seg ici2\n";
 
-    std::cout << "Avant getPrimitive\n";
     this->_setObjects(parser->getPrimitives());
-    std::cout << "Apres getPrimitive\n";
     this->_createCamera(parser->getCamera());
-    std::cout << "Apres getCamera\n";
 
     auto object = this->_composition.begin();
     std::cout << "Type : " << object->get()->getType() << '\n';
     std::cout << "Position : x = " << object->get()->getPosition().getX()
               << ", y = " << object->get()->getPosition().getY()
               << ", z = " << object->get()->getPosition().getZ() << '\n';
+    std::cout << "camera, Pos: x = " << this->_camera->getPosition().getX() << ", y = " << this->_camera->getPosition().getY() << ", z = " << this->_camera->getPosition().getZ() << "\n";
+    std::cout << "camera resolution = " << this->_camera->getResolution().getX() << " and " << this->_camera->getResolution().getY() << "\n";
+    std::cout << "camera view = " << this->_camera->getFieldOfView() << '\n';
     // auto camera = parser->getCamera();
     // for (auto &it : this->_composition) {
     //     std::cout << "Zebi" << std::endl;

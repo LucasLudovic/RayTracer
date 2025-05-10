@@ -130,15 +130,19 @@ void raytracer::Scene::_getAvailableObject()
         if (elem.path().extension() != ".so")
             continue;
         try {
-            Utils::DlLib<objects::IObject> objectLib(elem.path().string());
+            auto objectLib = std::make_unique<Utils::DlLib<objects::IObject>>(elem.path().string());
 
-            this->_objectsLib.push_back(objectLib);
-            auto object = objectLib.loadLib("createPrimitive");
+            std::cout << "Zebi" << std::endl;
+            auto object = objectLib->loadLib("createPrimitive");
             this->_availableObjects.push_back(std::move(object));
+            this->_objectsLib.push_back(std::move(objectLib));
         } catch (const Utils::DlLibError &error) {
             continue;
         }
     }
-    if (this->_availableObjects.empty())
+    if (this->_availableObjects.empty()) {
+        std::cout << "Throwing" << std::endl;
         throw SceneError("No object available for scene");
+    }
+    std::cout << "Je suis là" << std::endl;
 }

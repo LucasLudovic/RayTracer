@@ -14,6 +14,28 @@
 #include <iostream>
 #include <ostream>
 
+
+std::unique_ptr<objects::IObject> raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
+{
+    
+}
+
+std::unique_ptr<objects::IObject> raytracer::Scene::_createSphere(std::unique_ptr<BasicObject> Sphere)
+{
+
+}
+
+std::unique_ptr<objects::IObject> raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
+{
+
+}
+
+void raytracer::Scene::_setObjects(std::vector<std::unique_ptr<BasicObject>> Primitives)
+{
+    for (const auto &it : Primitives) {
+    }
+}
+
 void raytracer::Scene::load(const std::string &scene)
 {
     Utils::DlLib<IParser> parserLib("lib/parsers/raytracer_cfg_parser.so");
@@ -36,7 +58,7 @@ void raytracer::Scene::load(const std::string &scene)
     }
 
     std::vector<std::unique_ptr<BasicObject>> Primitives = parser->getPrimitives();
-    std::cout << "Type : " << Primitives.begin()->get()->getType() << std::endl;
+    std::cout << "Type : " << Primitives.begin()->get()->getColor().getX() << std::endl;
     // auto camera = parser->getCamera();
     // for (auto &it : this->_composition) {
     //     std::cout << "Zebi" << std::endl;

@@ -31,29 +31,31 @@ namespace objects {
 
         std::string getType() const override { return this->_type; };
 
-        void setPosition(raytracer::Vector3<double> pos) override
+        std::unique_ptr<IObject> clone() const override = 0;
+
+        void setPosition(raytracer::Vector3<int> pos) override
         {
             this->_position = pos;
         }
 
-        raytracer::Vector3<double> getPosition() const override
+        raytracer::Vector3<int> getPosition() const override
         {
             return this->_position;
         }
 
-        void setColor(raytracer::Vector3<double> rgb) override
+        void setColor(raytracer::Vector3<int> rgb) override
         {
             this->_color = rgb;
         }
 
-        raytracer::Vector3<double> getColor() const override
+        raytracer::Vector3<int> getColor() const override
         {
             return this->_color;
         }
 
        protected:
         std::string _type;
-        raytracer::Vector3<double> _position;
-        raytracer::Vector3<double> _color;
+        raytracer::Vector3<int> _position;
+        raytracer::Vector3<int> _color;
     };
 }  // namespace objects

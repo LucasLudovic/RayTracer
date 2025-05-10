@@ -27,10 +27,10 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
     renderer.render();
 }
 
-raytracer::Vector3<double> raytracer::Scene::_computeRelativePos(const objects::IObject &object)
+raytracer::Vector3<int> raytracer::Scene::_computeRelativePos(const objects::IObject &object)
 {
-    Vector3<double> cameraPos = this->_camera->getPosition();
-    Vector3<double> objectPos = object.getPosition();
+    Vector3<int> cameraPos = this->_camera->getPosition();
+    Vector3<int> objectPos = object.getPosition();
 
     return objectPos - cameraPos;
 }

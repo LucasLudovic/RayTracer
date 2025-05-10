@@ -9,6 +9,8 @@ set(SOURCE_FILES
     src/Scene/Render.cpp
     src/DlLib/DlLib.cpp
     src/Raytracer/Base.cpp
+    src/Modules/Camera/src/base.cpp
+    src/Modules/Lights/src/base.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

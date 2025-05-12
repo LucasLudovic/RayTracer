@@ -68,6 +68,10 @@ namespace raytracer {
             this->_point = newPoint;
         }
 
+        void setRadius(int radius) { this->_radius = radius; }
+
+        int getRadius() { return this->_radius; };
+
        private:
         std::string _type = "";
         raytracer::Vector3<int> _position = {0, 0, 0};
@@ -78,5 +82,6 @@ namespace raytracer {
         double _ambient = 0;
         double _diffuse = 0;
         std::vector<raytracer::Vector3<int>> _point;
+        int _radius = 0;
     };
 }  // namespace raytracer

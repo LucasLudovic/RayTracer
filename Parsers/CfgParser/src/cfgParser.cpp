@@ -65,11 +65,12 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
         BasicObject NewPrimitive;
 
         NewPrimitive.setType("Sphere");
-        int x, y, z;
+        int x, y, z, radius;
         if (!it.lookupValue("x", x) || !it.lookupValue("y", y) ||
-            !it.lookupValue("z", z))
+            !it.lookupValue("z", z) || !it.lookupValue("r", radius))
             throw ParserError("Missing 'x', 'y' or 'z' in sphere position");
         NewPrimitive.setPosition(Vector3(x, y, z));
+        NewPrimitive.setRadius(radius);
         const libconfig::Setting &color = it["color"];
 
         int r, g, b;

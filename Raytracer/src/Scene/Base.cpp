@@ -37,6 +37,7 @@ void raytracer::Scene::_createSphere(std::unique_ptr<BasicObject> Sphere)
             auto newSphere = it->clone();
             newSphere->setPosition(Sphere->getPosition());
             newSphere->setColor(Sphere->getColor());
+            newSphere->getMetaData().radius = Sphere->getRadius();
             this->_composition.push_back(std::move(newSphere));
         }
     }

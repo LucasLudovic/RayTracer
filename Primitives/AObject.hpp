@@ -53,9 +53,14 @@ namespace objects {
             return this->_color;
         }
 
+        void setRadius(int radius) override { this->_radius = radius; }
+
+        int getRadius() override { return this->_radius; };
+
        protected:
         std::string _type;
         raytracer::Vector3<int> _position;
         raytracer::Vector3<int> _color;
+        int _radius;
     };
 }  // namespace objects

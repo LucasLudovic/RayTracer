@@ -28,6 +28,9 @@ namespace objects {
         virtual void setColor(raytracer::Vector3<int> rgb) = 0;
         virtual raytracer::Vector3<int> getColor() const = 0;
 
+        virtual void setRadius(int radius) = 0;
+        virtual int getRadius() = 0;
+
         virtual std::string getType() const = 0;
     };
 

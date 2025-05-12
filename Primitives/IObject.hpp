@@ -10,6 +10,7 @@
 #include "../Utils/Vector.hpp"
 #include <exception>
 #include <memory>
+#include <optional>
 #include <string>
 
 namespace raytracer {
@@ -17,6 +18,10 @@ namespace raytracer {
 }
 
 namespace objects {
+
+    typedef struct metaData {
+        std::optional<int> radius;
+    } metaData_t;
 
     class IObject {
        public:
@@ -32,12 +37,11 @@ namespace objects {
         virtual void setColor(raytracer::Vector3<int> rgb) = 0;
         virtual raytracer::Vector3<int> getColor() const = 0;
 
-        virtual void setRadius(int radius) = 0;
-        virtual int getRadius() = 0;
-
         virtual std::string getType() const = 0;
 
         virtual bool hit(const raytracer::Raycast &ray) const = 0;
+
+        virtual metaData_t &getMetaData() = 0;
     };
 
     extern "C" std::unique_ptr<objects::IObject> createPrimitive(void);

@@ -12,6 +12,10 @@
 #include <memory>
 #include <string>
 
+namespace raytracer {
+    class Raycast;
+}
+
 namespace objects {
 
     class IObject {
@@ -32,6 +36,8 @@ namespace objects {
         virtual int getRadius() = 0;
 
         virtual std::string getType() const = 0;
+
+        virtual bool hit(const raytracer::Raycast &ray) const = 0;
     };
 
     extern "C" std::unique_ptr<objects::IObject> createPrimitive(void);

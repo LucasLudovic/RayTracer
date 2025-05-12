@@ -7,8 +7,11 @@
 
 #include "plane.hpp"
 
-objects::Plane::Plane(): AObject() {}
+objects::Plane::Plane() : AObject() {}
 
-std::unique_ptr<objects::IObject> objects::Plane::clone() const {
+std::unique_ptr<objects::IObject> objects::Plane::clone() const
+{
     return std::make_unique<objects::Plane>(*this);
 }
+
+bool objects::Plane::hit(const raytracer::Raycast &ray) const {}

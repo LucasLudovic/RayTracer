@@ -66,7 +66,7 @@ namespace raytracer {
             return *this;
         }
 
-        Vector3<T> operator-(const Vector3<T> &other)
+        Vector3<T> operator-(const Vector3<T> &other) const
         {
             Vector3<T> newVector;
             newVector._x = this->_x - other._x;
@@ -74,6 +74,25 @@ namespace raytracer {
             newVector._z = this->_z - other._z;
             return newVector;
         }
+
+        Vector3<T> operator+(const Vector3<T> &other) const
+        {
+            Vector3<T> newVector;
+            newVector._x = this->_x + other._x;
+            newVector._y = this->_y + other._y;
+            newVector._z = this->_z + other._z;
+            return newVector;
+        }
+
+        Vector3<T> operator*(const T &t) const
+        {
+            Vector3<T> newVector;
+            newVector._x = this->_x * t;
+            newVector._y = this->_y * t;
+            newVector._z = this->_z * t;
+            return newVector;
+        }
+
        private:
         T _x;
         T _y;

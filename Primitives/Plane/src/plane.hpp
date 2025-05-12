@@ -19,6 +19,7 @@ namespace objects {
         std::unique_ptr<IObject> clone() const override;
 
         std::string getType() const override { return "Plane"; };
+        bool hit(const raytracer::Raycast &ray) const override;
 
        private:
     };

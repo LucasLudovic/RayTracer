@@ -16,6 +16,7 @@ target_include_directories(raytracer_sphere PRIVATE
     ../
     ../../Primitives/
     ../../Utils/
+    ../../Raytracer/
     ${LIBCONFIG_INCLUDE_DIRS}
 )
 

@@ -17,7 +17,6 @@
 #include <memory>
 #include <ostream>
 #include <utility>
-#include "src/Modules/Ray/Ray.hpp"
 
 void raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
 {

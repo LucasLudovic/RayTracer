@@ -42,7 +42,6 @@ class IObject
 {
    public:
     virtual ~IObject() = default;
-
     class IObjectError : public std::exception
     {};
 

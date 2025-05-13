@@ -12,6 +12,7 @@
 
 #include "../Primitives/Material.hpp"
 #include "../Utils/Vector.hpp"
+#include "Material.hpp"
 
 namespace raytracer {
 class BasicObject
@@ -64,7 +65,6 @@ class BasicObject
     {
         return this->_material.get_reflection();
     }
-
     std::string getType() const
     {
         return this->_type;

@@ -45,5 +45,6 @@ bool objects::Sphere::hit(const raytracer::Raycast &ray, objects::hitResult_t &r
     double length = std::sqrt(normal.dot(normal));
     result.normal = normal * (1.0 / length);
 
+    result.material.set_color(this->getColor());
     return true;
 }

@@ -60,7 +60,7 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
                     this->_computeLighting(closestHit);
 
                 // std::cout << "Original: " <<  litColor << std::endl;
-                raytracer::Vector3<int> finalColor(
+                raytracer::Vector3<double> finalColor(
                     static_cast<int>(litColor.getX()),
                     static_cast<int>(litColor.getY()),
                     static_cast<int>(litColor.getZ()));
@@ -68,7 +68,7 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
 
                 renderer.drawPixel({x, y}, finalColor);
             } else {
-                renderer.drawPixel({x, y}, Vector3<int>(0, 0, 0));
+                renderer.drawPixel({x, y}, Vector3<double>(0, 0, 0));
             }
         }
     }

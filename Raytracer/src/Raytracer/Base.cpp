@@ -30,6 +30,9 @@ void raytracer::Raytracer::run()
     Utils::DlLib<renderer::IRenderer> renderer("lib/renderers/raytracer_sfml.so");
     this->renderer = renderer.loadLib("createRenderer");
 
+    if (this->renderer == nullptr) {
+        throw RaytracerError("Unable to load renderer");
+    }
     while (this->_isRunning) {
         auto frameStart = std::chrono::steady_clock::now();
 
@@ -41,5 +44,6 @@ void raytracer::Raytracer::run()
             std::this_thread::sleep_for(targetFrameDuration - frameDuration);
         }
         this->_scene.renderScene(*this->renderer);
+        std::cout << "enfin fini" << std::endl;
     }
 }

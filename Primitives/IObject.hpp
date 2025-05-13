@@ -7,12 +7,15 @@
 
 #pragma once
 
+#include <cstdint>
 #include <exception>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <string>
 
 #include "../Utils/Vector.hpp"
+#include "Material.hpp"
 
 namespace raytracer {
 class Raycast;
@@ -20,10 +23,19 @@ class Raycast;
 
 namespace objects {
 
-typedef struct metaData
+typedef struct metaData_s
 {
     std::optional<int> radius;
 } metaData_t;
+
+typedef struct hitResult_s
+{
+    bool hit = false;
+    double t = std::numeric_limits<double>::max();
+    raytracer::Vector3<double> position;
+    raytracer::Vector3<double> normal;
+    objects::Material material;
+} hitResult_t;
 
 class IObject
 {
@@ -48,7 +60,8 @@ class IObject
 
     virtual std::string getType() const = 0;
 
-    virtual bool hit(const raytracer::Raycast &ray) const = 0;
+    virtual bool hit(
+        const raytracer::Raycast &ray, hitResult_t &result) const = 0;
 
     virtual metaData_t &getMetaData() = 0;
 };

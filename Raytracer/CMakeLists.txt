@@ -7,6 +7,7 @@ set(SOURCE_FILES
     src/app.cpp
     src/Scene/Base.cpp
     src/Scene/Render.cpp
+    src/Scene/Compute.cpp
     src/DlLib/DlLib.cpp
     src/Raytracer/Base.cpp
     src/Raycast/Base.cpp

@@ -20,8 +20,9 @@ namespace objects {
 
         std::string getType() const override { return "Sphere"; };
 
-        bool hit(const raytracer::Raycast &ray) const override;
+        bool hit(const raytracer::Raycast &ray, objects::hitResult_t &result) const override;
 
        private:
+        double _radius;
     };
 }  // namespace objects

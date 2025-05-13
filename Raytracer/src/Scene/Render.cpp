@@ -72,7 +72,6 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
             }
         }
     }
-
     renderer.render();
     std::cout << "enfin fini" << std::endl;
 }

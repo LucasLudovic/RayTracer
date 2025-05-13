@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include "../Utils/Vector.hpp"
 #include <cstdint>
 #include <exception>
 #include <limits>
@@ -16,6 +15,7 @@
 #include <string>
 
 #include "../Utils/Vector.hpp"
+#include "Material.hpp"
 
 namespace raytracer {
 class Raycast;
@@ -58,8 +58,8 @@ namespace objects {
 
     virtual std::string getType() const = 0;
 
-        virtual bool hit(const raytracer::Raycast &ray,
-            hitResult_t &result) const = 0;
+    virtual bool hit(
+        const raytracer::Raycast &ray, hitResult_t &result) const = 0;
 
         virtual void setMetadata(const metaData_t &metadata) = 0;
         virtual metaData_t &getMetaData() = 0;

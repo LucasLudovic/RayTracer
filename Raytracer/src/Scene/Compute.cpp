@@ -24,6 +24,8 @@ raytracer::Vector3<double> raytracer::Scene::_computeLighting(
         this->_camera->getPosition().getY(),
         this->_camera->getPosition().getZ());
 
+    raytracer::Vector3<double> cameraVector = cameraPos - hit.position;
+
     for (const auto &lightPosInt : this->_lights->getPoint()) {
         raytracer::Vector3<double> lightPos(
             lightPosInt.getX(), lightPosInt.getY(), lightPosInt.getZ());
@@ -56,6 +58,6 @@ raytracer::Vector3<double> raytracer::Scene::_computeLighting(
 
     intensity = std::min(intensity, 1.0);
 
-    return raytracer::Vector3<double>(hit.color.getX() * intensity,
-        hit.color.getY() * intensity, hit.color.getZ() * intensity);
+    return raytracer::Vector3<double>(hit.material.get_color().getX() * intensity,
+        hit.material.get_color().getY() * intensity, hit.material.get_color().getZ() * intensity);
 }

@@ -46,6 +46,7 @@ namespace raytracer {
         std::unique_ptr<objects::Lights> _lights;
         std::vector<std::unique_ptr<Utils::DlLib<objects::IObject>>> _objectsLib;
 
+        Vector3<double> _computeLighting(const objects::hitResult_t &hit);
         void _getAvailableObject();
         void _createPlane(std::unique_ptr<BasicObject> Plane);
         void _createSphere(std::unique_ptr<BasicObject> Sphere);

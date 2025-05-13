@@ -35,6 +35,9 @@ namespace renderer {
             const unsigned size) = 0;
         virtual void drawObject(const objects::IObject &object,
             const raytracer::Vector3<int> &color) = 0;
+        virtual void drawPixel(const raytracer::Vector2<int> &position,
+            const raytracer::Vector3<int> &color) = 0;
+
         virtual void render() = 0;
         virtual void clear() = 0;
 

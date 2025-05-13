@@ -9,7 +9,9 @@
 
 #include "IRenderer.hpp"
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <memory>
 
 namespace renderer {
@@ -23,6 +25,8 @@ namespace renderer {
             const unsigned size) override;
         void drawObject(const objects::IObject &object,
             const raytracer::Vector3<int> &color) override;
+        void drawPixel(const raytracer::Vector2<int> &position,
+            const raytracer::Vector3<int> &color) override;
         void render() override;
         void clear() override;
 
@@ -31,5 +35,8 @@ namespace renderer {
         const unsigned int _windowY = 900;
         std::unique_ptr<sf::RenderWindow> _window = nullptr;
         std::unique_ptr<sf::Font> _font = nullptr;
+        sf::Image _pixel;
+        sf::Texture _texture;
+        std::unique_ptr<sf::Sprite> _sprite = nullptr;
     };
 }  // namespace renderer

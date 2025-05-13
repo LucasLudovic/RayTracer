@@ -8,7 +8,9 @@
 #pragma once
 
 #include "../Utils/Vector.hpp"
+#include <cstdint>
 #include <exception>
+#include <limits>
 #include <memory>
 #include <optional>
 #include <string>
@@ -19,9 +21,17 @@ namespace raytracer {
 
 namespace objects {
 
-    typedef struct metaData {
+    typedef struct metaData_s {
         std::optional<int> radius;
     } metaData_t;
+
+    typedef struct hitResult_s {
+        bool hit = false;
+        double t = std::numeric_limits<double>::max();
+        raytracer::Vector3<double> position;
+        raytracer::Vector3<double> normal;
+        raytracer::Vector3<int> color;
+    } hitResult_t;
 
     class IObject {
        public:
@@ -39,7 +49,8 @@ namespace objects {
 
         virtual std::string getType() const = 0;
 
-        virtual bool hit(const raytracer::Raycast &ray) const = 0;
+        virtual bool hit(const raytracer::Raycast &ray,
+            hitResult_t &result) const = 0;
 
         virtual metaData_t &getMetaData() = 0;
     };

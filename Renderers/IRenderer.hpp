@@ -33,7 +33,8 @@ namespace renderer {
         virtual void drawText(const std::string &text,
             const raytracer::Vector2<float> &position,
             const unsigned size) = 0;
-        virtual void drawObject(const objects::IObject &object) = 0;
+        virtual void drawObject(const objects::IObject &object,
+            const raytracer::Vector3<int> &color) = 0;
         virtual void render() = 0;
         virtual void clear() = 0;
 

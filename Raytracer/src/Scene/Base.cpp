@@ -141,7 +141,6 @@ void raytracer::Scene::_getAvailableObject()
             auto objectLib = std::make_unique<Utils::DlLib<objects::IObject>>(
                 elem.path().string());
 
-            std::cout << "Zebi" << std::endl;
             auto object = objectLib->loadLib("createPrimitive");
             this->_availableObjects.push_back(std::move(object));
             this->_objectsLib.push_back(std::move(objectLib));

@@ -40,6 +40,7 @@ namespace renderer {
 
         virtual void render() = 0;
         virtual void clear() = 0;
+        virtual void resize(raytracer::Vector2<unsigned> size) = 0;
 
        private:
     };

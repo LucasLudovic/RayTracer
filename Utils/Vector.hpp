@@ -131,3 +131,10 @@ std::ostream &operator<<(std::ostream &out, const raytracer::Vector3<T> &vector)
     out << "Vector3: " << vector.getX() << " " << vector.getY() << " " << vector.getZ() << std::endl; 
     return out;
 }
+
+template<typename T>
+std::ostream &operator<<(std::ostream &out, const raytracer::Vector2<T> &vector)
+{
+    out << "Vector3: " << vector.getX() << " " << vector.getY()  << std::endl; 
+    return out;
+}

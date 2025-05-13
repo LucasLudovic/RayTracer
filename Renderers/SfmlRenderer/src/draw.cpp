@@ -27,6 +27,6 @@ void renderer::SFMLRenderer::drawText(const std::string &textStr,
     this->_window->draw(text);
 }
 
-void renderer::SFMLRenderer::drawObject(const objects::IObject &object)
+void renderer::SFMLRenderer::drawObject(const objects::IObject &object, const raytracer::Vector3<int> &color)
 {
 }

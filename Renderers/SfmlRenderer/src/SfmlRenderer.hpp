@@ -21,7 +21,8 @@ namespace renderer {
         void drawText(const std::string &text,
             const raytracer::Vector2<float> &position,
             const unsigned size) override;
-        void drawObject(const objects::IObject &object) override;
+        void drawObject(const objects::IObject &object,
+            const raytracer::Vector3<int> &color) override;
         void render() override;
         void clear() override;
 

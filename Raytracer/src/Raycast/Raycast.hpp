@@ -18,9 +18,9 @@ namespace raytracer {
             : _origin(origin), _direction(direction) {};
         ~Raycast() = default;
 
-        Vector3<double> getOrigin() { return this->_origin; };
+        Vector3<double> getOrigin() const { return this->_origin; };
 
-        Vector3<double> getDirection() { return this->_direction; };
+        Vector3<double> getDirection() const { return this->_direction; };
         Vector3<double> at(double length) const
         {
             return this->_origin + (this->_direction * length);

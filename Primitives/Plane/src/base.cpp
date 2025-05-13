@@ -14,4 +14,6 @@ std::unique_ptr<objects::IObject> objects::Plane::clone() const
     return std::make_unique<objects::Plane>(*this);
 }
 
-bool objects::Plane::hit(const raytracer::Raycast &ray) const {}
+bool objects::Plane::hit(const raytracer::Raycast &ray) const {
+    return false;
+}

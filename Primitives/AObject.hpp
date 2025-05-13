@@ -16,7 +16,7 @@ namespace objects {
 class AObject : public objects::IObject
 {
    public:
-    AObject() {};
+    AObject() : _material() {};
 
     class AObjectError : public IObjectError
     {

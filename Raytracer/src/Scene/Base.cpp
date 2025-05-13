@@ -12,6 +12,7 @@
 #include "src/DlLib/DlLib.hpp"
 #include "src/Modules/Camera/src/Camera.hpp"
 #include "src/Modules/Lights/src/Lights.hpp"
+#include <cstdlib>
 #include <filesystem>
 #include <iostream>
 #include <memory>
@@ -122,7 +123,7 @@ void raytracer::Scene::load(const std::string &scene)
     std::cout << "Lights point:\n";
     for (auto &it : this->_lights->getPoint()) {
         std::cout << "x = " << it.getX() << ", y = " << it.getY() << ", z = " << it.getZ() << "\n";
-    } 
+    }
     // auto camera = parser->getCamera();
     // for (auto &it : this->_composition) {
     //     std::cout << "Zebi" << std::endl;

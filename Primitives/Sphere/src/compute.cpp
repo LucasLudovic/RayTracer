@@ -9,4 +9,5 @@
 
 bool objects::Sphere::hit(const raytracer::Raycast &ray) const
 {
+    return false;
 }

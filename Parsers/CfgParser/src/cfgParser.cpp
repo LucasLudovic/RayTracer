@@ -45,7 +45,7 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
             throw ParserError("Missing 'color' in plane configuration");
         const libconfig::Setting &color = it["color"];
 
-        int r, g, b;
+        double r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
             !color.lookupValue("b", b))
             throw ParserError("Missing 'r', 'g' or 'b' in plane color");
@@ -73,7 +73,7 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
         NewPrimitive.setRadius(radius);
         const libconfig::Setting &color = it["color"];
 
-        int r, g, b;
+        double r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
             !color.lookupValue("b", b))
             throw ParserError("Missing 'r', 'g' or 'b' in sphere color");

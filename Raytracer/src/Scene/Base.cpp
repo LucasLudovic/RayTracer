@@ -76,7 +76,7 @@ void raytracer::Scene::_setObjects(
             continue;
         }
         if (it->getType() == "Sphere") {
-            this->_createPlane(std::move(it));
+            this->_createSphere(std::move(it));
             continue;
         }
     }
@@ -128,7 +128,6 @@ void raytracer::Scene::load(const std::string &scene)
     //     std::cout << "Zebi" << std::endl;
     //     std::cout << it->getType() << std::endl;
     // }
-    std::cout << "WAAAAA" << std::endl;
 }
 
 void raytracer::Scene::_getAvailableObject()
@@ -149,8 +148,6 @@ void raytracer::Scene::_getAvailableObject()
         }
     }
     if (this->_availableObjects.empty()) {
-        std::cout << "Throwing" << std::endl;
         throw SceneError("No object available for scene");
     }
-    std::cout << "Je suis là" << std::endl;
 }

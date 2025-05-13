@@ -20,18 +20,18 @@ bool objects::Sphere::hit(const raytracer::Raycast &ray, objects::hitResult_t &r
 
     raytracer::Vector3<double> oc = ray.getOrigin() - center;
 
-    double a = ray.getDirection().dot(ray.getDirection());
-    double b = 2.0 * ray.getDirection().dot(oc);
-    double c = oc.dot(oc) - this->_metaData.radius.value() * this->_metaData.radius.value();
-    double discriminant = b * b - 4 * a * c;
+    auto a = ray.getDirection().dot(ray.getDirection());
+    auto h = ray.getDirection().dot(oc);
+    auto c = oc.dot(oc) - this->_metaData.radius.value() * this->_metaData.radius.value();
+    auto discriminant = h * h - a * c;
 
     if (discriminant < 0.0) {
         return false;
     }
 
-    double sqrt_disc = std::sqrt(discriminant);
-    double t1 = (-b - sqrt_disc) / (2.0 * a);
-    double t2 = (-b + sqrt_disc) / (2.0 * a);
+    double discSrqt = std::sqrt(discriminant);
+    double t1 = (-h - discSrqt) / a;
+    double t2 = (-h + discSrqt) / a;
 
     double t = (t1 >= 0.001) ? t1 : ((t2 >= 0.001) ? t2 : -1.0);
     if (t < 0)

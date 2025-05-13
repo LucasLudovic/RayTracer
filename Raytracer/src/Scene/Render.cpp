@@ -8,29 +8,8 @@
 #include "IRenderer.hpp"
 #include "src/Raycast/Raycast.hpp"
 #include "src/Scene/Scene.hpp"
+#include <cstdlib>
 #include <iostream>
-
-// void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
-// {
-//     if (!this->_camera)
-//         throw SceneError("No camera in scene");
-//     std::cout << "Zebi" << std::endl;
-//     auto cameraPos = this->_camera->getPosition();
-//
-//     renderer.clear();
-//     for (auto &it : this->_composition) {
-//         auto relativePos = this->_computeRelativePos(*it);
-//         auto previousPos = it->getPosition();
-//         it->setPosition(relativePos);
-//         renderer.drawObject(*it);
-//         it->setPosition(previousPos);
-//         if (it->hit(ray, hit)) {
-//             auto finalColor = _computeLighting(hit);
-//             renderer.setPixel(x, y, finalColor);
-//         }
-//     }
-//     renderer.render();
-// }
 
 void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
 {
@@ -67,9 +46,10 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
                 static_cast<int>(illuminatedColor.getZ()));
 
             renderer.drawObject(*it, finalColor);
+            std::cout << it->getColor() << std::endl;
+            std::cout << finalColor << std::endl;
         }
     }
-    std::cout << "End objects" << std::endl;
 
     renderer.render();
 }

@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <ostream>
 namespace raytracer {
     template <typename T>
     class Vector2 {
@@ -123,3 +124,10 @@ namespace raytracer {
         T _z;
     };
 }  // namespace raytracer
+
+template<typename T>
+std::ostream &operator<<(std::ostream &out, const raytracer::Vector3<T> &vector)
+{
+    out << "Vector3: " << vector.getX() << " " << vector.getY() << " " << vector.getZ() << std::endl; 
+    return out;
+}

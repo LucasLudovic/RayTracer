@@ -20,7 +20,6 @@ Utils::DlLib<T>::DlLib(const std::string &shared)
 template<class T>
 Utils::DlLib<T>::~DlLib()
 {
-    std::cout << "Je meurs\n";
     if (this->_lib != nullptr)
         dlclose(this->_lib);
 }

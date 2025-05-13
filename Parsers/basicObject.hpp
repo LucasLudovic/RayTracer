@@ -13,6 +13,7 @@
 #include "../Primitives/Material.hpp"
 #include "../Utils/Vector.hpp"
 #include "Material.hpp"
+#include "../Primitives/Material.hpp"
 
 namespace raytracer {
 class BasicObject
@@ -153,7 +154,6 @@ class BasicObject
     {
         return this->_normal;
     };
-
    private:
     std::string _type = "";
     raytracer::Vector3<int> _position = {0, 0, 0};

@@ -29,10 +29,11 @@ namespace renderer {
             const raytracer::Vector3<int> &color) override;
         void render() override;
         void clear() override;
+        void resize(raytracer::Vector2<unsigned> size) override;
 
        private:
-        const unsigned int _windowX = 900;
-        const unsigned int _windowY = 900;
+        unsigned int _windowX = 900;
+        unsigned int _windowY = 900;
         std::unique_ptr<sf::RenderWindow> _window = nullptr;
         std::unique_ptr<sf::Font> _font = nullptr;
         sf::Image _pixel;

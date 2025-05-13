@@ -46,6 +46,16 @@ renderer::SFMLRenderer::~SFMLRenderer()
         this->_window->close();
 }
 
+void renderer::SFMLRenderer::resize(raytracer::Vector2<unsigned> size)
+{
+    if (size.getX() == 0 || size.getY() == 0) {
+        throw RendererError("Size must be strictly superior to 0");
+    }
+    this->_windowX = size.getX();
+    this->_windowY = size.getY();
+    this->_window->setSize({this->_windowX, this->_windowY});
+}
+
 extern "C" {
 std::unique_ptr<renderer::IRenderer> createRenderer(void)
 {

@@ -19,4 +19,7 @@ std::unique_ptr<objects::IObject> objects::createPrimitive(void)
 {
     return std::make_unique<objects::Plane>();
 }
+
+bool objects::Plane::hit(const raytracer::Raycast &ray) const {
+    return false;
 }

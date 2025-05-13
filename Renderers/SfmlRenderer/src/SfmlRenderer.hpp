@@ -24,9 +24,9 @@ namespace renderer {
             const raytracer::Vector2<float> &position,
             const unsigned size) override;
         void drawObject(const objects::IObject &object,
-            const raytracer::Vector3<int> &color) override;
+            const raytracer::Vector3<double> &color) override;
         void drawPixel(const raytracer::Vector2<int> &position,
-            const raytracer::Vector3<int> &color) override;
+            const raytracer::Vector3<double> &color) override;
         void render() override;
         void clear() override;
         void resize(raytracer::Vector2<unsigned> size) override;

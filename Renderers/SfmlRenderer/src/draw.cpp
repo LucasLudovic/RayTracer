@@ -31,11 +31,11 @@ void renderer::SFMLRenderer::drawText(const std::string &textStr,
 }
 
 void renderer::SFMLRenderer::drawObject(
-    const objects::IObject &object, const raytracer::Vector3<int> &color)
+    const objects::IObject &object, const raytracer::Vector3<double> &color)
 {}
 
 void renderer::SFMLRenderer::drawPixel(const raytracer::Vector2<int> &position,
-    const raytracer::Vector3<int> &color)
+    const raytracer::Vector3<double> &color)
 {
     auto x = static_cast<unsigned int>(position.getX());
     auto y = static_cast<unsigned int>(position.getY());

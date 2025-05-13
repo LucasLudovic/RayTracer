@@ -36,10 +36,10 @@ namespace objects {
         raytracer::Vector3<int> color;
     } hitResult_t;
 
-    class IObject {
-       public:
-        virtual ~IObject() = default;
-
+class IObject
+{
+   public:
+    virtual ~IObject() = default;
     class IObjectError : public std::exception
     {};
 

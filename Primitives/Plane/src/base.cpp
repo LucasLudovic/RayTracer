@@ -14,9 +14,10 @@ std::unique_ptr<objects::IObject> objects::Plane::clone() const
     return std::make_unique<objects::Plane>(*this);
 }
 
-extern "C" {
-std::unique_ptr<objects::IObject> objects::createPrimitive(void)
+extern "C"
 {
-    return std::make_unique<objects::Plane>();
-}
+    std::unique_ptr<objects::IObject> objects::createPrimitive(void)
+    {
+        return std::make_unique<objects::Plane>();
+    }
 }

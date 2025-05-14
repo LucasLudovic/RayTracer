@@ -9,11 +9,12 @@
 #include "src/Raycast/Raycast.hpp"
 #include "src/Scene/Scene.hpp"
 #include <cmath>
+#include <iostream>
+
 void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
 {
     if (!this->_camera)
         throw SceneError("No camera in scene");
-
 
     const auto resX = this->_camera->getResolution().getX();
     const auto resY = this->_camera->getResolution().getY();
@@ -21,17 +22,13 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
     const auto cameraPos = this->_camera->getPosition();
 
     const double aspectRatio = static_cast<double>(resX) / resY;
-    const double scale = std::tan((fov * 0.5) * (M_PI / 180.0));
+    const double scaleY = std::tan((fov * M_PI / 180.0) / 2);
+    const double scaleX = scaleY * aspectRatio;
 
-    renderer.resize({static_cast<unsigned>(resX), static_cast<unsigned>(resY)});
-    renderer.clear();
     for (int y = 0; y < resY; y += 1) {
         for (int x = 0; x < resX; x += 1) {
-            double px = (2 * (x + 0.5) / static_cast<double>(resX) - 1) *
-                        aspectRatio * scale;
-            double py =
-                (1 - 2 * (y + 0.5) / static_cast<double>(resY)) * scale;
-
+            double px = (2 * (x + 0.5) / resX - 1) * scaleX;
+            double py = (1 - 2 * (y + 0.5) / resY) * scaleY;
             raytracer::Vector3<double> rayDir(px, py, -1);
             rayDir = rayDir * (1.0 / std::sqrt(rayDir.dot(rayDir)));
 
@@ -61,22 +58,26 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
             }
 
             if (hitFound && hitObject) {
+                // std::cout << "Hit: " << x << " " << y << std::endl;
                 raytracer::Vector3<double> litColor =
                     this->_computeLighting(closestHit);
 
+                // std::cout << "Original: " <<  litColor << std::endl;
                 raytracer::Vector3<int> finalColor(
                     static_cast<int>(litColor.getX()),
                     static_cast<int>(litColor.getY()),
                     static_cast<int>(litColor.getZ()));
+                // std::cout << "Final: " << finalColor << std::endl;
 
                 renderer.drawPixel({x, y}, finalColor);
             } else {
-                renderer.drawPixel({x, y}, Vector3<int>(0, 0, 0));
+                renderer.drawPixel({x, y}, Vector3<int>(255, 255, 255));
             }
         }
     }
 
     renderer.render();
+    std::cout << "enfin fini" << std::endl;
 }
 
 raytracer::Vector3<int> raytracer::Scene::_computeRelativePos(

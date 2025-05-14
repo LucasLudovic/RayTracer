@@ -20,18 +20,18 @@ bool objects::Sphere::hit(const raytracer::Raycast &ray, objects::hitResult_t &r
 
     raytracer::Vector3<double> oc = ray.getOrigin() - center;
 
-    auto a = ray.getDirection().dot(ray.getDirection());
-    auto h = ray.getDirection().dot(oc);
-    auto c = oc.dot(oc) - this->_metaData.radius.value() * this->_metaData.radius.value();
-    auto discriminant = h * h - a * c;
+    double a = ray.getDirection().dot(ray.getDirection());
+    double b = 2.0 * ray.getDirection().dot(oc);
+    double c = oc.dot(oc) - this->_metaData.radius.value() * this->_metaData.radius.value();
+    double discriminant = b * b - 4 * a * c;
 
     if (discriminant < 0.0) {
         return false;
     }
 
-    double discSrqt = std::sqrt(discriminant);
-    double t1 = (-h - discSrqt) / a;
-    double t2 = (-h + discSrqt) / a;
+    double sqrt_disc = std::sqrt(discriminant);
+    double t1 = (-b - sqrt_disc) / (2.0 * a);
+    double t2 = (-b + sqrt_disc) / (2.0 * a);
 
     double t = (t1 >= 0.001) ? t1 : ((t2 >= 0.001) ? t2 : -1.0);
     if (t < 0)
@@ -40,8 +40,48 @@ bool objects::Sphere::hit(const raytracer::Raycast &ray, objects::hitResult_t &r
     result.hit = true;
     result.t = t;
     result.position = ray.at(t);
-    result.normal = (result.position - center) * (1.0 / this->_metaData.radius.value());
+
+    raytracer::Vector3<double> normal = result.position - center;
+    double length = std::sqrt(normal.dot(normal));
+    result.normal = normal * (1.0 / length);
+
     result.color = this->getColor();
 
     return true;
 }
+
+
+// bool objects::Sphere::hit(const raytracer::Raycast &ray, objects::hitResult_t &result) const
+// {
+//     raytracer::Vector3<double> center(
+//         this->_position.getX(),
+//         this->_position.getY(),
+//         this->_position.getZ());
+//
+//     raytracer::Vector3<double> oc = ray.getOrigin() - center;
+//
+//     auto a = ray.getDirection().dot(ray.getDirection());
+//     auto h = 2.0 * ray.getDirection().dot(oc);
+//     auto c = oc.dot(oc) - this->_metaData.radius.value() * this->_metaData.radius.value();
+//     auto discriminant = h * h - a * c;
+//
+//     if (discriminant < 0.0) {
+//         return false;
+//     }
+//
+//     double discSrqt = std::sqrt(discriminant);
+//     double t1 = (-h - discSrqt) / a;
+//     double t2 = (-h + discSrqt) / a;
+//
+//     double t = (t1 >= 0.001) ? t1 : ((t2 >= 0.001) ? t2 : -1.0);
+//     if (t < 0)
+//         return false;
+//
+//     result.hit = true;
+//     result.t = t;
+//     result.position = ray.at(t);
+//     result.normal = (result.position - center) * (1.0 / this->_metaData.radius.value());
+//     result.color = this->getColor();
+//
+//     return true;
+// }

@@ -38,6 +38,7 @@ namespace raytracer {
            private:
             std::string _msg;
         };
+        const objects::Camera &getCamera() {return *this->_camera;}
 
        private:
         std::vector<std::unique_ptr<objects::IObject>> _composition;

@@ -11,11 +11,16 @@
 #include <memory>
 #include <fstream>
 
-renderer::PpmRenderer::PpmRenderer()
+renderer::PpmRenderer::PpmRenderer() : _image("output.ppm")
 {
-    std::ofstream _image("output.ppm");
     _windowX = 1920;
     _windowY = 1080;
+    
+    if (!_image.is_open()) {
+        std::cerr << "Failed to open output.ppm for writing" << std::endl;
+        return;
+    }
+    
     _image << "P3\n" << _windowX << " " << _windowY << "\n255\n";
 }
 

@@ -33,6 +33,10 @@ void raytracer::Raytracer::run()
     if (this->renderer == nullptr) {
         throw RaytracerError("Unable to load renderer");
     }
+    auto res = this->_scene.getCamera().getResolution();
+    const auto resX = res.getX();
+    const auto resY = res.getY();
+    this->renderer->resize({static_cast<unsigned>(resX), static_cast<unsigned>(resY)});
     while (this->_isRunning) {
         auto frameStart = std::chrono::steady_clock::now();
 
@@ -44,6 +48,5 @@ void raytracer::Raytracer::run()
             std::this_thread::sleep_for(targetFrameDuration - frameDuration);
         }
         this->_scene.renderScene(*this->renderer);
-        std::cout << "enfin fini" << std::endl;
     }
 }

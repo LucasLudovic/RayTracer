@@ -29,7 +29,7 @@ renderer::SFMLRenderer::SFMLRenderer()
             "./assets/fonts/JetBrainsMonoNerdFont-Medium.ttf"))
         throw RendererError("Unable to load font");
 
-    this->_pixel.resize({this->_windowX - 1, this->_windowY - 1}, sf::Color::Black);
+    this->_pixel.resize({this->_windowX, this->_windowY}, sf::Color::Black);
     if (!this->_texture.loadFromImage(this->_pixel)) {
         throw RendererError("Unable to load pixel in texture");
     }
@@ -53,7 +53,22 @@ void renderer::SFMLRenderer::resize(raytracer::Vector2<unsigned> size)
     }
     this->_windowX = size.getX();
     this->_windowY = size.getY();
+
     this->_window->setSize({this->_windowX, this->_windowY});
+
+    if (this->_texture.resize(this->_window->getSize()) == false) {
+        throw RendererError("Unable to resize texture");
+    }
+    this->_pixel.resize({this->_windowX, this->_windowY}, sf::Color::Black);
+    this->_sprite->setTexture(this->_texture, true);
+
+    sf::View newView = this->_window->getDefaultView();
+    newView.setSize({static_cast<float>(this->_windowX),
+        static_cast<float>(this->_windowY)});
+    newView.setCenter({static_cast<float>(this->_windowX) / 2.f,
+        static_cast<float>(this->_windowY) / 2.f});
+    this->_window->setView(newView);
+    std::cout << this->_window->getView().getSize().x << std::endl;
 }
 
 extern "C" {

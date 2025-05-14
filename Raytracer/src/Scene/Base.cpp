@@ -26,6 +26,7 @@ void raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
             auto newPlane = it->clone();
             newPlane->setPosition(Plane->getPosition());
             newPlane->setColor(Plane->getColor());
+            newPlane->getMetaData().normal = Plane->getNormal();
             this->_composition.push_back(std::move(newPlane));
         }
     }

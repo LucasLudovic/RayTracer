@@ -80,7 +80,10 @@ class AObject : public objects::IObject
     {
         return this->_material.get_reflection();
     }
-
+    void setMetadata(const metaData_t &metadata) override
+    {
+        this->_metaData = metadata;
+    };
     metaData_t &getMetaData() override
     {
         return this->_metaData;

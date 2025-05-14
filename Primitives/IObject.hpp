@@ -23,6 +23,7 @@ namespace objects {
 
     typedef struct metaData_s {
         std::optional<int> radius;
+        std::optional<raytracer::Vector3<double>> normal;
     } metaData_t;
 
     typedef struct hitResult_s {
@@ -52,6 +53,7 @@ namespace objects {
         virtual bool hit(const raytracer::Raycast &ray,
             hitResult_t &result) const = 0;
 
+        virtual void setMetadata(const metaData_t &metadata) = 0;
         virtual metaData_t &getMetaData() = 0;
     };
 

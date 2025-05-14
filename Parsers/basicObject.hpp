@@ -72,6 +72,10 @@ namespace raytracer {
 
         int getRadius() { return this->_radius; };
 
+        void setNormal(raytracer::Vector3<double> normal) { this->_normal = normal; }
+
+        const raytracer::Vector3<double> &getNormal() { return this->_normal; };
+
        private:
         std::string _type = "";
         raytracer::Vector3<int> _position = {0, 0, 0};
@@ -83,5 +87,6 @@ namespace raytracer {
         double _diffuse = 0;
         std::vector<raytracer::Vector3<int>> _point;
         int _radius = 0;
+        raytracer::Vector3<double> _normal = {0, 0, 1};
     };
 }  // namespace raytracer

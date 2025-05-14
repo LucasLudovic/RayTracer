@@ -53,6 +53,8 @@ namespace objects {
             return this->_color;
         }
 
+        void setMetadata(const metaData_t &metadata) override {this->_metaData = metadata;};
+
         metaData_t &getMetaData() override { return this->_metaData; };
 
        protected:

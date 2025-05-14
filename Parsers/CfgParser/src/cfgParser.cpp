@@ -28,17 +28,25 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
         int y = 0;
         int z = 0;
         std::string axis;
+        Vector3<double> normal;
         it.lookupValue("axis", axis);
-        if (axis == "Z")
+        if (axis == "Z") {
             if (!it.lookupValue("position", z))
                 throw ParserError("Missing 'position' in plane");
-        if (axis == "Y")
+            normal = {0, 0, 1};
+        }
+        if (axis == "Y") {
             if (!it.lookupValue("position", y))
                 throw ParserError("Missing 'position' in plane");
-        if (axis == "X")
+            normal = {0, 1, 0};
+        }
+        if (axis == "X") {
             if (!it.lookupValue("position", x))
                 throw ParserError("Missing 'position' in plane");
+            normal = {1, 0, 0};
+        }
 
+        NewPrimitive.setNormal(normal);
         NewPrimitive.setPosition(Vector3(x, y, z));
 
         if (!it.exists("color"))

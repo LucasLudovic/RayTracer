@@ -128,13 +128,13 @@ namespace raytracer {
 template<typename T>
 std::ostream &operator<<(std::ostream &out, const raytracer::Vector3<T> &vector)
 {
-    out << "Vector3: " << vector.getX() << " " << vector.getY() << " " << vector.getZ() << std::endl; 
+    out << "Vector3: " << vector.getX() << " " << vector.getY() << " " << vector.getZ(); 
     return out;
 }
 
 template<typename T>
 std::ostream &operator<<(std::ostream &out, const raytracer::Vector2<T> &vector)
 {
-    out << "Vector3: " << vector.getX() << " " << vector.getY()  << std::endl; 
+    out << "Vector2: " << vector.getX() << " " << vector.getY(); 
     return out;
 }

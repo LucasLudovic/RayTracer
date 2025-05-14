@@ -31,8 +31,7 @@ int execute_raytracer(const std::string &sceneFile)
         std::cerr << "Renderer error: " << error.what() << std::endl;
     } catch (const raytracer::ParserError &error) {
         std::cerr << "Parser error: " << error.what() << std::endl;
-    }
-    catch (...) {
+    } catch (...) {
         std::cerr << "Unknown error" << std::endl;
     }
     return EPITECH_SUCCESS;

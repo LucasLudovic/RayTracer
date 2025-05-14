@@ -12,9 +12,13 @@
 template<class T>
 Utils::DlLib<T>::DlLib(const std::string &shared)
 {
+    std::cout << "Hey" << std::endl;
     this->_lib = dlopen(shared.c_str(), RTLD_LAZY);
-    if (this->_lib == nullptr)
+    if (this->_lib == nullptr) {
+        std::cout << "Zebi" << std::endl;
         throw DlLibError(dlerror());
+    }
+    std::cout << "AHhsa" << std::endl;
 }
 
 template<class T>

@@ -27,7 +27,9 @@ raytracer::Raytracer::Raytracer(const std::string &file)
 void raytracer::Raytracer::run()
 {
     const std::chrono::milliseconds targetFrameDuration(FRAME_DURATION_MS);
-    Utils::DlLib<renderer::IRenderer> renderer("lib/renderers/raytracer_sfml.so");
+    std::cout << "a" << std::endl;
+    Utils::DlLib<renderer::IRenderer> renderer("lib/renderers/raytracer_ppm.so");
+    std::cout << "b" << std::endl;
     this->renderer = renderer.loadLib("createRenderer");
 
     if (this->renderer == nullptr) {

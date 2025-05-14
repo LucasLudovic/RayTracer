@@ -11,6 +11,11 @@
 #include <algorithm>
 #include <iostream>
 
+void renderer::PpmRenderer::drawText(const std::string &textStr,
+    const raytracer::Vector2<float> &pos, const unsigned size)
+{
+}
+
 void renderer::PpmRenderer::drawObject(
     const objects::IObject &object, const raytracer::Vector3<int> &color)
 {}

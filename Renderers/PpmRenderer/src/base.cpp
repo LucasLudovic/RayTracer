@@ -23,6 +23,10 @@ renderer::PpmRenderer::~PpmRenderer()
 {
 }
 
+void renderer::PpmRenderer::resize(raytracer::Vector2<unsigned> size)
+{
+}
+
 extern "C" {
 std::unique_ptr<renderer::IRenderer> createRenderer(void)
 {

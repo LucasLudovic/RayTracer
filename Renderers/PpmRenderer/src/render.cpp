@@ -12,3 +12,7 @@
 void renderer::PpmRenderer::render()
 {
 }
+
+void renderer::PpmRenderer::clear()
+{
+}

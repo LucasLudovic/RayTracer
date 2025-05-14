@@ -61,9 +61,9 @@ namespace objects {
     virtual bool hit(
         const raytracer::Raycast &ray, hitResult_t &result) const = 0;
 
-        virtual void setMetadata(const metaData_t &metadata) = 0;
-        virtual metaData_t &getMetaData() = 0;
-    };
+    virtual void setMetadata(const metaData_t &metadata) = 0;
+    virtual metaData_t &getMetaData() = 0;
+};
 
 extern "C" std::unique_ptr<objects::IObject> createPrimitive(void);
 }  // namespace objects

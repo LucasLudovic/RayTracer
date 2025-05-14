@@ -68,7 +68,7 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
 
                 renderer.drawPixel({x, y}, finalColor);
             } else {
-                renderer.drawPixel({x, y}, Vector3<int>(255, 255, 255));
+                renderer.drawPixel({x, y}, Vector3<int>(0, 0, 0));
             }
         }
     }

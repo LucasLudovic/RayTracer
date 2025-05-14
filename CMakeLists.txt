@@ -18,6 +18,7 @@ add_subdirectory(Primitives/Plane)
 
 #Renderers
 add_subdirectory(Renderers/SfmlRenderer)
+add_subdirectory(Renderers/PpmRenderer)
 
 # Core
 add_subdirectory(Raytracer/)

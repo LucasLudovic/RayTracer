@@ -45,9 +45,6 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
             objects::IObject *hitObject = nullptr;
 
             for (auto &it : this->_composition) {
-                if (it->getType() == "Plane") {
-                    continue;
-                }
 
                 objects::hitResult_t hit;
                 if (it->hit(ray, hit) && hit.t < closestHit.t) {
@@ -71,7 +68,7 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
 
                 renderer.drawPixel({x, y}, finalColor);
             } else {
-                renderer.drawPixel({x, y}, Vector3<int>(255, 255, 255));
+                renderer.drawPixel({x, y}, Vector3<int>(0, 0, 0));
             }
         }
     }

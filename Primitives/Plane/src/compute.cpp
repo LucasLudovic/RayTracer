@@ -37,7 +37,7 @@ bool objects::Plane::hit(
     result.t = t;
     result.position = ray.at(t);
     result.normal = normal;
-    result.color = this->getColor();
+    result.material.set_color(this->getColor());
 
     return true;
 }

@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include "Scene.hpp"
+#include "src/Raycast/Raycast.hpp"
 
 raytracer::Vector3<double> raytracer::Scene::_computeLighting(
     const objects::hitResult_t &hit)
@@ -23,17 +24,34 @@ raytracer::Vector3<double> raytracer::Scene::_computeLighting(
         this->_camera->getPosition().getY(),
         this->_camera->getPosition().getZ());
 
-    raytracer::Vector3<double> cameraVector = cameraPos - hit.position;
-
     for (const auto &lightPosInt : this->_lights->getPoint()) {
         raytracer::Vector3<double> lightPos(
             lightPosInt.getX(), lightPosInt.getY(), lightPosInt.getZ());
 
         raytracer::Vector3<double> lightVector = lightPos - hit.position;
-        lightVector = lightVector * (1.0 / std::sqrt(lightVector.dot(lightVector)));
+        double lightDist = std::sqrt(lightVector.dot(lightVector));
+        lightVector = lightVector * (1.0 / lightDist);
 
-        double diff = std::max(0.0, normal.dot(lightVector));
-        intensity += this->_lights->getDiffuse() * diff;
+        raytracer::Raycast shadowRay(
+            hit.position + normal,
+            lightVector
+        );
+
+        bool isInShadow = false;
+        for (const auto &obj : this->_composition) {
+            objects::hitResult_t shadowHit;
+            if (obj->hit(shadowRay, shadowHit)) {
+                if (shadowHit.t < lightDist) {
+                    isInShadow = true;
+                    break;
+                }
+            }
+        }
+
+        if (isInShadow == false) {
+            double diff = std::max(0.0, normal.dot(lightVector));
+            intensity += this->_lights->getDiffuse() * diff;
+        }
     }
 
     intensity = std::min(intensity, 1.0);

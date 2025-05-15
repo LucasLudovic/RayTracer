@@ -47,8 +47,8 @@ void renderer::SFMLRenderer::drawPixel(const raytracer::Vector2<int> &position,
         return;
     }
     sf::Color clamped(
-        static_cast<std::uint8_t>(std::clamp(color.getX(), 0, 255)),
-        static_cast<std::uint8_t>(std::clamp(color.getY(), 0, 255)),
-        static_cast<std::uint8_t>(std::clamp(color.getZ(), 0, 255)));
+        static_cast<std::uint8_t>(std::clamp(color.getX(), 0.0, 255.0)),
+        static_cast<std::uint8_t>(std::clamp(color.getY(), 0.0, 255.0)),
+        static_cast<std::uint8_t>(std::clamp(color.getZ(), 0.0, 255.0)));
     this->_pixel.setPixel({x, y}, clamped);
 }

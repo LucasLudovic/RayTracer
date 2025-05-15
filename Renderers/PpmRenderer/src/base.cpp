@@ -13,8 +13,8 @@
 
 renderer::PpmRenderer::PpmRenderer() : _image("output.ppm")
 {
-    _windowX = 1920;
-    _windowY = 1080;
+    _windowX = 900;
+    _windowY = 900;
     
     if (!_image.is_open()) {
         std::cerr << "Failed to open output.ppm for writing" << std::endl;

@@ -34,4 +34,6 @@ void renderer::PpmRenderer::drawPixel(const raytracer::Vector2<int> &position,
     int b = std::clamp(color.getZ(), 0, 255);
 
     _image << r << ' ' << g << ' ' << b << ' ';
+    if (x == _windowX)
+        _image << "hey hey";
 }

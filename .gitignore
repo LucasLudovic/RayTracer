@@ -11,3 +11,4 @@ result*
 *.sh
 vgcore*
 example
+output.ppm

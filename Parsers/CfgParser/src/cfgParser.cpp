@@ -53,11 +53,11 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
             throw ParserError("Missing 'color' in plane configuration");
         const libconfig::Setting &color = it["color"];
 
-        double r, g, b;
+        int r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
             !color.lookupValue("b", b))
             throw ParserError("Missing 'r', 'g' or 'b' in plane color");
-        NewPrimitive.setColor(Vector3(r, g, b));
+        NewPrimitive.setColor(Vector3((double)r, (double)g, (double)b));
         this->_Primitives.push_back(
             std::make_unique<BasicObject>(NewPrimitive));
     }
@@ -81,11 +81,11 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
         NewPrimitive.setRadius(radius);
         const libconfig::Setting &color = it["color"];
 
-        double r, g, b;
+        int r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
             !color.lookupValue("b", b))
             throw ParserError("Missing 'r', 'g' or 'b' in sphere color");
-        NewPrimitive.setColor(Vector3(r, g, b));
+        NewPrimitive.setColor(Vector3((double)r, (double)g, (double)b));
         this->_Primitives.push_back(
             std::make_unique<BasicObject>(NewPrimitive));
     }

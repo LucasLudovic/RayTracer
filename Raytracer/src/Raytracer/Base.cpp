@@ -13,7 +13,7 @@
 #include <thread>
 #include <iostream>
 
-raytracer::Raytracer::Raytracer(const std::string &file)
+raytracer::Raytracer::Raytracer(const std::string &file, const std::string rendererPath)
 {
     std::ifstream fileStream(file);
 
@@ -21,14 +21,19 @@ raytracer::Raytracer::Raytracer(const std::string &file)
         throw RaytracerError("File argument is invalid");
     fileStream.close();
 
+    this->_rendererPath = rendererPath;
     this->_scene.load(file);
 }
 
 void raytracer::Raytracer::run()
 {
     const std::chrono::milliseconds targetFrameDuration(FRAME_DURATION_MS);
-    Utils::DlLib<renderer::IRenderer> renderer("lib/renderers/raytracer_sfml.so");
-    this->renderer = renderer.loadLib("createRenderer");
+    Utils::DlLib<renderer::IRenderer> rendererLib(
+        this->_rendererPath.empty()
+            ? "lib/renderers/raytracer_ppm.so"
+            : this->_rendererPath
+    );
+    this->renderer = std::unique_ptr<renderer::IRenderer>(rendererLib.loadLib("createRenderer"));
 
     if (this->renderer == nullptr) {
         throw RaytracerError("Unable to load renderer");

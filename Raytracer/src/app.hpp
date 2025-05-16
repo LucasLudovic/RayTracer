@@ -8,4 +8,4 @@
 #pragma once
 #include <string>
 
-int execute_raytracer(const std::string &sceneFile);
+int execute_raytracer(const std::string &sceneFile, const std::string rendererPath);

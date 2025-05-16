@@ -16,7 +16,7 @@
 namespace raytracer {
     class Raytracer {
        public:
-        Raytracer(const std::string &file);
+        Raytracer(const std::string &file, const std::string rendererPath);
         ~Raytracer() = default;
 
         class RaytracerError : std::exception {
@@ -37,6 +37,7 @@ namespace raytracer {
        private:
         bool _isRunning = true;
         Scene _scene;
+        std::string _rendererPath;
 
         std::unique_ptr<renderer::IRenderer> renderer = nullptr;
     };

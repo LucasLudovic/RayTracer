@@ -16,10 +16,10 @@
 using raytracer::Raytracer;
 using Utils::DlLibError;
 
-int execute_raytracer(const std::string &sceneFile)
+int execute_raytracer(const std::string &sceneFile, const std::string rendererPath)
 {
     try {
-        raytracer::Raytracer raytracerCore(sceneFile);
+        raytracer::Raytracer raytracerCore(sceneFile, rendererPath);
 
         raytracerCore.run();
     } catch (const Raytracer::RaytracerError &error) {

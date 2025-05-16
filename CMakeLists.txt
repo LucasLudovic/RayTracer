@@ -15,6 +15,7 @@ add_subdirectory(Parsers/CfgParser)
 # Primitives
 add_subdirectory(Primitives/Sphere)
 add_subdirectory(Primitives/Plane)
+add_subdirectory(Primitives/Cylinder)
 
 #Renderers
 add_subdirectory(Renderers/SfmlRenderer)

@@ -100,7 +100,7 @@ void raytracer::cfgParser::_retrieveCylinder(const libconfig::Setting &primitive
     for (const auto &it : cylinders) {
         BasicObject NewPrimitive;
 
-        NewPrimitive.setType("Cylinders");
+        NewPrimitive.setType("Cylinder");
         int x, y, z, radius, height;
         double vx, vy, vz;
         if (!it.lookupValue("x", x) || !it.lookupValue("y", y) ||

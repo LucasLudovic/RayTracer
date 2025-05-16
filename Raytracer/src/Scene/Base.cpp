@@ -57,6 +57,21 @@ void raytracer::Scene::_createSphere(std::unique_ptr<BasicObject> Sphere)
     }
 }
 
+void raytracer::Scene::_createCylinder(std::unique_ptr<BasicObject> Cylinder)
+{
+    for (const auto &it : this->_availableObjects) {
+        if (it->getType() == "Cylinder") {
+            auto newCylinder = it->clone();
+            newCylinder->setPosition(Cylinder->getPosition());
+            newCylinder->setColor(Cylinder->getColor());
+            newCylinder->getMetaData().radius = Cylinder->getRadius();
+            newCylinder->getMetaData().height = Cylinder->getHeight();
+            newCylinder->getMetaData().direction = Cylinder->getDirection();
+            this->_composition.push_back(std::move(newCylinder));
+        }
+    }
+}
+
 void raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
 {
     objects::Camera newCamera;
@@ -91,6 +106,10 @@ void raytracer::Scene::_setObjects(
         }
         if (it->getType() == "Sphere") {
             this->_createSphere(std::move(it));
+            continue;
+        }
+        if (it->getType() == "Cylinder") {
+            this->_createCylinder(std::move(it));
             continue;
         }
     }

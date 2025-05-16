@@ -18,7 +18,7 @@
 #include "Material.hpp"
 
 namespace raytracer {
-class Raycast;
+    class Raycast;
 }
 
 namespace objects {
@@ -36,34 +36,45 @@ namespace objects {
         Material material;
     } hitResult_t;
 
-class IObject
-{
-   public:
-    virtual ~IObject() = default;
-    class IObjectError : public std::exception
-    {};
+    class IObjectError : public std::exception {
 
-    virtual std::unique_ptr<IObject> clone() const = 0;
+       public:
+        IObjectError(const std::string &msg) : _msg(msg) {};
 
-    virtual void setPosition(raytracer::Vector3<int> pos) = 0;
-    [[nodiscard]] virtual raytracer::Vector3<int> getPosition() const = 0;
+        [[nodiscard]] const char *what() const noexcept override
+        {
+            return this->_msg.c_str();
+        }
 
-    virtual void setColor(raytracer::Vector3<double> rgb) = 0;
-    virtual void setColor(double r, double g, double b) = 0;
-    virtual raytracer::Vector3<double> getColor() const = 0;
-    virtual void setTransparence(double value) = 0;
-    virtual double getTransparence() const = 0;
-    virtual void setReflection(double value) = 0;
-    virtual double getReflection() const = 0;
+       private:
+        std::string _msg;
+    };
 
-    virtual std::string getType() const = 0;
+    class IObject {
+       public:
+        virtual ~IObject() = default;
 
-    virtual bool hit(
-        const raytracer::Raycast &ray, hitResult_t &result) const = 0;
+        virtual std::unique_ptr<IObject> clone() const = 0;
 
-    virtual void setMetadata(const metaData_t &metadata) = 0;
-    virtual metaData_t &getMetaData() = 0;
-};
+        virtual void setPosition(raytracer::Vector3<int> pos) = 0;
+        [[nodiscard]] virtual raytracer::Vector3<int> getPosition() const = 0;
 
-extern "C" std::unique_ptr<objects::IObject> createPrimitive(void);
+        virtual void setColor(raytracer::Vector3<double> rgb) = 0;
+        virtual void setColor(double r, double g, double b) = 0;
+        virtual raytracer::Vector3<double> getColor() const = 0;
+        virtual void setTransparence(double value) = 0;
+        virtual double getTransparence() const = 0;
+        virtual void setReflection(double value) = 0;
+        virtual double getReflection() const = 0;
+
+        virtual std::string getType() const = 0;
+
+        virtual bool hit(
+            const raytracer::Raycast &ray, hitResult_t &result) const = 0;
+
+        virtual void setMetadata(const metaData_t &metadata) = 0;
+        virtual metaData_t &getMetaData() = 0;
+    };
+
+    extern "C" std::unique_ptr<objects::IObject> createPrimitive(void);
 }  // namespace objects

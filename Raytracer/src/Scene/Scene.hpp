@@ -15,6 +15,7 @@
 #include "src/Modules/Camera/src/Camera.hpp"
 #include "src/DlLib/DlLib.hpp"
 #include <exception>
+#include <iostream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -23,7 +24,7 @@ namespace raytracer {
     class Scene {
        public:
         Scene() {};
-        ~Scene() = default;
+        ~Scene();
 
         void load(const std::string &file);
         void renderScene(renderer::IRenderer &renderer);
@@ -42,9 +43,9 @@ namespace raytracer {
 
        private:
         std::vector<std::unique_ptr<objects::IObject>> _composition;
-        std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
         std::unique_ptr<objects::Camera> _camera;
         std::unique_ptr<objects::Lights> _lights;
+        std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
         std::vector<std::unique_ptr<Utils::DlLib<objects::IObject>>> _objectsLib;
 
         Vector3<double> _computeLighting(const objects::hitResult_t &hit);

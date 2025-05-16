@@ -91,6 +91,72 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
     }
 }
 
+void raytracer::cfgParser::_retrieveCylinder(const libconfig::Setting &primitives)
+{
+    if (!primitives.exists("cylinders"))
+        return;
+    const libconfig::Setting &cylinders = primitives["cylinders"];
+
+    for (const auto &it : cylinders) {
+        BasicObject NewPrimitive;
+
+        NewPrimitive.setType("Cylinders");
+        int x, y, z, radius, height;
+        double vx, vy, vz;
+        if (!it.lookupValue("x", x) || !it.lookupValue("y", y) ||
+            !it.lookupValue("z", z) || !it.lookupValue("r", radius) ||
+            !it.lookupValue("vx", vx) || !it.lookupValue("vy", vy) ||
+            !it.lookupValue("vz", vz) || !it.lookupValue("h", height))
+            throw ParserError("Missing options in cylinder arguments");
+        NewPrimitive.setPosition(Vector3(x, y, z));
+        NewPrimitive.setDirection(Vector3(vx, vy, vz));
+        NewPrimitive.setRadius(radius);
+        NewPrimitive.setHeight(height);
+        const libconfig::Setting &color = it["color"];
+
+        int r, g, b;
+        if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
+            !color.lookupValue("b", b))
+            throw ParserError("Missing 'r', 'g' or 'b' in sphere color");
+        NewPrimitive.setColor(Vector3((double)r, (double)g, (double)b));
+        this->_Primitives.push_back(
+            std::make_unique<BasicObject>(NewPrimitive));
+    }
+}
+
+void raytracer::cfgParser::_retrieveCone(const libconfig::Setting &primitives)
+{
+    if (!primitives.exists("cones"))
+        return;
+    const libconfig::Setting &cones = primitives["cones"];
+
+    for (const auto &it : cones) {
+        BasicObject NewPrimitive;
+
+        NewPrimitive.setType("Cones");
+        int x, y, z, angle, height;
+        double vx, vy, vz;
+        if (!it.lookupValue("x", x) || !it.lookupValue("y", y) ||
+            !it.lookupValue("z", z) || !it.lookupValue("a", angle) ||
+            !it.lookupValue("vx", vx) || !it.lookupValue("vy", vy) ||
+            !it.lookupValue("vz", vz) || !it.lookupValue("h", height))
+            throw ParserError("Missing options in cone arguments");
+        NewPrimitive.setPosition(Vector3(x, y, z));
+        NewPrimitive.setDirection(Vector3(vx, vy, vz));
+        NewPrimitive.setAngle(angle);
+        NewPrimitive.setHeight(height);
+        const libconfig::Setting &color = it["color"];
+
+        int r, g, b;
+        if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
+            !color.lookupValue("b", b))
+            throw ParserError("Missing 'r', 'g' or 'b' in sphere color");
+        NewPrimitive.setColor(Vector3((double)r, (double)g, (double)b));
+        this->_Primitives.push_back(
+            std::make_unique<BasicObject>(NewPrimitive));
+    }
+}
+
 void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
 {
     if (!root.exists("primitives"))
@@ -99,6 +165,8 @@ void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
 
     this->_retrievePlane(primitives);
     this->_retrieveSphere(primitives);
+    this->_retrieveCylinder(primitives);
+    this->_retrieveCone(primitives);
 }
 
 raytracer::Vector3<int> raytracer::cfgParser::_retrieveCameraPosition(

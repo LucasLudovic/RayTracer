@@ -14,8 +14,6 @@ namespace objects {
        public:
         Sphere();
 
-        class SphereError : public AObjectError {};
-
         std::unique_ptr<IObject> clone() const override;
 
         std::string getType() const override { return "Sphere"; };

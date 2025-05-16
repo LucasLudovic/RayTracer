@@ -14,8 +14,6 @@ namespace objects {
        public:
         Plane();
 
-        class PlaneError : public AObjectError {};
-
         std::unique_ptr<IObject> clone() const override;
 
         std::string getType() const override { return "Plane"; };

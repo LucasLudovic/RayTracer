@@ -1,3 +1,4 @@
+*.ppm
 raytracer
 .build
 *.so

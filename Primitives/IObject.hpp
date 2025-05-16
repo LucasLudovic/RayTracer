@@ -33,7 +33,7 @@ namespace objects {
         double t = std::numeric_limits<double>::max();
         raytracer::Vector3<double> position;
         raytracer::Vector3<double> normal;
-        raytracer::Vector3<int> color;
+        Material material;
     } hitResult_t;
 
 class IObject

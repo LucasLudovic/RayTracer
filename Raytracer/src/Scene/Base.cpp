@@ -19,6 +19,18 @@
 #include <ostream>
 #include <utility>
 
+raytracer::Scene::~Scene()
+{
+    for (auto &it : this->_composition) {
+        it.reset();
+    }
+    _camera.reset();
+    _lights.reset();
+    for (auto &it : this->_availableObjects) {
+        it.reset();
+    }
+}
+
 void raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
 {
     for (const auto &it : this->_availableObjects) {
@@ -118,12 +130,14 @@ void raytracer::Scene::load(const std::string &scene)
     std::cout << "camera, Pos: x = " << this->_camera->getPosition().getX()
               << ", y = " << this->_camera->getPosition().getY()
               << ", z = " << this->_camera->getPosition().getZ() << "\n";
-    std::cout << "camera resolution = " << this->_camera->getResolution().getX()
-              << " and " << this->_camera->getResolution().getY() << "\n";
+    std::cout << "camera resolution = "
+              << this->_camera->getResolution().getX() << " and "
+              << this->_camera->getResolution().getY() << "\n";
     std::cout << "camera view = " << this->_camera->getFieldOfView() << '\n';
     std::cout << "Lights point:\n";
     for (auto &it : this->_lights->getPoint()) {
-        std::cout << "x = " << it.getX() << ", y = " << it.getY() << ", z = " << it.getZ() << "\n";
+        std::cout << "x = " << it.getX() << ", y = " << it.getY()
+                  << ", z = " << it.getZ() << "\n";
     }
     // auto camera = parser->getCamera();
     // for (auto &it : this->_composition) {

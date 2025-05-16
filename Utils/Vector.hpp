@@ -67,6 +67,7 @@ namespace raytracer {
             return *this;
         }
 
+
         Vector3<T> operator-(const Vector3<T> &other) const
         {
             Vector3<T> newVector;

@@ -8,12 +8,12 @@
 #pragma once
 
 #include "IObject.hpp"
-#include "Vector.hpp"
 #include "IRenderer.hpp"
+#include "Vector.hpp"
 #include "basicObject.hpp"
-#include "src/Modules/Lights/src/Lights.hpp"
-#include "src/Modules/Camera/src/Camera.hpp"
 #include "src/DlLib/DlLib.hpp"
+#include "src/Modules/Camera/src/Camera.hpp"
+#include "src/Modules/Lights/src/Lights.hpp"
 #include <exception>
 #include <iostream>
 #include <memory>
@@ -32,14 +32,17 @@ namespace raytracer {
         class SceneError : public std::exception {
            public:
             SceneError(const std::string &msg) : _msg(msg) {};
+
             [[nodiscard]] const char *what() const noexcept override
             {
                 return this->_msg.c_str();
             }
+
            private:
             std::string _msg;
         };
-        const objects::Camera &getCamera() {return *this->_camera;}
+
+        const objects::Camera &getCamera() { return *this->_camera; }
 
        private:
         std::vector<std::unique_ptr<objects::IObject>> _composition;
@@ -49,6 +52,10 @@ namespace raytracer {
         std::vector<std::unique_ptr<Utils::DlLib<objects::IObject>>> _objectsLib;
 
         Vector3<double> _computeLighting(const objects::hitResult_t &hit);
+        double _computeDiffuseLighting(const objects::hitResult_t &hit,
+            const raytracer::Vector3<double> &normal) const;
+        bool _checkInShadow(
+            const raytracer::Raycast &shadowRay, double lightDist) const;
         void _getAvailableObject();
         void _createPlane(std::unique_ptr<BasicObject> Plane);
         void _createSphere(std::unique_ptr<BasicObject> Sphere);

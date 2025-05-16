@@ -121,29 +121,6 @@ void raytracer::Scene::load(const std::string &scene)
     this->_setObjects(parser->getPrimitives());
     this->_createCamera(parser->getCamera());
     this->_createLights(parser->getLights());
-
-    auto object = this->_composition.begin();
-    std::cout << "Type : " << object->get()->getType() << '\n';
-    std::cout << "Position : x = " << object->get()->getPosition().getX()
-              << ", y = " << object->get()->getPosition().getY()
-              << ", z = " << object->get()->getPosition().getZ() << '\n';
-    std::cout << "camera, Pos: x = " << this->_camera->getPosition().getX()
-              << ", y = " << this->_camera->getPosition().getY()
-              << ", z = " << this->_camera->getPosition().getZ() << "\n";
-    std::cout << "camera resolution = "
-              << this->_camera->getResolution().getX() << " and "
-              << this->_camera->getResolution().getY() << "\n";
-    std::cout << "camera view = " << this->_camera->getFieldOfView() << '\n';
-    std::cout << "Lights point:\n";
-    for (auto &it : this->_lights->getPoint()) {
-        std::cout << "x = " << it.getX() << ", y = " << it.getY()
-                  << ", z = " << it.getZ() << "\n";
-    }
-    // auto camera = parser->getCamera();
-    // for (auto &it : this->_composition) {
-    //     std::cout << "Zebi" << std::endl;
-    //     std::cout << it->getType() << std::endl;
-    // }
 }
 
 void raytracer::Scene::_getAvailableObject()

@@ -51,6 +51,8 @@ namespace raytracer {
         std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
         std::vector<std::unique_ptr<Utils::DlLib<objects::IObject>>> _objectsLib;
 
+        void _drawPixel(renderer::IRenderer &renderer, Raycast &ray, int x, int y);
+        Raycast _generateRay(int x, int y, int resX, int resY) const;
         Vector3<double> _computeLighting(const objects::hitResult_t &hit);
         double _computeDiffuseLighting(const objects::hitResult_t &hit,
             const raytracer::Vector3<double> &normal) const;

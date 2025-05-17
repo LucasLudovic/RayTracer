@@ -49,11 +49,16 @@ namespace raytracer {
         std::unique_ptr<objects::Camera> _camera;
         std::unique_ptr<objects::Lights> _lights;
         std::vector<std::unique_ptr<objects::IObject>> _availableObjects;
-        std::vector<std::unique_ptr<Utils::DlLib<objects::IObject>>> _objectsLib;
+        std::vector<std::unique_ptr<Utils::DlLib<objects::IObject>>>
+            _objectsLib;
 
-        void _drawPixel(renderer::IRenderer &renderer, Raycast &ray, int x, int y);
+        void _drawPixel(
+            renderer::IRenderer &renderer, Raycast &ray, int x, int y);
         Raycast _generateRay(int x, int y, int resX, int resY) const;
         Vector3<double> _computeLighting(const objects::hitResult_t &hit);
+        double _computeSpecularLighting(const objects::hitResult_t &hit,
+            const Vector3<double> &normal,
+            const Vector3<double> cameraVector) const;
         double _computeDiffuseLighting(const objects::hitResult_t &hit,
             const raytracer::Vector3<double> &normal) const;
         bool _checkInShadow(

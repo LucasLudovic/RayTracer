@@ -38,6 +38,7 @@ void raytracer::Scene::_createPlane(std::unique_ptr<BasicObject> Plane)
             auto newPlane = it->clone();
             newPlane->setPosition(Plane->getPosition());
             newPlane->setColor(Plane->getColor());
+            newPlane->setReflection(Plane->getReflection());
             newPlane->getMetaData().normal = Plane->getNormal();
             this->_composition.push_back(std::move(newPlane));
         }
@@ -51,8 +52,25 @@ void raytracer::Scene::_createSphere(std::unique_ptr<BasicObject> Sphere)
             auto newSphere = it->clone();
             newSphere->setPosition(Sphere->getPosition());
             newSphere->setColor(Sphere->getColor());
+            newSphere->setReflection(Sphere->getReflection());
             newSphere->getMetaData().radius = Sphere->getRadius();
             this->_composition.push_back(std::move(newSphere));
+        }
+    }
+}
+
+void raytracer::Scene::_createCylinder(std::unique_ptr<BasicObject> Cylinder)
+{
+    for (const auto &it : this->_availableObjects) {
+        if (it->getType() == "Cylinder") {
+            auto newCylinder = it->clone();
+            newCylinder->setPosition(Cylinder->getPosition());
+            newCylinder->setColor(Cylinder->getColor());
+            newCylinder->setReflection(Cylinder->getReflection());
+            newCylinder->getMetaData().radius = Cylinder->getRadius();
+            newCylinder->getMetaData().height = Cylinder->getHeight();
+            newCylinder->getMetaData().direction = Cylinder->getDirection();
+            this->_composition.push_back(std::move(newCylinder));
         }
     }
 }
@@ -91,6 +109,10 @@ void raytracer::Scene::_setObjects(
         }
         if (it->getType() == "Sphere") {
             this->_createSphere(std::move(it));
+            continue;
+        }
+        if (it->getType() == "Cylinder") {
+            this->_createCylinder(std::move(it));
             continue;
         }
     }

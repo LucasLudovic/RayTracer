@@ -81,8 +81,7 @@ class BasicObject
         this->_res = res;
     }
 
-    raytracer::Vector2<int> getResolution() const
-    {
+    raytracer::Vector2<int> getResolution() {
         return this->_res;
     }
 
@@ -154,6 +153,36 @@ class BasicObject
     {
         return this->_normal;
     };
+
+    void setDirection(raytracer::Vector3<double> direction)
+    {
+        this->_direction = direction;
+    }
+
+    const raytracer::Vector3<double> &getDirection()
+    {
+        return this->_direction;
+    };
+
+    void setHeight(int height)
+    {
+        this->_height = height;
+    }
+
+    const int &getHeight()
+    {
+        return this->_height;
+    };
+
+    void setAngle(int angle)
+    {
+        this->_angle = angle;
+    }
+
+    const int &getAngle()
+    {
+        return this->_angle;
+    };
    private:
     std::string _type = "";
     raytracer::Vector3<int> _position = {0, 0, 0};
@@ -165,6 +194,9 @@ class BasicObject
     double _diffuse = 0;
     std::vector<raytracer::Vector3<int>> _point;
     int _radius = 0;
+    int _angle = 0;
+    int _height = 0;
     raytracer::Vector3<double> _normal = {0, 0, 1};
+    raytracer::Vector3<double> _direction = {0, 0, 1};
 };
 }  // namespace raytracer

@@ -46,5 +46,6 @@ bool objects::Sphere::hit(const raytracer::Raycast &ray, objects::hitResult_t &r
     result.normal = normal * (1.0 / length);
 
     result.material.set_color(this->getColor());
+    result.material.set_reflection(this->getReflection());
     return true;
 }

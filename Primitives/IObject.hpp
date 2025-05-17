@@ -25,7 +25,10 @@ namespace objects {
 
     typedef struct metaData_s {
         std::optional<int> radius;
+        std::optional<int> angle;
+        std::optional<int> height;
         std::optional<raytracer::Vector3<double>> normal;
+        std::optional<raytracer::Vector3<double>> direction;
     } metaData_t;
 
     typedef struct hitResult_s {

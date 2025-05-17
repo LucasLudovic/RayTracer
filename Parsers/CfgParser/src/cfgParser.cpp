@@ -81,6 +81,12 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
         NewPrimitive.setRadius(radius);
         const libconfig::Setting &color = it["color"];
 
+        double ref = 0;
+        if (!it.lookupValue("ref", ref)) {
+            throw ParserError("Missing reflexion in sphere");
+        }
+        NewPrimitive.setReflection(ref);
+
         int r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
             !color.lookupValue("b", b))

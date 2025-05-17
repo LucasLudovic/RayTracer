@@ -133,7 +133,7 @@ void raytracer::cfgParser::_retrieveCone(const libconfig::Setting &primitives)
     for (const auto &it : cones) {
         BasicObject NewPrimitive;
 
-        NewPrimitive.setType("Cones");
+        NewPrimitive.setType("Cone");
         int x, y, z, angle, height;
         double vx, vy, vz;
         if (!it.lookupValue("x", x) || !it.lookupValue("y", y) ||

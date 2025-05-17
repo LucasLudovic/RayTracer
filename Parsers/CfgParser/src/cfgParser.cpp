@@ -53,6 +53,12 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
             throw ParserError("Missing 'color' in plane configuration");
         const libconfig::Setting &color = it["color"];
 
+        double ref = 0;
+        if (!it.lookupValue("ref", ref)) {
+            throw ParserError("Missing reflexion in plane");
+        }
+        NewPrimitive.setReflection(ref);
+
         int r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
             !color.lookupValue("b", b))
@@ -120,10 +126,16 @@ void raytracer::cfgParser::_retrieveCylinder(const libconfig::Setting &primitive
         NewPrimitive.setHeight(height);
         const libconfig::Setting &color = it["color"];
 
+        double ref = 0;
+        if (!it.lookupValue("ref", ref)) {
+            throw ParserError("Missing reflexion in cylinder");
+        }
+        NewPrimitive.setReflection(ref);
+
         int r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||
             !color.lookupValue("b", b))
-            throw ParserError("Missing 'r', 'g' or 'b' in sphere color");
+            throw ParserError("Missing 'r', 'g' or 'b' in cylinder color");
         NewPrimitive.setColor(Vector3((double)r, (double)g, (double)b));
         this->_Primitives.push_back(
             std::make_unique<BasicObject>(NewPrimitive));
@@ -152,6 +164,12 @@ void raytracer::cfgParser::_retrieveCone(const libconfig::Setting &primitives)
         NewPrimitive.setAngle(angle);
         NewPrimitive.setHeight(height);
         const libconfig::Setting &color = it["color"];
+
+        double ref = 0;
+        if (!it.lookupValue("ref", ref)) {
+            throw ParserError("Missing reflexion in cone");
+        }
+        NewPrimitive.setReflection(ref);
 
         int r, g, b;
         if (!color.lookupValue("r", r) || !color.lookupValue("g", g) ||

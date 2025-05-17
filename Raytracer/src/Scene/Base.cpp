@@ -66,6 +66,7 @@ void raytracer::Scene::_createCylinder(std::unique_ptr<BasicObject> Cylinder)
             auto newCylinder = it->clone();
             newCylinder->setPosition(Cylinder->getPosition());
             newCylinder->setColor(Cylinder->getColor());
+            newCylinder->setReflection(Cylinder->getReflection());
             newCylinder->getMetaData().radius = Cylinder->getRadius();
             newCylinder->getMetaData().height = Cylinder->getHeight();
             newCylinder->getMetaData().direction = Cylinder->getDirection();

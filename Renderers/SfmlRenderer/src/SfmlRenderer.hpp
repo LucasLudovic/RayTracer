@@ -61,7 +61,7 @@ namespace renderer {
         ///
         /// \brief Displays the rendered frame on the window.
         ///
-        void render() override;
+        bool render() override;
 
         ///
         /// \brief Clears the window for a new frame.

@@ -15,6 +15,11 @@
 
 void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
 {
+    ///
+    /// \brief Retrieves and parses all plane objects from the configuration.
+    /// \param primitives The primitives setting from the configuration.
+    ///
+
     if (!primitives.exists("planes"))
         return;
     const libconfig::Setting &plane = primitives["planes"];
@@ -71,6 +76,11 @@ void raytracer::cfgParser::_retrievePlane(const libconfig::Setting &primitives)
 
 void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
 {
+    ///
+    /// \brief Retrieves and parses all sphere objects from the configuration.
+    /// \param primitives The primitives setting from the configuration.
+    ///
+
     if (!primitives.exists("spheres"))
         return;
     const libconfig::Setting &spheres = primitives["spheres"];
@@ -105,6 +115,11 @@ void raytracer::cfgParser::_retrieveSphere(const libconfig::Setting &primitives)
 
 void raytracer::cfgParser::_retrieveCylinder(const libconfig::Setting &primitives)
 {
+    ///
+    /// \brief Retrieves and parses all cylinder objects from the configuration.
+    /// \param primitives The primitives setting from the configuration.
+    ///
+
     if (!primitives.exists("cylinders"))
         return;
     const libconfig::Setting &cylinders = primitives["cylinders"];
@@ -144,6 +159,11 @@ void raytracer::cfgParser::_retrieveCylinder(const libconfig::Setting &primitive
 
 void raytracer::cfgParser::_retrieveCone(const libconfig::Setting &primitives)
 {
+    ///
+    /// \brief Retrieves and parses all cone objects from the configuration.
+    /// \param primitives The primitives setting from the configuration.
+    ///
+
     if (!primitives.exists("cones"))
         return;
     const libconfig::Setting &cones = primitives["cones"];
@@ -183,6 +203,11 @@ void raytracer::cfgParser::_retrieveCone(const libconfig::Setting &primitives)
 
 void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
 {
+    ///
+    /// \brief Top-level method to retrieve all primitive objects from the root config.
+    /// \param root The root configuration setting.
+    ///
+
     if (!root.exists("primitives"))
         throw ParserError("Missing 'primitives' in root configuration");
     const libconfig::Setting &primitives = root["primitives"];
@@ -196,6 +221,12 @@ void raytracer::cfgParser::_retrievePrimitives(const libconfig::Setting &root)
 raytracer::Vector3<int> raytracer::cfgParser::_retrieveCameraPosition(
     const libconfig::Setting &camera)
 {
+    ///
+    /// \brief Retrieves the camera position from the configuration.
+    /// \param camera The camera setting from the configuration.
+    /// \return The camera's position as a Vector3<int>.
+    ///
+
     if (!camera.exists("position"))
         throw ParserError("Missing 'position' in camera configuration");
     const libconfig::Setting &position = camera["position"];
@@ -210,6 +241,12 @@ raytracer::Vector3<int> raytracer::cfgParser::_retrieveCameraPosition(
 raytracer::Vector3<int> raytracer::cfgParser::_retrieveCameraRotation(
     const libconfig::Setting &camera)
 {
+    ///
+    /// \brief Retrieves the camera rotation from the configuration.
+    /// \param camera The camera setting from the configuration.
+    /// \return The camera's rotation as a Vector3<int>.
+    ///
+
     if (!camera.exists("rotation"))
         throw ParserError("Missing 'rotation' in camera configuration");
     const libconfig::Setting &rotation = camera["rotation"];
@@ -224,6 +261,12 @@ raytracer::Vector3<int> raytracer::cfgParser::_retrieveCameraRotation(
 raytracer::Vector2<int> raytracer::cfgParser::_retrieveCameraResolution(
     const libconfig::Setting &camera)
 {
+    ///
+    /// \brief Retrieves the camera resolution from the configuration.
+    /// \param camera The camera setting from the configuration.
+    /// \return The camera's resolution as a Vector2<int>.
+    ///
+
     if (!camera.exists("resolution"))
         throw ParserError("Missing 'rotation' in camera configuration");
     const libconfig::Setting &resolution = camera["resolution"];
@@ -237,6 +280,11 @@ raytracer::Vector2<int> raytracer::cfgParser::_retrieveCameraResolution(
 
 void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
 {
+    ///
+    /// \brief Retrieves camera object from the root configuration.
+    /// \param root The root configuration setting.
+    ///
+
     if (!root.exists("camera"))
         throw ParserError("Missing 'camera' in root configuration");
     const libconfig::Setting &camera = root["camera"];
@@ -256,6 +304,12 @@ void raytracer::cfgParser::_retrieveCamera(const libconfig::Setting &root)
 std::vector<raytracer::Vector3<int>> raytracer::cfgParser::_retrieveLightsPoint(
     const libconfig::Setting &lights)
 {
+    ///
+    /// \brief Retrieves a vector of light points from the configuration.
+    /// \param lights The lights setting from the configuration.
+    /// \return A vector of Vector3<int> positions for each light point.
+    ///
+
     if (!lights.exists("point"))
         throw ParserError("Missing 'rotation' in camera configuration");
     const libconfig::Setting &point = lights["point"];
@@ -274,6 +328,11 @@ std::vector<raytracer::Vector3<int>> raytracer::cfgParser::_retrieveLightsPoint(
 
 void raytracer::cfgParser::_retrieveLights(const libconfig::Setting &root)
 {
+    ///
+    /// \brief Retrieves all light objects from the root configuration.
+    /// \param root The root configuration setting.
+    ///
+
     if (!root.exists("lights"))
         throw ParserError("Missing 'lights' in root configuration");
     const libconfig::Setting &lights = root["lights"];
@@ -294,6 +353,10 @@ void raytracer::cfgParser::_retrieveLights(const libconfig::Setting &root)
 
 void raytracer::cfgParser::retrieveObjects()
 {
+    ///
+    /// \brief Main method to parse and retrieve all objects (primitives, camera, lights) from the file.
+    ///
+
     try {
         this->_cfg.readFile(this->_filename.c_str());
     } catch (...) {
@@ -310,6 +373,10 @@ void raytracer::cfgParser::retrieveObjects()
 extern "C" {
 std::unique_ptr<raytracer::IParser> createParser()
 {
+    ///
+    /// \brief Factory function to create an instance of the cfgParser.
+    /// \return A unique pointer to a raytracer::IParser.
+    ///
     return std::make_unique<raytracer::cfgParser>();
 }
 }

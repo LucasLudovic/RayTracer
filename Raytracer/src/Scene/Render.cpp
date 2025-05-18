@@ -67,9 +67,6 @@ void raytracer::Scene::_drawPixel(
 
 void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
 {
-    for (const auto &obj : this->_composition) {
-        std::cout << "Objet dans la scène : " << obj->getType() << std::endl;
-    }
     if (!this->_camera)
         throw SceneError("No camera in scene");
 

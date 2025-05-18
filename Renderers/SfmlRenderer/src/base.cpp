@@ -95,8 +95,6 @@ void renderer::SFMLRenderer::resize(raytracer::Vector2<unsigned> size)
     newView.setCenter({static_cast<float>(this->_windowX) / 2.f,
         static_cast<float>(this->_windowY) / 2.f});
     this->_window->setView(newView);
-
-    std::cout << this->_window->getView().getSize().x << std::endl;
 }
 
 ///

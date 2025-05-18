@@ -12,3 +12,5 @@ result*
 *.sh
 vgcore*
 example
+html/
+latex/

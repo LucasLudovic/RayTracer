@@ -69,8 +69,6 @@ void renderer::SFMLRenderer::drawPixel(const raytracer::Vector2<int> &position,
     auto x = static_cast<unsigned int>(position.getX());
     auto y = static_cast<unsigned int>(position.getY());
 
-    // std::cout << position << std::endl;
-    // std::cout << x << " " << y << std::endl;
     if (x < 0 || x >= static_cast<int>(this->_windowX - 1) || y < 0 ||
         y >= static_cast<int>(this->_windowY - 1)) {
         return;

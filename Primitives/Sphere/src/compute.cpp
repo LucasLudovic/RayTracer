@@ -11,6 +11,14 @@
 #include "Vector.hpp"
 #include <cmath>
 
+/// @brief Checks if a ray intersects the sphere.
+/// 
+/// Calculates the intersection between the given ray and the sphere.
+/// If an intersection occurs, details are stored in `result`.
+/// 
+/// @param ray The ray to test for intersection.
+/// @param result Structure where intersection information will be stored.
+/// @return `true` if the ray hits the sphere, `false` otherwise.
 bool objects::Sphere::hit(const raytracer::Raycast &ray, objects::hitResult_t &result) const
 {
     raytracer::Vector3<double> center(

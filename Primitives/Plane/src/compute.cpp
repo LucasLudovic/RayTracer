@@ -9,6 +9,10 @@
 #include "plane.hpp"
 #include <iostream>
 
+/// @brief Checks if a ray intersects with the plane.
+/// @param ray The ray to test for intersection.
+/// @param result Structure to store the intersection details if a hit occurs.
+/// @return True if the ray intersects the plane, false otherwise.
 bool objects::Plane::hit(
     const raytracer::Raycast &ray, objects::hitResult_t &result) const
 {

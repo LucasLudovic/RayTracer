@@ -9,10 +9,27 @@
 #include <iostream>
 #include <fstream>
 
+///
+/// \brief Finalizes the rendering process.
+///
+/// Currently, the function isn't necessary for Ppm format
+///
+/// This function is intended to flush or finalize the image output to the file.
+/// In the case of a PPM renderer, this could be used to close the file or
+/// add any necessary footer data.
+///
 void renderer::PpmRenderer::render()
 {
 }
 
+///
+/// \brief Clears the image buffer or resets the output.
+///
+/// Currently, the function isn't necessary for Ppm format
+///
+/// In a PPM renderer, this function could reset the file stream or
+/// rewrite the header to start a new frame.
+///
 void renderer::PpmRenderer::clear()
 {
 }

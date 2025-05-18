@@ -2,6 +2,17 @@
 #include "cone.hpp"
 #include <cmath>
 
+///
+/// @brief Checks if the given ray intersects with the cone.
+/// 
+/// This method performs intersection tests against both the conical surface 
+/// and the circular base of the cone. It calculates the intersection point, 
+/// surface normal, and updates the hit result accordingly.
+/// 
+/// @param ray The ray to test for intersection.
+/// @param result Reference to a hitResult_t structure that will hold intersection details if a hit occurs.
+/// @return true if the ray intersects the cone (surface or base), false otherwise.
+///
 bool objects::Cone::hit(const raytracer::Raycast &ray, objects::hitResult_t &result) const
 {
     if (!this->_metaData.direction.has_value() || 

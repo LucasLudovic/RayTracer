@@ -12,6 +12,12 @@
 #include <iostream>
 #include <unistd.h>
 
+///
+/// \brief Renders the current frame to the window.
+/// 
+/// Updates the texture with the current pixel data, clears the previous content,
+/// draws the sprite to the window, and finally displays the updated frame.
+///
 void renderer::SFMLRenderer::render()
 {
     this->_texture.update(this->_pixel);
@@ -20,6 +26,12 @@ void renderer::SFMLRenderer::render()
     this->_window->display();
 }
 
+///
+/// \brief Clears the rendering context.
+/// 
+/// Resets the pixel buffer with a black background and clears the SFML window
+/// in preparation for a new frame.
+///
 void renderer::SFMLRenderer::clear()
 {
     this->_pixel.resize({this->_windowX, this->_windowY}, sf::Color::Black);

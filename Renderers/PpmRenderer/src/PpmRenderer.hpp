@@ -69,7 +69,7 @@ namespace renderer {
         ///
         /// \brief Finalizes the image output (not implemented).
         ///
-        void render() override;
+        bool render() override;
 
         ///
         /// \brief Clears the image buffer (not implemented).

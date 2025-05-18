@@ -65,7 +65,7 @@ void raytracer::Scene::_drawPixel(
     renderer.drawPixel({x, y}, Vector3<double>(0, 0, 0));
 }
 
-void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
+bool raytracer::Scene::renderScene(renderer::IRenderer &renderer)
 {
     if (!this->_camera)
         throw SceneError("No camera in scene");
@@ -79,7 +79,7 @@ void raytracer::Scene::renderScene(renderer::IRenderer &renderer)
             this->_drawPixel(renderer, ray, x, y);
         }
     }
-    renderer.render();
+    return renderer.render();
 }
 
 raytracer::Vector3<int> raytracer::Scene::_computeRelativePos(

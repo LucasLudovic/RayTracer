@@ -79,7 +79,7 @@ namespace renderer {
         ///
         /// \brief Renders the current frame.
         ///
-        virtual void render() = 0;
+        virtual bool render() = 0;
 
         ///
         /// \brief Clears the current rendering context.

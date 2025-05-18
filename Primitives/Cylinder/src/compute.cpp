@@ -10,6 +10,10 @@
 #include <cmath>
 #include <array>
 
+/// @brief Tests if a given ray intersects with the cylinder.
+/// @param ray The raycast to test for intersection.
+/// @param result Reference to a hitResult_t struct where intersection details will be stored if hit.
+/// @return True if the ray hits the cylinder; otherwise, false.
 bool objects::Cylinder::hit(const raytracer::Raycast &ray, objects::hitResult_t &result) const
 {
     if (!this->_metaData.radius.has_value() ||

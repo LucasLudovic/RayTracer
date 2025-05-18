@@ -75,6 +75,22 @@ void raytracer::Scene::_createCylinder(std::unique_ptr<BasicObject> Cylinder)
     }
 }
 
+void raytracer::Scene::_createCone(std::unique_ptr<BasicObject> Cone)
+{
+    for (const auto &it : this->_availableObjects) {
+        if (it->getType() == "Cone") {
+            auto newCone = it->clone();
+            newCone->setPosition(Cone->getPosition());
+            newCone->setColor(Cone->getColor());
+            newCone->getMetaData().radius = Cone->getRadius();
+            newCone->getMetaData().height = Cone->getHeight();
+            newCone->getMetaData().angle = Cone->getAngle();
+            newCone->getMetaData().direction = Cone->getDirection();
+            this->_composition.push_back(std::move(newCone));
+        }
+    }
+}
+
 void raytracer::Scene::_createCamera(std::unique_ptr<BasicObject> Camera)
 {
     objects::Camera newCamera;
@@ -113,6 +129,10 @@ void raytracer::Scene::_setObjects(
         }
         if (it->getType() == "Cylinder") {
             this->_createCylinder(std::move(it));
+            continue;
+        }
+        if (it->getType() == "Cone") {
+            this->_createCone(std::move(it));
             continue;
         }
     }

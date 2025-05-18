@@ -73,7 +73,10 @@ namespace objects {
         ///
         /// \return C-style string of the error message.
         ///
-        [[nodiscard]] const char *what() const noexcept override;
+        [[nodiscard]] const char *what() const noexcept override
+        {
+            return this->_msg.c_str();
+        }
 
        private:
         std::string _msg; ///< Stored error message.

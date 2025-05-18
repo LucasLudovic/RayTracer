@@ -18,8 +18,9 @@
 /// In the case of a PPM renderer, this could be used to close the file or
 /// add any necessary footer data.
 ///
-void renderer::PpmRenderer::render()
+bool renderer::PpmRenderer::render()
 {
+    return false;
 }
 
 ///

@@ -52,6 +52,7 @@ void raytracer::Raytracer::run()
         if (frameDuration < targetFrameDuration) {
             std::this_thread::sleep_for(targetFrameDuration - frameDuration);
         }
-        this->_scene.renderScene(*this->renderer);
+        this->_isRunning = this->_scene.renderScene(*this->renderer);
     }
+    this->renderer.reset();
 }

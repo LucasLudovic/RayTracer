@@ -18,12 +18,13 @@
 /// Updates the texture with the current pixel data, clears the previous content,
 /// draws the sprite to the window, and finally displays the updated frame.
 ///
-void renderer::SFMLRenderer::render()
+bool renderer::SFMLRenderer::render()
 {
     this->_texture.update(this->_pixel);
     this->clear();
     this->_window->draw(*this->_sprite);
     this->_window->display();
+    return true;
 }
 
 ///
